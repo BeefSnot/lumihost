@@ -13,9 +13,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" integrity="sha512-tS3S5qG0BlhnQROyJXvNjeEM4UpMXHrQfTGmbQ1gKmelCxlSEBUaxhRBj/EFTzpbP4RVSrpEikbmdJobCvhE3g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css" integrity="sha512-sMXtMNL1zRzolHYKEujM2AqCLUR9F2C4/05cdbxjjLSRvMQIciEPCQZo++nk7go3BtSuK9kfa/s+a4f4i5pLkw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://unpkg.com/aos@2.3.0/dist/aos.css" />
-    <title>Home | Risen Host</title>
+    <title>Home | Lumi Host</title>
 
-    <meta name="description" content="Risen Host HOST HERE!">
+    <meta name="description" content="Lumi Host HOST HERE!">
     <meta name="keywords" content="keywords, Hosting, ONE, seperated, with, commas">
     <meta name="theme-color" content="#b31629">
     <meta name="author" content="polite#1745">
@@ -36,7 +36,7 @@
         <nav class="navbar navbar-expand-lg navbar-dark">
             <div class="container">
                 <a class="navbar-brand" href="#">
-                    <img class="img-fluid" src="/assets/img/logo.png" alt="Dynasty Hosting">
+                    <img class="img-fluid" src="/assets/img/logo.png" alt="Lumi Host">
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -51,11 +51,11 @@
                                 Hosting
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="https://dynastyhosting.net">Minecraft Hosting (coming soon)</a>
-                                <a class="dropdown-item" href="https://dynastyhosting.net/">Rust Hosting (coming soon)</a>
+                                <a class="dropdown-item" href="https://lumihost.net">Minecraft Hosting (coming soon)</a>
+                                <a class="dropdown-item" href="https://lumihost.net/">Rust Hosting (coming soon)</a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="https://dynastyhosting.net">Website Hosting (coming soon)</a>
-                                <a class="dropdown-item" href="https://billing.dynastyhosting.net/">Dedicated Hosting Hosting (coming soon)</a>
+                                <a class="dropdown-item" href="https://lumihost.net">Website Hosting (coming soon)</a>
+                                <a class="dropdown-item" href="https://billing.lumihost.net/">Dedicated Hosting Hosting (coming soon)</a>
                             </div>
                         </li>
                         <li class="nav-item">
@@ -69,11 +69,11 @@
                                 login
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="https://panel.dynastyhosting.net">Game Panel</a>
-                                <a class="dropdown-item" href="https://atlanta.dynastyhosting.net:2222">Web Panel</a>
+                                <a class="dropdown-item" href="https://panel.lumihost.net">Game Panel</a>
+                                <a class="dropdown-item" href="https://atlanta.lumihost.net:2222">Web Panel</a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="dynastyhosting.net">Billing Panel (coming soon)</a>
-                                <a class="dropdown-item" href="dynastyhosting.net">Billing Panel Staff (coming soon)</a>
+                                <a class="dropdown-item" href="lumihost.net">Billing Panel (coming soon)</a>
+                                <a class="dropdown-item" href="lumihost.net">Billing Panel Staff (coming soon)</a>
                           </div>
                       </li>
                     </ul>
@@ -84,9 +84,9 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="text-group" data-aos="fade-up" data-aos-delay="100" class="aos-init aos-animate">
-                        <h1>Experience <span class="main">Premium<br> Hosting</span> with<br> Risen<br> Host</h1>
+                        <h1>Experience <span class="main">Premium<br> Hosting</span> with<br> Lumi<br> Host</h1>
                         <div class="button-group d-flex">
-                            <a href="https://dynastyhosting.net" class="btn btn-primary mr-3">Order Now (coming soon)</a>
+                            <a href="https://lumihost.net" class="btn btn-primary mr-3">Order Now (coming soon)</a>
                             <a href="#" class="btn btn-secondary">About Us</a>
                         </div>
                     </div>
@@ -191,7 +191,7 @@
                     </div>
                 </div>
 
-                <div class="h-100">
+<div class="h-100">
                     <div class="review-card text-center">
                         <h4 class="mb-0">Name</h4>
                         <span></span>
