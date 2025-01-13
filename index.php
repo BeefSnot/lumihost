@@ -179,7 +179,7 @@
     <section class="pb-5" id="reviews">
         <div class="container mt-5">
             <div class="section-title text-center" data-aos="fade-up" data-aos-delay="200" class="aos-init aos-animate shadow">
-                <h6>REVIEW</h6>
+                <h6>REVIEWS</h6>
                 <h4>Don<span class="main">'</span>t just take our word for it<span class="main">.</span></h4>
             </div>
             <div class="owl-carousel owl-theme" data-aos="fade-up" data-aos-delay="300" class="aos-init aos-animate">
