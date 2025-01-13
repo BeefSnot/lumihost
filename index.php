@@ -203,7 +203,7 @@
                     <div class="review-card text-center">
                         <h4 class="mb-0">Name</h4>
                         <span>James</span>
-                        <p class="mb-0 mt-4">Risen Host really helped all my needs! I needed fast website hosting, along side a Minecraft Server! Thanks Risen Host!</p>
+                        <p class="mb-0 mt-4">Lumi Host really helped all my needs! I needed fast website hosting, along side a Minecraft Server! Thanks Lumi Host!</p>
                     </div>
                 </div>
             </div>
@@ -230,7 +230,7 @@
                         <p><span class="main"><i class="fas fa-check"></i></span> Pterodactyl Control Panel</p>
                         <p><span class="main"><i class="fas fa-check"></i></span> DDoS Protected</p>
                         <p><span class="main"><i class="fas fa-check"></i></span> Dedicated Support</p>
-                        <a href="https://dynastyhosting.net" class="btn btn-primary w-100">ORDER NOW (coming soon)</a>
+                        <a href="https://lumihost.net" class="btn btn-primary w-100">ORDER NOW (coming soon)</a>
                     </div>
                 </div>
 
@@ -244,7 +244,7 @@
                         <p><span class="main"><i class="fas fa-check"></i></span> DirectAdmin Panel</p>
                         <p><span class="main"><i class="fas fa-check"></i></span> DDoS Protected</p>
                         <p><span class="main"><i class="fas fa-check"></i></span> Dedicated Support</p>
-                        <a href="https://dynastyhosting.net" class="btn btn-primary w-100">ORDER NOW (coming soon)</a>
+                        <a href="https://lumihost.net" class="btn btn-primary w-100">ORDER NOW (coming soon)</a>
                     </div>
                 </div>
 
@@ -273,9 +273,9 @@
                     <div class="footer-col py-4">
                         <h5>Navigation<span class="main">.</span></h5>
                         <ul>
-                            <li><a href="https://dynastyhosting.net">Home</a></li>
-                            <li><a href="https://dynastyhosting.net">About</a></li>
-                            <li><a href="https://dynastyhosting.net">Hosting</a></li>
+                            <li><a href="https://lumihost.net">Home</a></li>
+                            <li><a href="https://lumihost.net">About</a></li>
+                            <li><a href="https://lumihost.net">Hosting</a></li>
                             <li><a href="https://discord.gg/SxK9S5nMuF">Support</a></li>
                         </ul>
                     </div>
@@ -285,9 +285,9 @@
                     <div class="footer-col py-4">
                         <h5>Login<span class="main">.</span></h5>
                         <ul>
-                            <li><a href="https://panel.dynastyhosting.net">Game Panel</a></li>
-                            <li><a href="https://atlanta.dynastyhosting.net:2222">Web Panel</a></li>
-                            <li><a href="https://dynastyhosting.net">Billing Panel</a></li>
+                            <li><a href="https://panel.lumihost.net">Game Panel</a></li>
+                            <li><a href="https://atlanta.lumihost.net:2222">Web Panel</a></li>
+                            <li><a href="https://lumihost.net">Billing Panel</a></li>
                         </ul>
                     </div>
                 </div>
@@ -306,7 +306,7 @@
         </div>
         <div class="copyright">
             <div class="container">
-                <h6 class="mb-0">Copyright © 2024 Risen Host. | All Rights Reserved |</h6>
+                <h6 class="mb-0">Copyright © 2024 Lumi Host. | All Rights Reserved |</h6>
             </div>
         </div>
     </footer>
