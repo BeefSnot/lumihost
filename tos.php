@@ -94,16 +94,49 @@
     <section id="tos">
         <div class="container mt-5">
             <div class="section-title">
-                <h6>Last Updated: 8th June 2021</h6>
+                <h6>Last Updated: 14th January 2025</h6>
                 <h4>Terms of Service<span class="main">.</span></h4>
             </div>
             <div class="tos-content">
 
-                <h4>Lorem, ipsum dolor.</h4>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae minima dolorem quos reprehenderit magnam, quia quo alias ea rerum nulla explicabo optio eveniet nisi laudantium at provident natus, cupiditate enim! </p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae minima dolorem quos reprehenderit magnam, quia quo alias ea rerum nulla explicabo optio eveniet nisi laudantium at provident natus, cupiditate enim! </p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae minima dolorem quos reprehenderit magnam, quia quo alias ea rerum nulla explicabo optio eveniet nisi laudantium at provident natus, cupiditate enim! </p>
-                <br>
+                <h4>1. Introduction</h4>
+                <p>Welcome to Lumi Host. These Terms of Service ("ToS") govern your use of our website and services. By accessing or using our services, you agree to be bound by these ToS. If you do not agree to these ToS, please do not use our services.</p>
+
+                <h4>2. Services</h4>
+                <p>Lumi Host provides web hosting, game hosting, and related services. We reserve the right to modify or discontinue any service at any time without notice.</p>
+
+                <h4>3. Account Registration</h4>
+                <p>To use our services, you must register for an account. You agree to provide accurate and complete information during the registration process and to keep your account information up-to-date. You are responsible for maintaining the confidentiality of your account credentials and for all activities that occur under your account.</p>
+
+                <h4>4. Acceptable Use</h4>
+                <p>You agree not to use our services for any unlawful or prohibited activities, including but not limited to:</p>
+                <ul>
+                    <li>Spamming, phishing, or distributing malware</li>
+                    <li>Infringing on intellectual property rights</li>
+                    <li>Engaging in any activity that disrupts or interferes with our services</li>
+                    <li>Hosting or distributing illegal content</li>
+                </ul>
+
+                <h4>5. Payment and Billing</h4>
+                <p>By signing up for our services, you agree to pay the fees associated with the selected service plan. All fees are non-refundable unless otherwise stated. We reserve the right to change our fees at any time with prior notice.</p>
+
+                <h4>6. Termination</h4>
+                <p>We reserve the right to suspend or terminate your account at any time for any reason, including but not limited to violation of these ToS. Upon termination, your access to our services will be immediately revoked, and any data associated with your account may be deleted.</p>
+
+                <h4>7. Limitation of Liability</h4>
+                <p>To the maximum extent permitted by law, Lumi Host shall not be liable for any direct, indirect, incidental, special, or consequential damages resulting from the use or inability to use our services, even if we have been advised of the possibility of such damages.</p>
+
+                <h4>8. Indemnification</h4>
+                <p>You agree to indemnify and hold Lumi Host, its affiliates, and their respective officers, directors, employees, and agents harmless from any claims, damages, losses, liabilities, and expenses arising out of or related to your use of our services or violation of these ToS.</p>
+
+                <h4>9. Changes to ToS</h4>
+                <p>We reserve the right to modify these ToS at any time. Any changes will be effective immediately upon posting on our website. Your continued use of our services after any changes to these ToS constitutes your acceptance of the revised ToS.</p>
+
+                <h4>10. Governing Law</h4>
+                <p>These ToS shall be governed by and construed in accordance with the laws of the jurisdiction in which Lumi Host operates, without regard to its conflict of law principles.</p>
+
+                <h4>11. Contact Information</h4>
+                <p>If you have any questions or concerns about these ToS, please contact us at support@lumihost.net.</p>
 
             </div>
         </div>
