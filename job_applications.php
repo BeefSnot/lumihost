@@ -57,6 +57,9 @@
                 <h6>Manage Applications</h6>
                 <h4>Job Applications<span class="main">.</span></h4>
             </div>
+            <div class="text-center mt-4">
+                <a href="admin.php" class="btn btn-primary">Return to Admin Panel</a>
+            </div>
             <div id="applications-list" class="mt-4">
                 <?php
                 $applications_file = 'applications.json';
