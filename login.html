@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" integrity="sha512-tS3S5qG0BlhnQROyJXvNjeEM4UpMXHrQfTGmbQ1gKmelCxlSEBUaxhRBj/EFTzpbP4RVSrpEikbmdJobCvhE3g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css" integrity="sha512-sMXtMNL1zRzolHYKEujM2AqCLUR9F2C4/05cdbxjjLSRvMQIciEPCQZo++nk7go3BtSuK9kfa/s+a4f4i5pLkw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://unpkg.com/aos@2.3.0/dist/aos.css" />
-    <title>Job Application | Lumi Host</title>
+    <title>Login | Lumi Host</title>
 </head>
 
 <body>
@@ -35,7 +35,7 @@
                             <a class="nav-link" href="apply.html">Apply</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="admin.html">Admin</a>
+                            <a class="nav-link" href="login.html">Login</a>
                         </li>
                     </ul>
                 </div>
@@ -43,38 +43,22 @@
         </nav>
     </header>
 
-    <section id="apply">
+    <section id="login">
         <div class="container mt-5">
             <div class="section-title text-center">
-                <h6>Join Our Team</h6>
-                <h4>Job Application<span class="main">.</span></h4>
+                <h6>Staff Login</h6>
+                <h4>Login to Admin Panel<span class="main">.</span></h4>
             </div>
-            <form action="submit_application.php" method="POST" enctype="multipart/form-data">
+            <form action="login.php" method="POST">
                 <div class="form-group">
-                    <label for="name">Full Name</label>
-                    <input type="text" class="form-control" id="name" name="name" required>
+                    <label for="username">Username</label>
+                    <input type="text" class="form-control" id="username" name="username" required>
                 </div>
                 <div class="form-group">
-                    <label for="email">Email Address</label>
-                    <input type="email" class="form-control" id="email" name="email" required>
+                    <label for="password">Password</label>
+                    <input type="password" class="form-control" id="password" name="password" required>
                 </div>
-                <div class="form-group">
-                    <label for="phone">Phone Number</label>
-                    <input type="text" class="form-control" id="phone" name="phone" required>
-                </div>
-                <div class="form-group">
-                    <label for="position">Position Applied For</label>
-                    <select class="form-control" id="position" name="position" required>
-                        <option value="Web Developer">Web Developer</option>
-                        <option value="System Administrator">System Administrator</option>
-                        <option value="Customer Support">Customer Support</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="resume">Upload Resume (optional)</label>
-                    <input type="file" class="form-control-file" id="resume" name="resume">
-                </div>
-                <button type="submit" class="btn btn-primary">Submit Application</button>
+                <button type="submit" class="btn btn-primary">Login</button>
             </form>
         </div>
     </section>
@@ -89,7 +73,7 @@
                             <li><a href="index.php">Home</a></li>
                             <li><a href="about.html">About</a></li>
                             <li><a href="apply.html">Apply</a></li>
-                            <li><a href="admin.html">Admin</a></li>
+                            <li><a href="login.html">Login</a></li>
                         </ul>
                     </div>
                 </div>
@@ -125,7 +109,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js" integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js" integrity="sha512-tS3S5qG0BlhnQROyJXvNjeEM4UpMXHrQfTGmbQ1gKmelCxlSEBUaxhRBj/EFTzpbP4RVSrpEikbmdJobCvhE3g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="assets/js/main.js"></script>
     <script src="https://unpkg.com/aos@2.3.0/dist/aos.js"></script>
     <script>
