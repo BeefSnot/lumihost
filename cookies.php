@@ -92,22 +92,47 @@
     </header>
 
     <section id="tos">
-        <div class="container mt-5">
-            <div class="section-title">
-                <h6>Last Updated: 8th Augast 2021</h6>
-                <h4>Cookie Policy<span class="main">.</span></h4>
-            </div>
-            <div class="tos-content">
-
-                <h4>Lorem, ipsum dolor.</h4>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae minima dolorem quos reprehenderit magnam, quia quo alias ea rerum nulla explicabo optio eveniet nisi laudantium at provident natus, cupiditate enim! </p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae minima dolorem quos reprehenderit magnam, quia quo alias ea rerum nulla explicabo optio eveniet nisi laudantium at provident natus, cupiditate enim! </p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae minima dolorem quos reprehenderit magnam, quia quo alias ea rerum nulla explicabo optio eveniet nisi laudantium at provident natus, cupiditate enim! </p>
-                <br>
-
-            </div>
+    <div class="container mt-5">
+        <div class="section-title">
+            <h6>Last Updated: 14th January 2025</h6>
+            <h4>Cookie Policy<span class="main">.</span></h4>
         </div>
-    </section>
+        <div class="tos-content">
+
+            <h4>1. Introduction</h4>
+            <p>Welcome to Lumi Host. This Cookie Policy explains how we use cookies and similar technologies on our website. By accessing or using our website, you agree to the terms of this Cookie Policy. If you do not agree with the terms of this Cookie Policy, please do not access the website or use our services.</p>
+
+            <h4>2. What Are Cookies?</h4>
+            <p>Cookies are small text files that are placed on your device by websites that you visit. They are widely used to make websites work, or work more efficiently, as well as to provide information to the owners of the site.</p>
+
+            <h4>3. How We Use Cookies</h4>
+            <p>We use cookies for a variety of reasons, including:</p>
+            <ul>
+                <li><strong>Essential Cookies:</strong> These cookies are necessary for the website to function and cannot be switched off in our systems. They are usually only set in response to actions made by you which amount to a request for services, such as setting your privacy preferences, logging in, or filling in forms.</li>
+                <li><strong>Performance Cookies:</strong> These cookies allow us to count visits and traffic sources so we can measure and improve the performance of our site. They help us to know which pages are the most and least popular and see how visitors move around the site.</li>
+                <li><strong>Functional Cookies:</strong> These cookies enable the website to provide enhanced functionality and personalization. They may be set by us or by third-party providers whose services we have added to our pages.</li>
+                <li><strong>Targeting Cookies:</strong> These cookies may be set through our site by our advertising partners. They may be used by those companies to build a profile of your interests and show you relevant adverts on other sites.</li>
+            </ul>
+
+            <h4>4. Managing Cookies</h4>
+            <p>You can manage your cookie preferences through your browser settings. Most web browsers allow some control of most cookies through the browser settings. To find out more about cookies, including how to see what cookies have been set and how to manage and delete them, visit <a href="https://www.aboutcookies.org" target="_blank">www.aboutcookies.org</a> or <a href="https://www.allaboutcookies.org" target="_blank">www.allaboutcookies.org</a>.</p>
+
+            <h4>5. Third-Party Cookies</h4>
+            <p>In some special cases, we also use cookies provided by trusted third parties. The following section details which third-party cookies you might encounter through this site:</p>
+            <ul>
+                <li><strong>Google Analytics:</strong> This site uses Google Analytics which is one of the most widespread and trusted analytics solutions on the web for helping us to understand how you use the site and ways that we can improve your experience. These cookies may track things such as how long you spend on the site and the pages that you visit so we can continue to produce engaging content. For more information on Google Analytics cookies, see the official Google Analytics page.</li>
+                <li><strong>Advertising Cookies:</strong> We use cookies to make advertising messages more relevant to you. They perform functions like preventing the same ad from continuously reappearing, ensuring that ads are properly displayed for advertisers, and in some cases selecting advertisements that are based on your interests.</li>
+            </ul>
+
+            <h4>6. Changes to This Cookie Policy</h4>
+            <p>We may update this Cookie Policy from time to time in order to reflect, for example, changes to the cookies we use or for other operational, legal, or regulatory reasons. We will notify you of any changes by posting the new Cookie Policy on this page. You are advised to review this Cookie Policy periodically for any changes. Changes to this Cookie Policy are effective when they are posted on this page.</p>
+
+            <h4>7. Contact Us</h4>
+            <p>If you have any questions or concerns about this Cookie Policy, please contact us at support@lumihost.net.</p>
+
+        </div>
+    </div>
+</section>
 
     <footer>
         <div class="container">
