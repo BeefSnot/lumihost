@@ -28,7 +28,7 @@ def delete_cache(key):
     Delete a value from the cache.
     :param key: The key of the value to delete.
     """
-    redis_client.delete(name=key)
+    redis_client.delete(key)
 
 # Example usage
 if __name__ == "__main__":
