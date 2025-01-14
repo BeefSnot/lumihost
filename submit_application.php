@@ -33,7 +33,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $applications[] = $application_data;
     file_put_contents($applications_file, json_encode($applications));
 
-    echo "Application submitted successfully!";
+    // Redirect to thank you page
+    header('Location: thank_you.html');
+    exit;
 } else {
     echo "Invalid request method.";
 }

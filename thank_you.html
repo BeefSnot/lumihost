@@ -1,4 +1,3 @@
-<!-- filepath: /C:/Users/James/Desktop/LumiHost/lumihost/job_applications.php -->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -14,17 +13,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" integrity="sha512-tS3S5qG0BlhnQROyJXvNjeEM4UpMXHrQfTGmbQ1gKmelCxlSEBUaxhRBj/EFTzpbP4RVSrpEikbmdJobCvhE3g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css" integrity="sha512-sMXtMNL1zRzolHYKEujM2AqCLUR9F2C4/05cdbxjjLSRvMQIciEPCQZo++nk7go3BtSuK9kfa/s+a4f4i5pLkw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://unpkg.com/aos@2.3.0/dist/aos.css" />
-    <title>Job Applications | Lumi Host</title>
+    <title>Thank You | Lumi Host</title>
 </head>
 
 <body>
-    <?php
-    session_start();
-    if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
-        header('Location: login.html');
-        exit;
-    }
-    ?>
     <header class="hero page">
         <nav class="navbar navbar-expand-lg navbar-dark">
             <div class="container">
@@ -51,51 +43,12 @@
         </nav>
     </header>
 
-    <section id="job-applications">
+    <section id="thank-you">
         <div class="container mt-5">
             <div class="section-title text-center">
-                <h6>Manage Applications</h6>
-                <h4>Job Applications<span class="main">.</span></h4>
-            </div>
-            <div id="applications-list" class="mt-4">
-                <?php
-                $applications_file = 'applications.json';
-                $applications = [];
-
-                if (file_exists($applications_file)) {
-                    $applications = json_decode(file_get_contents($applications_file), true);
-                }
-
-                foreach ($applications as $application) {
-                    echo '<div class="card mb-3">';
-                    echo '<div class="card-body" style="color: black;">';
-                    echo '<h5 class="card-title">' . $application['name'] . '</h5>';
-                    echo '<p class="card-text"><strong>Email:</strong> ' . $application['email'] . '</p>';
-                    echo '<p class="card-text"><strong>Phone:</strong> ' . $application['phone'] . '</p>';
-                    echo '<p class="card-text"><strong>Position:</strong> ' . $application['position'] . '</p>';
-                    echo '<p class="card-text"><strong>Status:</strong> ' . $application['status'] . '</p>';
-                    if ($application['resume']) {
-                        echo '<p class="card-text"><strong>Resume:</strong> <a href="' . $application['resume'] . '" target="_blank">Download</a></p>';
-                    }
-                    echo '<form onsubmit="updateStatus(event, \'' . $application['email'] . '\')">';
-                    echo '<div class="form-group">';
-                    echo '<label for="status">Update Status</label>';
-                    echo '<select class="form-control" id="status" name="status">';
-                    echo '<option value="Pending"' . ($application['status'] == 'Pending' ? ' selected' : '') . '>Pending</option>';
-                    echo '<option value="Approved"' . ($application['status'] == 'Approved' ? ' selected' : '') . '>Approved</option>';
-                    echo '<option value="Denied"' . ($application['status'] == 'Denied' ? ' selected' : '') . '>Denied</option>';
-                    echo '</select>';
-                    echo '</div>';
-                    echo '<div class="form-group">';
-                    echo '<label for="comment">Comment</label>';
-                    echo '<textarea class="form-control" id="comment" name="comment" rows="3">' . (isset($application['comment']) ? $application['comment'] : '') . '</textarea>';
-                    echo '</div>';
-                    echo '<button type="submit" class="btn btn-primary">Update</button>';
-                    echo '</form>';
-                    echo '</div>';
-                    echo '</div>';
-                }
-                ?>
+                <h6>Thank You</h6>
+                <h4>Thank you for applying at Lumi Host!<span class="main">.</span></h4>
+                <p>Want to return to the website? <a href="https://lumihost.net">Click Here!</a></p>
             </div>
         </div>
     </section>
@@ -153,26 +106,6 @@
         AOS.init({
             duration: 1200,
         });
-
-        function updateStatus(event, email) {
-            event.preventDefault();
-            const form = event.target;
-            const status = form.status.value;
-            const comment = form.comment.value;
-
-            fetch('update_application.php', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ email, status, comment })
-            })
-            .then(response => response.text())
-            .then(data => {
-                alert(data);
-                location.reload();
-            });
-        }
     </script>
 </body>
 
