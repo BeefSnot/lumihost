@@ -62,7 +62,7 @@
                             <a class="nav-link" href="https://lumihost.net">Support (coming soon)</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="">Status (Coming Soon)</a>
+                            <a class="nav-link" href="https://lumihost.net/status">Status</a>
                         </li>
                         <li class="nav-item">
                             <a href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link nav-btn dropdown-toggle">
