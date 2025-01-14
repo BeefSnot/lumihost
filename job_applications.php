@@ -1,4 +1,4 @@
-<!-- filepath: /C:/Users/James/Desktop/LumiHost/lumihost/admin.php -->
+<!-- filepath: /C:/Users/James/Desktop/LumiHost/lumihost/job_applications.php -->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" integrity="sha512-tS3S5qG0BlhnQROyJXvNjeEM4UpMXHrQfTGmbQ1gKmelCxlSEBUaxhRBj/EFTzpbP4RVSrpEikbmdJobCvhE3g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css" integrity="sha512-sMXtMNL1zRzolHYKEujM2AqCLUR9F2C4/05cdbxjjLSRvMQIciEPCQZo++nk7go3BtSuK9kfa/s+a4f4i5pLkw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://unpkg.com/aos@2.3.0/dist/aos.css" />
-    <title>Admin | Lumi Host</title>
+    <title>Job Applications | Lumi Host</title>
 </head>
 
 <body>
@@ -51,14 +51,38 @@
         </nav>
     </header>
 
-    <section id="admin">
+    <section id="job-applications">
         <div class="container mt-5">
             <div class="section-title text-center">
-                <h6>Admin Panel</h6>
-                <h4>Welcome, Admin<span class="main">.</span></h4>
+                <h6>Manage Applications</h6>
+                <h4>Job Applications<span class="main">.</span></h4>
             </div>
-            <div class="text-center mt-4">
-                <a href="job_applications.php" class="btn btn-primary">Job Applications</a>
+            <div id="applications-list" class="mt-4">
+                <?php
+                $applications_file = 'applications.json';
+                $applications = [];
+
+                if (file_exists($applications_file)) {
+                    $applications = json_decode(file_get_contents($applications_file), true);
+                }
+
+                foreach ($applications as $application) {
+                    echo '<div class="card mb-3">';
+                    echo '<div class="card-body" style="color: black;">';
+                    echo '<h5 class="card-title">' . $application['name'] . '</h5>';
+                    echo '<p class="card-text"><strong>Email:</strong> ' . $application['email'] . '</p>';
+                    echo '<p class="card-text"><strong>Phone:</strong> ' . $application['phone'] . '</p>';
+                    echo '<p class="card-text"><strong>Position:</strong> ' . $application['position'] . '</p>';
+                    echo '<p class="card-text"><strong>Status:</strong> ' . $application['status'] . '</p>';
+                    if ($application['resume']) {
+                        echo '<p class="card-text"><strong>Resume:</strong> <a href="' . $application['resume'] . '" target="_blank">Download</a></p>';
+                    }
+                    echo '<button class="btn btn-success" onclick="updateStatus(\'' . $application['email'] . '\', \'Approved\')">Approve</button>';
+                    echo '<button class="btn btn-danger" onclick="updateStatus(\'' . $application['email'] . '\', \'Denied\')">Deny</button>';
+                    echo '</div>';
+                    echo '</div>';
+                }
+                ?>
             </div>
         </div>
     </section>
@@ -116,6 +140,21 @@
         AOS.init({
             duration: 1200,
         });
+
+        function updateStatus(email, status) {
+            fetch('update_application.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ email, status })
+            })
+            .then(response => response.text())
+            .then(data => {
+                alert(data);
+                location.reload();
+            });
+        }
     </script>
 </body>
 
