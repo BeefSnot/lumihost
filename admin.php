@@ -59,6 +59,7 @@
             </div>
             <div class="text-center mt-4">
                 <a href="job_applications.php" class="btn btn-primary">Job Applications</a>
+                <a href="https://billing.lumihost.net/admin" class="btn btn-primary">Staff Billing Panel</a>
             </div>
         </div>
     </section>
