@@ -4,6 +4,10 @@ use PHPMailer\PHPMailer\Exception;
 
 require 'vendor/autoload.php';
 
+// Enable error logging
+ini_set('log_errors', 1);
+ini_set('error_log', 'error_log.txt');
+
 // Check if the request method is POST
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Get the input data
@@ -21,14 +25,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     // Update the status of the application
+    $application_found = false;
     foreach ($applications as &$application) {
         if ($application['email'] == $email) {
             $application['status'] = $status;
             if ($comment) {
                 $application['comment'] = $comment;
             }
+            $application_found = true;
             break;
         }
+    }
+
+    if (!$application_found) {
+        error_log("Application not found for email: $email");
+        echo "Application not found.";
+        exit;
     }
 
     // Save the updated applications
@@ -62,9 +74,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $mail->send();
         echo 'Application status updated successfully!';
     } catch (Exception $e) {
+        error_log("Mailer Error: {$mail->ErrorInfo}");
         echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
     }
 } else {
+    error_log("Invalid request method.");
     echo "Invalid request method.";
 }
 ?>
