@@ -47,7 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $mail->Port = 587;
 
         // Recipients
-        $mail->setFrom('your-email@example.com', 'Lumi Host');
+        $mail->setFrom('staff@lumihost.net', 'Lumi Host');
         $mail->addAddress($email);
 
         // Content

@@ -1,4 +1,9 @@
 <?php
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+require 'vendor/autoload.php';
+
 // Check if the form is submitted
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $name = $_POST['name'];
@@ -33,10 +38,34 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $applications[] = $application_data;
     file_put_contents($applications_file, json_encode($applications));
 
+    // Send confirmation email
+    $mail = new PHPMailer(true);
+    try {
+        // Server settings
+        $mail->isSMTP();
+        $mail->Host = 'mail.lumihost.net'; // Set the SMTP server to send through
+        $mail->SMTPAuth = true;
+        $mail->Username = 'staff@lumihost.net'; // SMTP username
+        $mail->Password = '8KmCtBFC3Wca9DfzGY9w'; // SMTP password
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+        $mail->Port = 587;
+
+        // Recipients
+        $mail->setFrom('staff@lumihost.net', 'Lumi Host');
+        $mail->addAddress($email);
+
+        // Content
+        $mail->isHTML(true);
+        $mail->Subject = 'Thank you for applying at Lumi Host';
+        $mail->Body = "Dear " . $name . ",<br><br>Thank you for applying for the " . $position . " position at Lumi Host. We will review your application and get back to you soon.<br><br>Thank you,<br>Lumi Host Team";
+
+        $mail->send();
+    } catch (Exception $e) {
+        echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+    }
+
     // Redirect to thank you page
     header('Location: thank_you.html');
     exit;
-} else {
-    echo "Invalid request method.";
 }
 ?>

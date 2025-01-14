@@ -171,6 +171,9 @@
             .then(data => {
                 alert(data);
                 location.reload();
+            })
+            .catch(error => {
+                alert('Error updating application: ' + error);
             });
         }
     </script>
