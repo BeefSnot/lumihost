@@ -18,7 +18,7 @@
     <meta name="description" content="Description goes here">
     <meta name="keywords" content="keywords, goes, here, seperated, with, commas">
     <meta name="theme-color" content="#b31629">
-    <meta name="author" content="polite#1745">
+    <meta name="author" content="beefsnot">
 </head>
 
 <body>

@@ -15,10 +15,10 @@
     <link rel="stylesheet" href="https://unpkg.com/aos@2.3.0/dist/aos.css" />
     <title>Home | Lumi Host</title>
 
-    <meta name="description" content="Lumi Host | Light Up Your Digital World!">
+    <meta name="description" content="Lumi Host | LUMInate Your Digital World!">
     <meta name="keywords" content="keywords, Hosting, ONE, seperated, with, commas">
     <meta name="theme-color" content="#b31629">
-    <meta name="author" content="polite#1745">
+    <meta name="author" content="beefsnot">
 </head>
 
 <body>

@@ -15,10 +15,10 @@
     <link rel="stylesheet" href="https://unpkg.com/aos@2.3.0/dist/aos.css" />
     <title>Cookie Policy | Dynasty Hosting</title>
 
-    <meta name="description" content="Description goes here">
+    <meta name="description" content="Lumi Host">
     <meta name="keywords" content="keywords, goes, here, seperated, with, commas">
     <meta name="theme-color" content="#b31629">
-    <meta name="author" content="polite#1745">
+    <meta name="author" content="beefsnot">
 </head>
 
 <body>
