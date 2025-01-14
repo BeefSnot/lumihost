@@ -36,7 +36,7 @@
         <nav class="navbar navbar-expand-lg navbar-dark">
             <div class="container">
                 <a class="navbar-brand" href="#">
-                    <img class="img-fluid" src="/assets/img/logo.png" alt="Lumi Host">
+                    <img class="img-fluid" src="/assets/img/logonew.png" alt="Lumi Host">
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -54,12 +54,12 @@
                                 <a class="dropdown-item" href="https://lumihost.net">Minecraft Hosting (coming soon)</a>
                                 <a class="dropdown-item" href="https://lumihost.net/">Rust Hosting (coming soon)</a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="https://lumihost.net">Website Hosting (coming soon)</a>
+                                <a class="dropdown-item" href="https://billing.lumihost.net/web-hosting">Website Hosting (Available Now)</a>
                                 <a class="dropdown-item" href="https://billing.lumihost.net/">Dedicated Hosting Hosting (coming soon)</a>
                             </div>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="https://discord.gg/SxK9S5nMuF">Support (coming soon)</a>
+                            <a class="nav-link" href="https://lumihost.net">Support (coming soon)</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="">Status (Coming Soon)</a>
@@ -69,11 +69,10 @@
                                 login
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="https://panel.lumihost.net">Game Panel</a>
-                                <a class="dropdown-item" href="https://atlanta.lumihost.net:2222">Web Panel</a>
+                                <a class="dropdown-item" href="https://lumihost.net">Game Panel (Coming Soon)</a>
+                                <a class="dropdown-item" href="https://webpanel.lumihost.net:2222">Web Panel</a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="lumihost.net">Billing Panel (coming soon)</a>
-                                <a class="dropdown-item" href="lumihost.net">Billing Panel Staff (coming soon)</a>
+                                <a class="dropdown-item" href="https://billing.lumihost.net">Billing Panel</a>
                           </div>
                       </li>
                     </ul>
@@ -86,7 +85,7 @@
                     <div class="text-group" data-aos="fade-up" data-aos-delay="100" class="aos-init aos-animate">
                         <h1>Experience <span class="main">Premium<br> Hosting</span> with<br> Lumi<br> Host</h1>
                         <div class="button-group d-flex">
-                            <a href="https://lumihost.net" class="btn btn-primary mr-3">Order Now (coming soon)</a>
+                            <a href="https://billing.lumihost.net" class="btn btn-primary mr-3">Order Now</a>
                             <a href="#" class="btn btn-secondary">About Us</a>
                         </div>
                     </div>
@@ -128,7 +127,7 @@
                             <i class="fas fa-heartbeat"></i>
                             <h4 class="ml-2">24/7 Support</h4>
                         </div>
-                        <p>We strive to make sure our clients get the best support they could ever ask for! If your ticket isn't answered in timely fashion, we will make it up to you by giving you a refund!</p>
+                        <p>We strive to make sure our clients get the best support they could ever ask for! If your ticket isn't answered in timely fashion, please let us know! We want to make things right!</p>
                     </div>
                 </div>
 
@@ -138,7 +137,7 @@
                             <i class="fas fa-heartbeat"></i>
                             <h4 class="ml-2">Fast Website Hosting</h4>
                         </div>
-                        <p>We use DirectAdmin for our web panel. Along side with that, we give you LiteSpeed Web Server to ensure your website is up to speed!</p>
+                        <p>We use DirectAdmin for our web panel. We strive to have the most optimized web hosting in the industry!</p>
                     </div>
                 </div>
 
@@ -148,7 +147,7 @@
                             <i class="fas fa-heartbeat"></i>
                             <h4 class="ml-2">Robust Game Servers</h4>
                         </div>
-                        <p>We make sure we only use the best Xeon and AMD Processors price to performance, don't believe us? Try it out yourself!</p>
+                        <p>We make sure to only use the best processors in the industry, making your experience better! Don't believe us? Try it for yourself!</p>
                     </div>
                 </div>
 
@@ -202,8 +201,8 @@
                 <div class="h-100">
                     <div class="review-card text-center">
                         <h4 class="mb-0">Name</h4>
-                        <span>James</span>
-                        <p class="mb-0 mt-4">Lumi Host really helped all my needs! I needed fast website hosting, along side a Minecraft Server! Thanks Lumi Host!</p>
+                        <span>Kimmy</span>
+                        <p class="mb-0 mt-4">Lumi Host really helped all my needs! I needed fast and reliable web hosting! Thanks Lumi Host!</p>
                     </div>
                 </div>
             </div>
@@ -240,11 +239,11 @@
                             <i class="fas fa-cloud"></i>
                             <h4 class="ml-2">Website Hosting</h4>
                         </div>
-                        <p><span class="main"><i class="fas fa-check"></i></span> Powered By Xeon Processors</p>
+                        <p><span class="main"><i class="fas fa-check"></i></span> Powered By Xeon & AMD Processors</p>
                         <p><span class="main"><i class="fas fa-check"></i></span> DirectAdmin Panel</p>
                         <p><span class="main"><i class="fas fa-check"></i></span> DDoS Protected</p>
                         <p><span class="main"><i class="fas fa-check"></i></span> Dedicated Support</p>
-                        <a href="https://lumihost.net" class="btn btn-primary w-100">ORDER NOW (coming soon)</a>
+                        <a href="https://billing.lumihost.net/web-hosting" class="btn btn-primary w-100">ORDER NOW</a>
                     </div>
                 </div>
 
@@ -258,7 +257,7 @@
                         <p><span class="main"><i class="fas fa-check"></i></span> Custom Control Panel</p>
                         <p><span class="main"><i class="fas fa-check"></i></span> DDoS Protected</p>
                         <p><span class="main"><i class="fas fa-check"></i></span> Dedicated Support</p>
-                        <a href="#" class="btn btn-primary w-100">COMING SOON</a>
+                        <a href="https://lumihost.net" class="btn btn-primary w-100">COMING SOON</a>
                     </div>
                 </div>
 
@@ -275,8 +274,8 @@
                         <ul>
                             <li><a href="https://lumihost.net">Home</a></li>
                             <li><a href="https://lumihost.net">About</a></li>
-                            <li><a href="https://lumihost.net">Hosting</a></li>
-                            <li><a href="https://discord.gg/SxK9S5nMuF">Support</a></li>
+                            <li><a href="https://billing.lumihost.net/">Hosting</a></li>
+                            <li><a href="https://billing.lumihost.net">Support (Create a ticket in billing for now, discord coming soon)</a></li>
                         </ul>
                     </div>
                 </div>
@@ -285,9 +284,9 @@
                     <div class="footer-col py-4">
                         <h5>Login<span class="main">.</span></h5>
                         <ul>
-                            <li><a href="https://panel.lumihost.net">Game Panel</a></li>
-                            <li><a href="https://atlanta.lumihost.net:2222">Web Panel</a></li>
-                            <li><a href="https://lumihost.net">Billing Panel</a></li>
+                            <li><a href="https://lumihost.net">Game Panel (coming soon)</a></li>
+                            <li><a href="https://webpanel.lumihost.net:2222">Web Panel</a></li>
+                            <li><a href="https://billing.lumihost.net">Billing Panel</a></li>
                         </ul>
                     </div>
                 </div>
