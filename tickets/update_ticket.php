@@ -1,0 +1,82 @@
+<?php
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+require '../vendor/autoload.php';
+
+session_start();
+if (!isset($_SESSION['user_id']) || $_SESSION['role'] != 'staff') {
+    header('Location: login.php');
+    exit;
+}
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $input = json_decode(file_get_contents('php://input'), true);
+    $ticketId = $input['ticketId'];
+    $status = $input['status'];
+    $reply = $input['reply'];
+    $staffId = $_SESSION['user_id'];
+
+    $conn = new mysqli('localhost', 'root', '', 'lumihost');
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+
+    // Update ticket status
+    $stmt = $conn->prepare("UPDATE tickets SET status = ?, assigned_to = ? WHERE id = ?");
+    $stmt->bind_param("sii", $status, $staffId, $ticketId);
+    $stmt->execute();
+    $stmt->close();
+
+    // Insert ticket reply
+    if ($reply) {
+        $stmt = $conn->prepare("INSERT INTO ticket_replies (ticket_id, user_id, message) VALUES (?, ?, ?)");
+        $stmt->bind_param("iis", $ticketId, $staffId, $reply);
+        $stmt->execute();
+        $stmt->close();
+    }
+
+    // Get ticket details
+    $stmt = $conn->prepare("SELECT users.email, users.username, tickets.subject FROM tickets JOIN users ON tickets.user_id = users.id WHERE tickets.id = ?");
+    $stmt->bind_param("i", $ticketId);
+    $stmt->execute();
+    $stmt->bind_result($email, $username, $subject);
+    $stmt->fetch();
+    $stmt->close();
+
+    // Send email notification
+    $mail = new PHPMailer(true);
+    try {
+        // Server settings
+        $mail->isSMTP();
+        $mail->Host = 'mail.lumihost.net'; // Set the SMTP server to send through
+        $mail->SMTPAuth = true;
+        $mail->Username = 'staff@lumihost.net'; // SMTP username
+        $mail->Password = '8KmCtBFC3Wca9DfzGY9w'; // SMTP password
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+        $mail->Port = 587;
+
+        // Recipients
+        $mail->setFrom('staff@lumihost.net', 'Lumi Host');
+        $mail->addAddress($email);
+
+        // Content
+        $mail->isHTML(true);
+        $mail->Subject = 'Ticket Update: ' . $subject;
+        $mail->Body = "Dear " . $username . ",<br><br>Your ticket status has been updated to: " . $status . ".";
+        if ($reply) {
+            $mail->Body .= "<br><br>Reply: " . $reply;
+        }
+        $mail->Body .= "<br><br>Thank you,<br>Lumi Host Team";
+
+        $mail->send();
+        echo 'Ticket updated successfully!';
+    } catch (Exception $e) {
+        echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+    }
+
+    $conn->close();
+} else {
+    echo "Invalid request method.";
+}
+?>
