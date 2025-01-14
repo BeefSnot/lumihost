@@ -92,22 +92,63 @@
     </header>
 
     <section id="tos">
-        <div class="container mt-5">
-            <div class="section-title">
-                <h6>Last Updated: 8th Augast 2021</h6>
-                <h4>Privacy Policy<span class="main">.</span></h4>
-            </div>
-            <div class="tos-content">
-
-                <h4>Lorem, ipsum dolor.</h4>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae minima dolorem quos reprehenderit magnam, quia quo alias ea rerum nulla explicabo optio eveniet nisi laudantium at provident natus, cupiditate enim! </p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae minima dolorem quos reprehenderit magnam, quia quo alias ea rerum nulla explicabo optio eveniet nisi laudantium at provident natus, cupiditate enim! </p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae minima dolorem quos reprehenderit magnam, quia quo alias ea rerum nulla explicabo optio eveniet nisi laudantium at provident natus, cupiditate enim! </p>
-                <br>
-
-            </div>
+    <div class="container mt-5">
+        <div class="section-title">
+            <h6>Last Updated: 14th January 2025</h6>
+            <h4>Privacy Policy<span class="main">.</span></h4>
         </div>
-    </section>
+        <div class="tos-content">
+
+            <h4>1. Introduction</h4>
+            <p>Welcome to Lumi Host. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website and use our services. By accessing or using our services, you agree to the terms of this Privacy Policy. If you do not agree with the terms of this Privacy Policy, please do not access the website or use our services.</p>
+
+            <h4>2. Information We Collect</h4>
+            <p>We may collect information about you in a variety of ways. The information we may collect on the website includes:</p>
+            <ul>
+                <li><strong>Personal Data:</strong> Personally identifiable information, such as your name, shipping address, email address, and telephone number, and demographic information, such as your age, gender, hometown, and interests, that you voluntarily give to us when you register with the website or when you choose to participate in various activities related to the website, such as online chat and message boards.</li>
+                <li><strong>Derivative Data:</strong> Information our servers automatically collect when you access the website, such as your IP address, your browser type, your operating system, your access times, and the pages you have viewed directly before and after accessing the website.</li>
+                <li><strong>Financial Data:</strong> Financial information, such as data related to your payment method (e.g., valid credit card number, card brand, expiration date) that we may collect when you purchase, order, return, exchange, or request information about our services from the website.</li>
+            </ul>
+
+            <h4>3. Use of Your Information</h4>
+            <p>Having accurate information about you permits us to provide you with a smooth, efficient, and customized experience. Specifically, we may use information collected about you via the website to:</p>
+            <ul>
+                <li>Create and manage your account.</li>
+                <li>Process your transactions and send you related information, including purchase confirmations and invoices.</li>
+                <li>Provide, operate, and maintain our services.</li>
+                <li>Improve, personalize, and expand our services.</li>
+                <li>Understand and analyze how you use our website and services.</li>
+                <li>Develop new products, services, features, and functionality.</li>
+                <li>Communicate with you, either directly or through one of our partners, including for customer service, to provide you with updates and other information relating to the website, and for marketing and promotional purposes.</li>
+                <li>Send you emails.</li>
+                <li>Find and prevent fraud.</li>
+            </ul>
+
+            <h4>4. Disclosure of Your Information</h4>
+            <p>We may share information we have collected about you in certain situations. Your information may be disclosed as follows:</p>
+            <ul>
+                <li><strong>By Law or to Protect Rights:</strong> If we believe the release of information about you is necessary to respond to legal process, to investigate or remedy potential violations of our policies, or to protect the rights, property, and safety of others, we may share your information as permitted or required by any applicable law, rule, or regulation.</li>
+                <li><strong>Business Transfers:</strong> We may share or transfer your information in connection with, or during negotiations of, any merger, sale of company assets, financing, or acquisition of all or a portion of our business to another company.</li>
+                <li><strong>Third-Party Service Providers:</strong> We may share your information with third parties that perform services for us or on our behalf, including payment processing, data analysis, email delivery, hosting services, customer service, and marketing assistance.</li>
+                <li><strong>Marketing Communications:</strong> With your consent, or with an opportunity for you to withdraw consent, we may share your information with third parties for marketing purposes, as permitted by law.</li>
+                <li><strong>Affiliates:</strong> We may share your information with our affiliates, in which case we will require those affiliates to honor this Privacy Policy. Affiliates include our parent company and any subsidiaries, joint venture partners, or other companies that we control or that are under common control with us.</li>
+            </ul>
+
+            <h4>5. Security of Your Information</h4>
+            <p>We use administrative, technical, and physical security measures to help protect your personal information. While we have taken reasonable steps to secure the personal information you provide to us, please be aware that despite our efforts, no security measures are perfect or impenetrable, and no method of data transmission can be guaranteed against any interception or other type of misuse.</p>
+
+            <h4>6. Policy for Children</h4>
+            <p>We do not knowingly solicit information from or market to children under the age of 13. If we learn that we have collected personal information from a child under age 13 without verification of parental consent, we will delete that information as quickly as possible. If you believe we might have any information from or about a child under 13, please contact us at support@lumihost.net.</p>
+
+            <h4>7. Changes to This Privacy Policy</h4>
+            <p>We may update this Privacy Policy from time to time in order to reflect, for example, changes to our practices or for other operational, legal, or regulatory reasons. We will notify you of any changes by posting the new Privacy Policy on this page. You are advised to review this Privacy Policy periodically for any changes. Changes to this Privacy Policy are effective when they are posted on this page.</p>
+
+            <h4>8. Contact Us</h4>
+            <p>If you have any questions or concerns about this Privacy Policy, please contact us at support@lumihost.net.</p>
+
+        </div>
+    </div>
+</section>
 
     <footer>
         <div class="container">
