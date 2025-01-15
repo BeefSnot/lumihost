@@ -31,9 +31,36 @@ if (!isset($_SESSION['verified']) || $_SESSION['verified'] !== true) {
         <div class="card-body">
             <h5 class="card-title">&#x1F36A; Do you like cookies?</h5>
             <p class="card-text">We use cookies to ensure you get the best experience on our website.</p>
-            <div class="btn-toolbar justify-content-between">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="essentialCookies" checked disabled>
+                <label class="form-check-label" for="essentialCookies">
+                    Essential Cookies
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="performanceCookies">
+                <label class="form-check-label" for="performanceCookies">
+                    Performance Cookies
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="functionalCookies">
+                <label class="form-check-label" for="functionalCookies">
+                    Functional Cookies
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="targetingCookies">
+                <label class="form-check-label" for="targetingCookies">
+                    Targeting Cookies
+                </label>
+            </div>
+            <div class="btn-toolbar justify-content-between mt-3">
                 <a href="http://cookiesandyou.com/" target="_blank" class="btn btn-link">Learn more</a>
-                <a href="#" class="btn btn-primary accept-cookies">Accept</a>
+                <div>
+                    <button class="btn btn-primary accept-selected-cookies">Accept Selected</button>
+                    <button class="btn btn-primary accept-cookies ml-2">Accept All</button>
+                </div>
             </div>
         </div>
     </div>
@@ -318,6 +345,56 @@ if (!isset($_SESSION['verified']) || $_SESSION['verified'] !== true) {
     </footer>
 
 
+    <script>
+        document.querySelector('.accept-selected-cookies').addEventListener('click', function() {
+            if (document.getElementById('performanceCookies').checked) {
+                setCookie('performanceCookies', true, 60);
+            }
+            if (document.getElementById('functionalCookies').checked) {
+                setCookie('functionalCookies', true, 60);
+            }
+            if (document.getElementById('targetingCookies').checked) {
+                setCookie('targetingCookies', true, 60);
+            }
+            setCookie('acceptCookies', true, 60);
+            document.querySelector('.cookie-alert').classList.remove('show');
+        });
+
+        document.querySelector('.accept-cookies').addEventListener('click', function() {
+            setCookie('performanceCookies', true, 60);
+            setCookie('functionalCookies', true, 60);
+            setCookie('targetingCookies', true, 60);
+            setCookie('acceptCookies', true, 60);
+            document.querySelector('.cookie-alert').classList.remove('show');
+        });
+
+        function setCookie(cname, cvalue, exdays) {
+            var d = new Date();
+            d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+            var expires = "expires=" + d.toUTCString();
+            document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+        }
+
+        function getCookie(cname) {
+            var name = cname + "=";
+            var decodedCookie = decodeURIComponent(document.cookie);
+            var ca = decodedCookie.split(';');
+            for (var i = 0; i < ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0) === ' ') {
+                    c = c.substring(1);
+                }
+                if (c.indexOf(name) === 0) {
+                    return c.substring(name.length, c.length);
+                }
+            }
+            return "";
+        }
+
+        if (!getCookie("acceptCookies")) {
+            document.querySelector('.cookie-alert').classList.add('show');
+        }
+    </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js"></script>
@@ -351,16 +428,16 @@ if (!isset($_SESSION['verified']) || $_SESSION['verified'] !== true) {
     </script>
 <!--Start of Tawk.to Script-->
 <script type="text/javascript">
-var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
-(function(){
-var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
-s1.async=true;
-s1.src='https://embed.tawk.to/6785b98daf5bfec1dbeb17a9/1ihh5pjpu';
-s1.charset='UTF-8';
-s1.setAttribute('crossorigin','*');
-s0.parentNode.insertBefore(s1,s0);
-})();
-</script>
+        var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+        (function(){
+            var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+            s1.async=true;
+            s1.src='https://embed.tawk.to/6785b98daf5bfec1dbeb17a9/1ihh5pjpu';
+            s1.charset='UTF-8';
+            s1.setAttribute('crossorigin','*');
+            s0.parentNode.insertBefore(s1,s0);
+        })();
+    </script>
 <!--End of Tawk.to Script-->
 </body>
 
