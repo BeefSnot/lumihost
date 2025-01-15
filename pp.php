@@ -170,8 +170,8 @@
                         <h5>Login<span class="main">.</span></h5>
                         <ul>
                             <li><a href="#">GamePanel</a></li>
-                            <li><a href="#">Web Panel</a></li>
-                            <li><a href="#">Billing Panel</a></li>
+                            <li><a href="https://webpanel.lumihost.net:2222">Web Panel</a></li>
+                            <li><a href="https://billing.lumihost.net">Billing Panel</a></li>
                         </ul>
                     </div>
                 </div>
