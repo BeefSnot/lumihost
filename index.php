@@ -73,6 +73,7 @@
                                 <a class="dropdown-item" href="https://webpanel.lumihost.net:2222">Web Panel</a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="https://billing.lumihost.net">Billing Panel</a>
+                                <a class="dropdown-item" href="/admin.php">Staff Center </a>
                           </div>
                       </li>
                     </ul>
@@ -104,76 +105,76 @@
     </header>
 
     <section id="features">
-        <div class="container mt-5">
-            <div class="section-title text-center" data-aos="fade-up" data-aos-delay="200" class="aos-init aos-animate">
-                <h6>Features</h6>
-                <h4>What makes us stand out from the rest<span class="main">?</span></h4>
-            </div>
-            <div class="row mt-3">
-
-                <div class="col-md-4 mt-3" data-aos="fade-right" data-aos-delay="300" class="aos-init aos-animate">
-                    <div class="feature-box shadow">
-                        <div class="d-flex">
-                            <i class="fas fa-heartbeat"></i>
-                            <h4 class="ml-2">99.99% Uptime SLA</h4>
-                        </div>
-                        <p>Our main concern is your concern! We make sure we offer the highest uptime in the industry!</p>
-                    </div>
-                </div>
-
-                <div class="col-md-4 mt-3" data-aos="fade-up" data-aos-delay="300" class="aos-init aos-animate">
-                    <div class="feature-box shadow">
-                        <div class="d-flex">
-                            <i class="fas fa-heartbeat"></i>
-                            <h4 class="ml-2">24/7 Support</h4>
-                        </div>
-                        <p>We strive to make sure our clients get the best support they could ever ask for! If your ticket isn't answered in timely fashion, please let us know! We want to make things right!</p>
-                    </div>
-                </div>
-
-                <div class="col-md-4 mt-3" data-aos="fade-left" data-aos-delay="300" class="aos-init aos-animate">
-                    <div class="feature-box shadow">
-                        <div class="d-flex">
-                            <i class="fas fa-heartbeat"></i>
-                            <h4 class="ml-2">Fast Website Hosting</h4>
-                        </div>
-                        <p>We use DirectAdmin for our web panel. We strive to have the most optimized web hosting in the industry!</p>
-                    </div>
-                </div>
-
-                <div class="col-md-4 mt-3" data-aos="fade-right" data-aos-delay="400" class="aos-init aos-animate">
-                    <div class="feature-box shadow">
-                        <div class="d-flex">
-                            <i class="fas fa-heartbeat"></i>
-                            <h4 class="ml-2">Robust Game Servers</h4>
-                        </div>
-                        <p>We make sure to only use the best processors in the industry, making your experience better! Don't believe us? Try it for yourself!</p>
-                    </div>
-                </div>
-
-                <div class="col-md-4 mt-3" data-aos="fade-up" data-aos-delay="400" class="aos-init aos-animate">
-                    <div class="feature-box shadow">
-                        <div class="d-flex">
-                            <i class="fas fa-heartbeat"></i>
-                            <h4 class="ml-2">Coming Soon</h4>
-                        </div>
-                        <p></p>
-                    </div>
-                </div>
-
-                <div class="col-md-4 mt-3" data-aos="fade-left" data-aos-delay="400" class="aos-init aos-animate">
-                    <div class="feature-box shadow">
-                        <div class="d-flex">
-                            <i class="fas fa-heartbeat"></i>
-                            <h4 class="ml-2">Coming Soon</h4>
-                        </div>
-                        <p></p>
-                    </div>
-                </div>
-
-            </div>
+    <div class="container mt-5">
+        <div class="section-title text-center" data-aos="fade-up" data-aos-delay="200" class="aos-init aos-animate">
+            <h6>Features</h6>
+            <h4>What makes us stand out from the rest<span class="main">?</span></h4>
         </div>
-    </section>
+        <div class="row mt-3">
+
+            <div class="col-md-4 mt-3" data-aos="fade-right" data-aos-delay="300" class="aos-init aos-animate">
+                <div class="feature-box shadow">
+                    <div class="d-flex">
+                        <i class="fas fa-heartbeat"></i>
+                        <h4 class="ml-2">99.99% Uptime SLA</h4>
+                    </div>
+                    <p>We prioritize your uptime. Our commitment is to provide the highest uptime in the industry, ensuring your services are always available.</p>
+                </div>
+            </div>
+
+            <div class="col-md-4 mt-3" data-aos="fade-up" data-aos-delay="300" class="aos-init aos-animate">
+                <div class="feature-box shadow">
+                    <div class="d-flex">
+                        <i class="fa-solid fa-headset"></i>
+                        <h4 class="ml-2">24/7 Support</h4>
+                    </div>
+                    <p>Our dedicated support team is available around the clock to assist you. We strive to respond to your inquiries promptly and effectively.</p>
+                </div>
+            </div>
+
+            <div class="col-md-4 mt-3" data-aos="fade-left" data-aos-delay="300" class="aos-init aos-animate">
+                <div class="feature-box shadow">
+                    <div class="d-flex">
+                        <i class="fa-solid fa-bolt-lightning"></i>
+                        <h4 class="ml-2">Fast Website Hosting</h4>
+                    </div>
+                    <p>Utilizing DirectAdmin for our web panel, we ensure optimized and high-performance web hosting services tailored to your needs.</p>
+                </div>
+            </div>
+
+            <div class="col-md-4 mt-3" data-aos="fade-right" data-aos-delay="400" class="aos-init aos-animate">
+                <div class="feature-box shadow">
+                    <div class="d-flex">
+                        <i class="fa-solid fa-server"></i>
+                        <h4 class="ml-2">Robust Game Servers</h4>
+                    </div>
+                    <p>Our game servers are powered by top-tier processors, providing an unparalleled gaming experience. Try it yourself and feel the difference.</p>
+                </div>
+            </div>
+
+            <div class="col-md-4 mt-3" data-aos="fade-up" data-aos-delay="400" class="aos-init aos-animate">
+                <div class="feature-box shadow">
+                    <div class="d-flex">
+                        <i class="fa-regular fa-floppy-disk"></i>
+                        <h4 class="ml-2">Backups When You Need Them</h4>
+                    </div>
+                    <p>We offer flexible backup solutions for your web hosting services. Schedule regular backups or initiate them on demand to ensure your data is always secure.</p>
+                </div>
+            </div>
+
+            <div class="col-md-4 mt-3" data-aos="fade-left" data-aos-delay="400" class="aos-init aos-animate">
+                <div class="feature-box shadow">
+                    <div class="d-flex">
+                        <i class="fas fa-shield-alt"></i>
+                        <h4 class="ml-2">Advanced Security Features</h4>
+                    </div>
+                    <p>We are committed to protecting your data with advanced security features. Our upcoming security enhancements will provide even greater protection against threats.</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
 
     <section class="pb-5" id="reviews">
         <div class="container mt-5">
@@ -185,24 +186,24 @@
                 <div class="h-100">
                     <div class="review-card text-center">
                         <h4 class="mb-0">Name</h4>
-                        <span></span>
-                        <p class="mb-0 mt-4"></p>
+                        <span>Kimmy</span>
+                        <p class="mb-0 mt-4">Lumi Host really helped all my needs! I needed fast and reliable web hosting! Thanks Lumi Host!</p>
                     </div>
                 </div>
 
 <div class="h-100">
                     <div class="review-card text-center">
                         <h4 class="mb-0">Name</h4>
-                        <span></span>
-                        <p class="mb-0 mt-4"></p>
+                        <span>Ethan</span>
+                        <p class="mb-0 mt-4">I needed a website for my small business, and Lumi Host had what I needed! I got lightning fast web hosting, with amazing uptime and protection!</p>
                     </div>
                 </div>
 
                 <div class="h-100">
                     <div class="review-card text-center">
                         <h4 class="mb-0">Name</h4>
-                        <span>Kimmy</span>
-                        <p class="mb-0 mt-4">Lumi Host really helped all my needs! I needed fast and reliable web hosting! Thanks Lumi Host!</p>
+                        <span>Titus</span>
+                        <p class="mb-0 mt-4">I was in the market for a website for my wig company! Lumi Host was the best choice for me! I get backups every night so I know my data is safe!</p>
                     </div>
                 </div>
             </div>
@@ -275,7 +276,7 @@
                             <li><a href="https://lumihost.net">Home</a></li>
                             <li><a href="https://lumihost.net">About</a></li>
                             <li><a href="https://billing.lumihost.net/">Hosting</a></li>
-                            <li><a href="https://billing.lumihost.net">Support (Create a ticket in billing for now, discord coming soon)</a></li>
+                            <li><a href="https://billing.lumihost.net">Support (Ticket system coming soon)</a></li>
                         </ul>
                     </div>
                 </div>
@@ -287,6 +288,7 @@
                             <li><a href="https://lumihost.net">Game Panel (coming soon)</a></li>
                             <li><a href="https://webpanel.lumihost.net:2222">Web Panel</a></li>
                             <li><a href="https://billing.lumihost.net">Billing Panel</a></li>
+                            <li><a href="/admin.php">Staff Center</a></li>
                         </ul>
                     </div>
                 </div>
