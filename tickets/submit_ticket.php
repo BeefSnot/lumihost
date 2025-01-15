@@ -10,7 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $message = $_POST['message'];
     $user_id = $_SESSION['user_id'];
 
-    $conn = new mysqli('localhost', 'root', '', 'lumihost');
+    $conn = new mysqli('localhost', 'lumihost_tickets', 'uncUzyW2ChkeXyX9Gw2J', 'lumihost_tickets');
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
     }

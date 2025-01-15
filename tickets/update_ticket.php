@@ -5,7 +5,7 @@ use PHPMailer\PHPMailer\Exception;
 require '../vendor/autoload.php';
 
 session_start();
-if (!isset($_SESSION['user_id']) || $_SESSION['role'] != 'staff') {
+if (!isset($_SESSION['user_id'])) {
     header('Location: login.php');
     exit;
 }
@@ -15,23 +15,29 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $ticketId = $input['ticketId'];
     $status = $input['status'];
     $reply = $input['reply'];
-    $staffId = $_SESSION['user_id'];
+    $userId = $_SESSION['user_id'];
+    $userRole = $_SESSION['role'];
 
-    $conn = new mysqli('localhost', 'root', '', 'lumihost');
+    $conn = new mysqli('localhost', 'lumihost_tickets', 'uncUzyW2ChkeXyX9Gw2J', 'lumihost_tickets');
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
     }
 
-    // Update ticket status
-    $stmt = $conn->prepare("UPDATE tickets SET status = ?, assigned_to = ? WHERE id = ?");
-    $stmt->bind_param("sii", $status, $staffId, $ticketId);
+    // Check if the user is allowed to update the ticket
+    if ($userRole == 'staff') {
+        $stmt = $conn->prepare("UPDATE tickets SET status = ?, assigned_to = ? WHERE id = ?");
+        $stmt->bind_param("sii", $status, $userId, $ticketId);
+    } else {
+        $stmt = $conn->prepare("UPDATE tickets SET status = ? WHERE id = ? AND user_id = ?");
+        $stmt->bind_param("sii", $status, $ticketId, $userId);
+    }
     $stmt->execute();
     $stmt->close();
 
     // Insert ticket reply
     if ($reply) {
         $stmt = $conn->prepare("INSERT INTO ticket_replies (ticket_id, user_id, message) VALUES (?, ?, ?)");
-        $stmt->bind_param("iis", $ticketId, $staffId, $reply);
+        $stmt->bind_param("iis", $ticketId, $userId, $reply);
         $stmt->execute();
         $stmt->close();
     }

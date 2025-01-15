@@ -1,4 +1,3 @@
-<!-- filepath: /C:/Users/James/Desktop/LumiHost/lumihost/tickets/staff.php -->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -59,7 +58,7 @@
             </div>
             <div id="tickets-list" class="mt-4">
                 <?php
-                $conn = new mysqli('localhost', 'root', '', 'lumihost');
+                $conn = new mysqli('localhost', 'lumihost_tickets', 'uncUzyW2ChkeXyX9Gw2J', 'lumihost_tickets');
                 if ($conn->connect_error) {
                     die("Connection failed: " . $conn->connect_error);
                 }
@@ -137,7 +136,7 @@
         </div>
         <div class="copyright">
             <div class="container">
-                <h6 class="mb-0">Copyright © 2025 Lumi Host. | All Rights Reserved |</h6>
+                <h6 class="mb-0">Copyright © 2024 Lumi Host. | All Rights Reserved |</h6>
             </div>
         </div>
     </footer>
