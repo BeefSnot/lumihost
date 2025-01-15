@@ -87,7 +87,7 @@
                         <h1>Experience <span class="main">Premium<br> Hosting</span> with<br> Lumi<br> Host</h1>
                         <div class="button-group d-flex">
                             <a href="https://billing.lumihost.net" class="btn btn-primary mr-3">Order Now</a>
-                            <a href="#" class="btn btn-secondary">About Us</a>
+                            <a href="/about.html" class="btn btn-secondary">About Us</a>
                         </div>
                     </div>
                 </div>
