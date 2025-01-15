@@ -1,9 +1,14 @@
+<?php
+session_start();
+if (!isset($_SESSION['verified']) || $_SESSION['verified'] !== true) {
+    header('Location: turnstile.html');
+    exit;
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
-    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -22,7 +27,6 @@
 </head>
 
 <body>
-    <div class="cf-turnstile" data-sitekey="0x4AAAAAAA5a1oCSuekAHdnG"></div>
     <div class="card cookie-alert shadow">
         <div class="card-body">
             <h5 class="card-title">&#x1F36A; Do you like cookies?</h5>
