@@ -137,7 +137,7 @@
         </div>
         <div class="copyright">
             <div class="container">
-                <h6 class="mb-0">Copyright © 2024 Lumi Host. | All Rights Reserved |</h6>
+                <h6 class="mb-0">Copyright © 2025 Lumi Host. | All Rights Reserved |</h6>
             </div>
         </div>
     </footer>

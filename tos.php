@@ -182,7 +182,7 @@
         </div>
         <div class="copyright">
             <div class="container">
-                <h6 class="mb-0">Copyright © 2021 Name. | All Rights Reserved | Operating under Name. ltd.</h6>
+                <h6 class="mb-0">Copyright © 2025 Lumi host | All Rights Reserved |</h6>
             </div>
         </div>
     </footer>
