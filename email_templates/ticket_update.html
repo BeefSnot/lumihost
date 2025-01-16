@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ticket Update</title>
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            text-align: center;
+            padding: 10px 0;
+        }
+        .header img {
+            max-width: 150px;
+        }
+        .content {
+            padding: 20px;
+        }
+        .content p {
+            margin: 0 0 10px;
+        }
+        .footer {
+            text-align: center;
+            padding: 10px 0;
+            font-size: 12px;
+            color: #777;
+        }
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 20px 0;
+            background-color: #007bff;
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <img src="https://lumihost.net/assets/img/logonew.png" alt="Lumi Host">
+        </div>
+        <div class="content">
+            <p>Dear {{username}},</p>
+            <p>Your ticket status has been updated to: <strong>{{status}}</strong>.</p>
+            {{#if reply}}
+            <p>Reply: {{reply}}</p>
+            {{/if}}
+            <p>Thank you,<br>Lumi Host Team</p>
+            <a href="https://lumihost.net/tickets" class="button">View Ticket</a>
+        </div>
+        <div class="footer">
+            <p>&copy; 2025 Lumi Host. All Rights Reserved.</p>
+        </div>
+    </div>
+</body>
+</html>

@@ -24,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     // Check if the user is allowed to update the ticket
-    if ($userRole == 'staff') {
+    if (in_array($userRole, ['staff', 'admin', 'management', 'owner'])) {
         $stmt = $conn->prepare("UPDATE tickets SET status = ?, assigned_to = ? WHERE id = ?");
         $stmt->bind_param("sii", $status, $userId, $ticketId);
     } else {
@@ -50,6 +50,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $stmt->fetch();
     $stmt->close();
 
+    // Load email template
+    $template = file_get_contents('../email_templates/ticket_update.html');
+    $template = str_replace('{{username}}', $username, $template);
+    $template = str_replace('{{status}}', $status, $template);
+    $template = str_replace('{{reply}}', $reply, $template);
+    $template = str_replace('{{subject}}', $subject, $template);
+
     // Send email notification
     $mail = new PHPMailer(true);
     try {
@@ -69,11 +76,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // Content
         $mail->isHTML(true);
         $mail->Subject = 'Ticket Update: ' . $subject;
-        $mail->Body = "Dear " . $username . ",<br><br>Your ticket status has been updated to: " . $status . ".";
-        if ($reply) {
-            $mail->Body .= "<br><br>Reply: " . $reply;
-        }
-        $mail->Body .= "<br><br>Thank you,<br>Lumi Host Team";
+        $mail->Body = $template;
 
         $mail->send();
         echo 'Ticket updated successfully!';

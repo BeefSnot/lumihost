@@ -1,7 +1,7 @@
 <?php
 session_start();
-if (!isset($_SESSION['user_id']) || $_SESSION['role'] != 'admin') {
-    header('Location: login.php');
+if (!isset($_SESSION['user_id']) || !in_array($_SESSION['role'], ['admin', 'management', 'owner'])) {
+    header('Location: unauthorized.php');
     exit;
 }
 
@@ -93,6 +93,8 @@ $result = $conn->query("SELECT id, username, email, role FROM users");
                                         <option value="user" <?php if ($row['role'] == 'user') echo 'selected'; ?>>User</option>
                                         <option value="staff" <?php if ($row['role'] == 'staff') echo 'selected'; ?>>Staff</option>
                                         <option value="admin" <?php if ($row['role'] == 'admin') echo 'selected'; ?>>Admin</option>
+                                        <option value="management" <?php if ($row['role'] == 'management') echo 'selected'; ?>>Management</option>
+                                        <option value="owner" <?php if ($row['role'] == 'owner') echo 'selected'; ?>>Owner</option>
                                     </select>
                                     <button type="submit" class="btn btn-primary mt-2">Update Role</button>
                                 </form>
