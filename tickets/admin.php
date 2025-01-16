@@ -161,7 +161,3 @@ $result = $conn->query("SELECT id, username, email, role FROM users");
     </script>
 </body>
 </html>
-
-<?php
-$conn->close();
-?>
