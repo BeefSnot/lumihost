@@ -1,10 +1,3 @@
-<?php
-session_start();
-if (isset($_SESSION['user_id'])) {
-    header('Location: tickets.php');
-    exit;
-}
-?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -122,5 +115,4 @@ if (isset($_SESSION['user_id'])) {
         });
     </script>
 </body>
-
 </html>
