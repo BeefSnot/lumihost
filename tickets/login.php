@@ -1,4 +1,10 @@
-<!-- filepath: /C:/Users/James/Desktop/LumiHost/lumihost/tickets/login.php -->
+<?php
+session_start();
+if (isset($_SESSION['user_id'])) {
+    header('Location: tickets.php');
+    exit;
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -47,13 +53,13 @@
                 <h6>Login</h6>
                 <h4>Login to Your Account<span class="main">.</span></h4>
             </div>
-            <form action="login.php" method="POST">
+            <form action="login_process.php" method="POST">
                 <div class="form-group">
-                    <label for="username">Username</label>
-                    <input type="text" class="form-control" id="username" name="username" required>
+                    <label for="email">Email:</label>
+                    <input type="email" class="form-control" id="email" name="email" required>
                 </div>
                 <div class="form-group">
-                    <label for="password">Password</label>
+                    <label for="password">Password:</label>
                     <input type="password" class="form-control" id="password" name="password" required>
                 </div>
                 <button type="submit" class="btn btn-primary">Login</button>
@@ -118,36 +124,3 @@
 </body>
 
 </html>
-
-<?php
-session_start();
-
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $username = $_POST['username'];
-    $password = $_POST['password'];
-
-    $conn = new mysqli('localhost', 'lumihost_tickets', 'uncUzyW2ChkeXyX9Gw2J', 'lumihost_tickets');
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
-
-    $stmt = $conn->prepare("SELECT id, password, role FROM users WHERE username = ?");
-    $stmt->bind_param("s", $username);
-    $stmt->execute();
-    $stmt->store_result();
-    $stmt->bind_result($id, $hashed_password, $role);
-    $stmt->fetch();
-
-    if ($stmt->num_rows > 0 && password_verify($password, $hashed_password)) {
-        $_SESSION['user_id'] = $id;
-        $_SESSION['username'] = $username;
-        $_SESSION['role'] = $role;
-        header('Location: tickets.php');
-    } else {
-        echo "Invalid username or password.";
-    }
-
-    $stmt->close();
-    $conn->close();
-}
-?>
