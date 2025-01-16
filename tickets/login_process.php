@@ -15,7 +15,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         die("Connection failed: " . $conn->connect_error);
     }
 
+    // Verify database selection
+    if (!$conn->select_db('lumihost_tickets')) {
+        die("Database selection failed: " . $conn->error);
+    }
+
+    // Check if the table exists
+    $result = $conn->query("SHOW TABLES LIKE 'users'");
+    if ($result->num_rows == 0) {
+        die("Table 'users' does not exist.");
+    }
+
     $stmt = $conn->prepare("SELECT id, username, password, role FROM users WHERE email = ?");
+    if (!$stmt) {
+        die("Prepare statement failed: " . $conn->error);
+    }
     $stmt->bind_param("s", $email);
     $stmt->execute();
     $stmt->store_result();
