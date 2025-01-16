@@ -10,13 +10,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $email = $_POST['email'];
     $password = $_POST['password'];
 
-    $conn = new mysqli('localhost', 'lumihost_tickets', 'uncUzyW2ChkeXyX9Gw2J', 'lumihost_tickets');
+    $conn = new mysqli('localhost', 'lumihost_ticketsystem', 'bACPfJTDXPkX4EKv7kMU', 'lumihost_ticketsystem');
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
     }
 
     // Verify database selection
-    if (!$conn->select_db('lumihost_tickets')) {
+    if (!$conn->select_db('lumihost_ticketsystem')) {
         die("Database selection failed: " . $conn->error);
     }
 

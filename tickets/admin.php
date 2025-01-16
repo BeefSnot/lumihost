@@ -5,7 +5,7 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] != 'admin') {
     exit;
 }
 
-$conn = new mysqli('localhost', 'lumihost_tickets', 'uncUzyW2ChkeXyX9Gw2J', 'lumihost_tickets');
+$conn = new mysqli('localhost', 'lumihost_ticketsystem', 'bACPfJTDXPkX4EKv7kMU', 'lumihost_ticketsystem');
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
