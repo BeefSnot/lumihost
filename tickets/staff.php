@@ -17,7 +17,8 @@
     <?php
     session_start();
     if (!isset($_SESSION['user_id']) || $_SESSION['role'] != 'staff') {
-        header('Location: login.php');
+        error_log("User ID: " . $_SESSION['user_id'] . " Role: " . $_SESSION['role']);
+        header('Location: tickets.php');
         exit;
     }
     ?>
