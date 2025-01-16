@@ -37,13 +37,13 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item">
-                            <a class="nav-link " href="#">Home</a>
+                            <a class="nav-link " href="index.html">Home</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="apply.html">Apply</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="admin.php">Admin</a>
+                            <a class="nav-link" href="staff.php">Staff Center</a>
                         </li>
                     </ul>
                 </div>
@@ -74,7 +74,7 @@
                             <li><a href="index.php">Home</a></li>
                             <li><a href="about.html">About</a></li>
                             <li><a href="apply.html">Apply</a></li>
-                            <li><a href="admin.php">Admin</a></li>
+                            <li><a href="staff.php">Staff Center</a></li>
                         </ul>
                     </div>
                 </div>

@@ -105,7 +105,7 @@ if (!isset($_SESSION['verified']) || $_SESSION['verified'] !== true) {
                                 <a class="dropdown-item" href="https://webpanel.lumihost.net:2222">Web Panel</a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="https://billing.lumihost.net">Billing Panel</a>
-                                <a class="dropdown-item" href="/admin.php">Staff Center </a>
+                                <a class="dropdown-item" href="/staff.php">Staff Center </a>
                           </div>
                       </li>
                     </ul>
@@ -320,7 +320,7 @@ if (!isset($_SESSION['verified']) || $_SESSION['verified'] !== true) {
                             <li><a href="https://lumihost.net">Game Panel (coming soon)</a></li>
                             <li><a href="https://webpanel.lumihost.net:2222">Web Panel</a></li>
                             <li><a href="https://billing.lumihost.net">Billing Panel</a></li>
-                            <li><a href="/admin.php">Staff Center</a></li>
+                            <li><a href="/staff.php">Staff Center</a></li>
                         </ul>
                     </div>
                 </div>
