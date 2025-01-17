@@ -67,8 +67,8 @@
                     <p id="nameserver2-status">Loading...</p>
                 </div>
                 <div class="status-item">
-                    <h5><a href="details.php?service=database" class="status-link">Database</a></h5>
-                    <p id="database-status">Loading...</p>
+                    <h5><a href="details.php?service=customer_database" class="status-link">Customer Database</a></h5>
+                    <p id="customer_database-status">Loading...</p>
                 </div>
                 <div class="status-item">
                     <h5><a href="details.php?service=usa_node1" class="status-link">USA Node 1 (Tulsa OK)</a></h5>
@@ -148,7 +148,7 @@
                     document.getElementById('website-status').innerText = data.status.website ? 'Operational' : 'Down';
                     document.getElementById('nameserver1-status').innerText = data.status.nameserver1 ? 'Operational' : 'Down';
                     document.getElementById('nameserver2-status').innerText = data.status.nameserver2 ? 'Operational' : 'Down';
-                    document.getElementById('database-status').innerText = data.status.database ? 'Operational' : 'Down';
+                    document.getElementById('customer_database-status').innerText = data.status.customer_database ? 'Operational' : 'Down';
                     document.getElementById('usa_node1-status').innerText = data.status.usa_node1 ? 'Operational' : 'Down';
                     document.getElementById('lumi_radio-status').innerText = data.status.lumi_radio ? 'Operational' : 'Down';
                     document.getElementById('average-uptime').innerText = '7 Day Average Uptime: ' + data.averageUptime + '%';
