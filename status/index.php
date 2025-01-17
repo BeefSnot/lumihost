@@ -8,6 +8,17 @@
     <link rel="stylesheet" href="../assets/css/status.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        .status-title-box {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            display: inline-block;
+            margin: 20px auto;
+            text-align: center;
+        }
+    </style>
 </head>
 
 <body class="dark-theme">
@@ -48,8 +59,12 @@
 
     <section id="status">
         <div class="container mt-5">
+            <div class="text-center">
+                <div class="status-title-box">
+                    <h6>Service Status</h6>
+                </div>
+            </div>
             <div class="section-title text-center">
-                <h6>Service Status</h6>
                 <h4>LUMI Host Status<span class="main">.</span></h4>
                 <h5 id="average-uptime">7 Day Average Uptime: Loading...</h5>
             </div>
