@@ -1,10 +1,47 @@
+<?php
+$service = $_GET['service'] ?? 'unknown';
+
+function ping($host, $port, $timeout) {
+    $starttime = microtime(true);
+    $fsock = @fsockopen($host, $port, $errno, $errstr, $timeout);
+    $stoptime = microtime(true);
+    $status = 0;
+
+    if (!$fsock) {
+        $status = -1;  // Site is down
+    } else {
+        fclose($fsock);
+        $status = ($stoptime - $starttime) * 1000;
+        $status = floor($status);
+    }
+
+    return $status;
+}
+
+$services = [
+    'website' => ['host' => 'lumihost.net', 'port' => 80],
+    'nameserver1' => ['host' => 'ns1.lumihost.net', 'port' => 53],
+    'nameserver2' => ['host' => 'ns2.lumihost.net', 'port' => 53],
+    'customer_database' => ['host' => 'webpanel.lumihost.net', 'port' => 3306],
+    'usa_node1' => ['host' => 'radio.lumihost.net', 'port' => 80],
+    // Add more services as needed
+];
+
+$ping = -1;
+if (array_key_exists($service, $services)) {
+    $ping = ping($services[$service]['host'], $services[$service]['port'], 10);
+}
+
+$uptime = 99.99; // Placeholder for uptime percentage, replace with actual calculation if available
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LUMI Host Status</title>
+    <title><?php echo ucfirst($service); ?> Status</title>
     <link rel="stylesheet" href="../assets/css/status.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
@@ -46,34 +83,15 @@
         </nav>
     </header>
 
-    <section id="status">
+    <section id="status-details">
         <div class="container mt-5">
             <div class="section-title text-center">
-                <h6>Service Status</h6>
-                <h4>LUMI Host Status<span class="main">.</span></h4>
+                <h6><?php echo ucfirst($service); ?> Status</h6>
+                <h4><?php echo ucfirst($service); ?> Details<span class="main">.</span></h4>
             </div>
-            <div class="status-list text-center dark-background">
-                <div class="status-item">
-                    <h5><a href="details.php?service=website" class="status-link">Website</a></h5>
-                    <p id="website-status">Loading...</p>
-                </div>
-                <div class="status-item">
-                    <h5><a href="details.php?service=nameserver1" class="status-link">Nameserver 1</a></h5>
-                    <p id="nameserver1-status">Loading...</p>
-                </div>
-                <div class="status-item">
-                    <h5><a href="details.php?service=nameserver2" class="status-link">Nameserver 2</a></h5>
-                    <p id="nameserver2-status">Loading...</p>
-                </div>
-                <div class="status-item">
-                    <h5><a href="details.php?service=customer_database" class="status-link">Customer Database</a></h5>
-                    <p id="customer_database-status">Loading...</p>
-                </div>
-                <div class="status-item">
-                    <h5><a href="details.php?service=usa_node1" class="status-link">USA Node 1 (Tulsa OK)</a></h5>
-                    <p id="usa_node1-status">Loading...</p>
-                </div>
-                <!-- Add more status if needed! -->
+            <div class="status-details text-center dark-background">
+                <p>Uptime: <?php echo $uptime; ?>%</p>
+                <p>Ping: <?php echo $ping >= 0 ? $ping . ' ms' : 'Down'; ?></p>
             </div>
         </div>
     </section>
@@ -130,26 +148,6 @@
         AOS.init({
             duration: 1200,
         });
-
-        // JavaScript to fetch and display status data
-        document.addEventListener("DOMContentLoaded", function() {
-            fetchStatus();
-        });
-
-        function fetchStatus() {
-            fetch('status.php')
-                .then(response => response.json())
-                .then(data => {
-                    document.getElementById('website-status').innerText = data.website ? 'Operational' : 'Down';
-                    document.getElementById('nameserver1-status').innerText = data.nameserver1 ? 'Operational' : 'Down';
-                    document.getElementById('nameserver2-status').innerText = data.nameserver2 ? 'Operational' : 'Down';
-                    document.getElementById('customer_database-status').innerText = data.customer_database ? 'Operational' : 'Down';
-                    document.getElementById('usa_node1-status').innerText = data.usa_node1 ? 'Operational' : 'Down';
-                })
-                .catch(error => {
-                    console.error('Error fetching status:', error);
-                });
-        }
     </script>
 </body>
 
