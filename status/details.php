@@ -93,6 +93,21 @@ if ($ping == -1 && array_key_exists($service, $services)) {
     file_put_contents($cacheFile, json_encode($cacheData));
 }
 
+// Load historical uptime data for the graph
+$historicalDataFile = 'historical_uptime_' . $service . '.json';
+$historicalData = [];
+if (file_exists($historicalDataFile)) {
+    $historicalData = json_decode(file_get_contents($historicalDataFile), true);
+} else {
+    // Initialize with empty data if file doesn't exist
+    $historicalData = array_fill(0, 24, 100); // 24 hours of 100% uptime
+}
+
+// Update historical data
+array_shift($historicalData); // Remove the oldest entry
+$historicalData[] = $uptime; // Add the latest uptime
+file_put_contents($historicalDataFile, json_encode($historicalData));
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -104,6 +119,7 @@ if ($ping == -1 && array_key_exists($service, $services)) {
     <link rel="stylesheet" href="../assets/css/status.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body class="dark-theme">
@@ -151,6 +167,7 @@ if ($ping == -1 && array_key_exists($service, $services)) {
             <div class="status-details text-center dark-background">
                 <p>Uptime: <?php echo $uptime; ?>%</p>
                 <p>Ping: <?php echo $ping >= 0 ? $ping . ' ms' : 'Down'; ?></p>
+                <canvas id="uptimeChart" width="400" height="200"></canvas>
             </div>
         </div>
     </section>
@@ -206,6 +223,43 @@ if ($ping == -1 && array_key_exists($service, $services)) {
     <script>
         AOS.init({
             duration: 1200,
+        });
+
+        // JavaScript to render the uptime chart
+        document.addEventListener("DOMContentLoaded", function() {
+            const ctx = document.getElementById('uptimeChart').getContext('2d');
+            const historicalData = <?php echo json_encode($historicalData); ?>;
+            const labels = Array.from({ length: historicalData.length }, (_, i) => i + 1);
+
+            const data = {
+                labels: labels,
+                datasets: [{
+                    label: 'Uptime (%)',
+                    data: historicalData,
+                    backgroundColor: historicalData.map(value => {
+                        if (value >= 99) return 'green';
+                        if (value >= 95) return 'orange';
+                        return 'red';
+                    }),
+                    borderColor: 'black',
+                    borderWidth: 1
+                }]
+            };
+
+            const config = {
+                type: 'bar',
+                data: data,
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 100
+                        }
+                    }
+                }
+            };
+
+            new Chart(ctx, config);
         });
     </script>
 </body>
