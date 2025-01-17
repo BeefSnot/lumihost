@@ -18,6 +18,21 @@ function ping($host, $port, $timeout) {
     return $status;
 }
 
+function average_ping($host, $port, $timeout, $attempts = 5) {
+    $totalPing = 0;
+    $successfulPings = 0;
+
+    for ($i = 0; $i < $attempts; $i++) {
+        $ping = ping($host, $port, $timeout);
+        if ($ping >= 0) {
+            $totalPing += $ping;
+            $successfulPings++;
+        }
+    }
+
+    return $successfulPings > 0 ? floor($totalPing / $successfulPings) : -1;
+}
+
 $services = [
     'website' => ['host' => 'lumihost.net', 'port' => 80],
     'nameserver1' => ['host' => 'ns1.lumihost.net', 'port' => 53],
@@ -29,10 +44,34 @@ $services = [
 
 $ping = -1;
 if (array_key_exists($service, $services)) {
-    $ping = ping($services[$service]['host'], $services[$service]['port'], 10);
+    $ping = average_ping($services[$service]['host'], $services[$service]['port'], 10);
 }
 
-$uptime = 99.99; // Placeholder for uptime percentage, replace with actual calculation if available
+// Load uptime data from a file (or database)
+$uptimeDataFile = 'uptime_data.json';
+$uptimeData = [];
+if (file_exists($uptimeDataFile)) {
+    $uptimeData = json_decode(file_get_contents($uptimeDataFile), true);
+}
+
+// Calculate uptime percentage
+$uptime = 99.99; // Default value
+if (isset($uptimeData[$service])) {
+    $totalChecks = $uptimeData[$service]['total_checks'];
+    $upChecks = $uptimeData[$service]['up_checks'];
+    $uptime = ($upChecks / $totalChecks) * 100;
+    $uptime = round($uptime, 2);
+}
+
+// Update uptime data
+if (!isset($uptimeData[$service])) {
+    $uptimeData[$service] = ['total_checks' => 0, 'up_checks' => 0];
+}
+$uptimeData[$service]['total_checks']++;
+if ($ping >= 0) {
+    $uptimeData[$service]['up_checks']++;
+}
+file_put_contents($uptimeDataFile, json_encode($uptimeData));
 
 ?>
 <!DOCTYPE html>
