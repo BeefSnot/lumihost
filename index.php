@@ -298,6 +298,11 @@ if (!isset($_SESSION['verified']) || $_SESSION['verified'] !== true) {
         </div>
     </section>
 
+    <!-- Back to Top Button -->
+    <button id="back-to-top" class="btn btn-primary" title="Go to top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
     <footer>
         <div class="container">
             <div class="row">
@@ -425,6 +430,30 @@ if (!isset($_SESSION['verified']) || $_SESSION['verified'] !== true) {
         AOS.init({
             duration: 1200,
         })
+
+        // Back to Top Button
+        const backToTopButton = document.getElementById('back-to-top');
+
+        window.onscroll = function() {
+            scrollFunction();
+        };
+
+        function scrollFunction() {
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                backToTopButton.style.display = "block";
+            } else {
+                backToTopButton.style.display = "none";
+            }
+        }
+
+        backToTopButton.addEventListener('click', function() {
+            $('html, body').animate({scrollTop: 0}, 'slow');
+            // Animation of server powering on
+            backToTopButton.innerHTML = '<i class="fas fa-server"></i>';
+            setTimeout(() => {
+                backToTopButton.innerHTML = '<i class="fas fa-arrow-up"></i>';
+            }, 1000); // Reset icon after 1 second
+        });
     </script>
 <!--Start of Tawk.to Script-->
 <script type="text/javascript">
