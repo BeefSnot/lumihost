@@ -308,7 +308,7 @@ if (!isset($_SESSION['verified']) || $_SESSION['verified'] !== true) {
                             <li><a href="https://lumihost.net">Home</a></li>
                             <li><a href="https://lumihost.net">About</a></li>
                             <li><a href="https://billing.lumihost.net/">Hosting</a></li>
-                            <li><a href="https://billing.lumihost.net/tickets/tickets.php">Support</a></li>
+                            <li><a href="https://lumihost.net/tickets/tickets.php">Support</a></li>
                         </ul>
                     </div>
                 </div>
