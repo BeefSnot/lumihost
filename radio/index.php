@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
 
-<body>
+<body class="dark-theme">
     <header class="hero page">
         <nav class="navbar navbar-expand-lg navbar-dark">
             <div class="container">
