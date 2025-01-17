@@ -17,7 +17,7 @@ $status = [
     'nameserver2' => ping('ns2.lumihost.net', 53, 10),
     'customer_database' => ping('webpanel.lumihost.net', 3306, 10),
     'usa_node1' => ping('radio.lumihost.net', 80, 10),
-    'lumi_radio' => ping('99.148.48.237', 8000, 10),
+    'lumi_radio' => ping('99.148.48.237', 80, 10),
     // Add more services as needed
 ];
 
