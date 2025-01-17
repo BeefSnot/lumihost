@@ -4,17 +4,8 @@ use PHPMailer\PHPMailer\Exception;
 
 require 'vendor/autoload.php';
 
-// Enable error reporting
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
 function sendTestEmail($toEmail, $toName) {
     $template = file_get_contents('email_templates/status_alert.html');
-    if ($template === false) {
-        echo "Failed to load email template.<br>";
-        return;
-    }
     $template = str_replace('{{service}}', 'Test Service', $template);
     $template = str_replace('{{status}}', 'down', $template);
 
