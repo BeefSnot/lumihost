@@ -1,4 +1,9 @@
 <?php
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+require 'vendor/autoload.php';
+
 $service = $_GET['service'] ?? 'unknown';
 
 function ping($host, $port, $timeout) {
@@ -31,6 +36,35 @@ function average_ping($host, $port, $timeout, $attempts = 5) {
     }
 
     return $successfulPings > 0 ? floor($totalPing / $successfulPings) : -1;
+}
+
+function send_status_email($service, $status) {
+    $mail = new PHPMailer(true);
+    try {
+        // SMTP configuration
+        $mail->isSMTP();
+        $mail->Host = 'mail.lumihost.net'; // Set the SMTP server to send through
+        $mail->SMTPAuth = true;
+        $mail->Username = 'status@lumihost.net'; // SMTP username
+        $mail->Password = 'TvNCstyeJCJcmM7c4qSL'; // SMTP password
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+        $mail->Port = 587;
+
+        // Recipients
+        $mail->setFrom('status@lumihost.net', 'Lumi Host Status');
+        $mail->addAddress('james@lumihost.net'); // Add more recipients as needed
+
+        // Content
+        $mail->isHTML(true);
+        $mail->Subject = 'Status Alert: ' . ucfirst($service) . ' is ' . $status;
+        $mail->Body = file_get_contents('email_templates/status_alert.html');
+        $mail->Body = str_replace('{{service}}', ucfirst($service), $mail->Body);
+        $mail->Body = str_replace('{{status}}', $status, $mail->Body);
+
+        $mail->send();
+    } catch (Exception $e) {
+        error_log("Message could not be sent. Mailer Error: {$mail->ErrorInfo}");
+    }
 }
 
 $services = [
@@ -81,6 +115,8 @@ if ($ping == -1 && array_key_exists($service, $services)) {
     $uptimeData[$service]['total_checks']++;
     if ($ping >= 0) {
         $uptimeData[$service]['up_checks']++;
+    } else {
+        send_status_email($service, 'down');
     }
     file_put_contents($uptimeDataFile, json_encode($uptimeData));
 
