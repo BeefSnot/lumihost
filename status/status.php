@@ -13,11 +13,11 @@ function ping($host, $port, $timeout) {
 
 $services = [
     'website' => ['host' => 'lumihost.net', 'port' => 80],
-    'nameserver1' => ['host' => 'ns1.lumihost.net', 'port' => 53],
-    'nameserver2' => ['host' => 'ns2.lumihost.net', 'port' => 53],
+    'name server 1' => ['host' => 'ns1.lumihost.net', 'port' => 53],
+    'name server 2' => ['host' => 'ns2.lumihost.net', 'port' => 53],
     'database' => ['host' => 'webpanel.lumihost.net', 'port' => 3306],
-    'usa_node1' => ['host' => 'radio.lumihost.net', 'port' => 80],
-    'lumi_radio' => ['host' => '99.148.48.237', 'port' => 80],
+    'usa node1' => ['host' => 'radio.lumihost.net', 'port' => 80],
+    'lumi radio' => ['host' => '99.148.48.237', 'port' => 80],
     // Add more services as needed
 ];
 
