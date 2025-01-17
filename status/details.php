@@ -168,6 +168,11 @@ file_put_contents($historicalDataFile, json_encode($historicalData));
                 <p>Uptime: <?php echo $uptime; ?>%</p>
                 <p>Ping: <?php echo $ping >= 0 ? $ping . ' ms' : 'Down'; ?></p>
                 <canvas id="uptimeChart" width="400" height="200"></canvas>
+                <div class="legend mt-4">
+                    <span class="legend-item" style="color: green;">&#9632; 99% and above</span>
+                    <span class="legend-item" style="color: orange;">&#9632; 95% - 98.99%</span>
+                    <span class="legend-item" style="color: red;">&#9632; Below 95%</span>
+                </div>
             </div>
         </div>
     </section>
