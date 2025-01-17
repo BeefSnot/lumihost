@@ -11,15 +11,36 @@ function ping($host, $port, $timeout) {
     }
 }
 
-$status = [
-    'website' => ping('lumihost.net', 80, 10),
-    'nameserver1' => ping('ns1.lumihost.net', 53, 10),
-    'nameserver2' => ping('ns2.lumihost.net', 53, 10),
-    'customer_database' => ping('webpanel.lumihost.net', 3306, 10),
-    'usa_node1' => ping('radio.lumihost.net', 80, 10),
-    'lumi_radio' => ping('99.148.48.237', 80, 10),
+$services = [
+    'website' => ['host' => 'lumihost.net', 'port' => 80],
+    'nameserver1' => ['host' => 'ns1.lumihost.net', 'port' => 53],
+    'nameserver2' => ['host' => 'ns2.lumihost.net', 'port' => 53],
+    'customer_database' => ['host' => 'webpanel.lumihost.net', 'port' => 3306],
+    'usa_node1' => ['host' => 'radio.lumihost.net', 'port' => 80],
+    'lumi_radio' => ['host' => '99.148.48.237', 'port' => 80],
     // Add more services as needed
 ];
 
-echo json_encode($status);
+$status = [];
+$totalUptime = 0;
+$totalServices = count($services);
+
+foreach ($services as $service => $details) {
+    $status[$service] = ping($details['host'], $details['port'], 10);
+    $uptimeDataFile = 'historical_uptime_' . $service . '.json';
+    $historicalData = [];
+    if (file_exists($uptimeDataFile)) {
+        $historicalData = json_decode(file_get_contents($uptimeDataFile), true);
+    }
+    $totalUptime += array_sum($historicalData) / count($historicalData);
+}
+
+$averageUptime = $totalUptime / $totalServices;
+
+$response = [
+    'status' => $status,
+    'averageUptime' => round($averageUptime, 2)
+];
+
+echo json_encode($response);
 ?>
