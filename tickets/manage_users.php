@@ -41,7 +41,7 @@ $result = $conn->query("SELECT id, username, email, role FROM users");
     <title>Manage User Roles | Lumi Host</title>
     <style>
         body {
-            color: #f8f9fa;
+            color: #ffffff;
         }
         .card-body {
             color: #333;
@@ -81,7 +81,10 @@ $result = $conn->query("SELECT id, username, email, role FROM users");
                 <h6>Manage User Roles</h6>
                 <h4>Update User Roles<span class="main">.</span></h4>
             </div>
-            <div class="table-responsive">
+            <div class="text-center mt-4">
+                <a href="admin.php" class="btn btn-primary">Back to Admin Panel</a>
+            </div>
+            <div class="table-responsive mt-4">
                 <table class="table table-bordered">
                     <thead>
                         <tr>
