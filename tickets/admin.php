@@ -1,11 +1,16 @@
 <?php
+// Enable error reporting
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 session_start();
 if (!isset($_SESSION['user_id']) || !in_array($_SESSION['role'], ['admin', 'management', 'owner'])) {
     header('Location: unauthorized.php');
     exit;
 }
 
-$conn = new mysqli('localhost', 'lumihost_ticketsystem', 'bACPfJTDXPkX4EKv7kMU', 'lumihost_ticketsystem');
+$conn = new mysqli('localhost', 'lumihost_ticketsystem', 'gAhA7C5jzVPQtpTP4CA6', 'lumihost_ticketsystem');
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
