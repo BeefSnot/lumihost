@@ -39,6 +39,14 @@ $result = $conn->query("SELECT id, username, email, role FROM users");
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="../assets/css/style.css">
     <title>Admin Panel | Lumi Host</title>
+    <style>
+        body {
+            color: #f8f9fa;
+        }
+        .card-body {
+            color: #333;
+        }
+    </style>
 </head>
 <body>
     <header class="hero page">
