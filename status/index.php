@@ -59,19 +59,19 @@
                 </div>
                 <div class="status-item">
                     <h5>Nameserver 1</h5>
-                    <p id="api-status">Loading...</p>
+                    <p id="nameserver1-status">Loading...</p>
                 </div>
                 <div class="status-item">
                     <h5>Nameserver 2</h5>
-                    <p id="api-status">Loading...</p>
+                    <p id="nameserver2-status">Loading...</p>
                 </div>
                 <div class="status-item">
                     <h5>Customer Database</h5>
-                    <p id="database-status">Loading...</p>
+                    <p id="customer_database-status">Loading...</p>
                 </div>
                 <div class="status-item">
                     <h5>USA Node 1 (Tulsa OK)</h5>
-                    <p id="api-status">Loading...</p>
+                    <p id="usa_node1-status">Loading...</p>
                 </div>
                 <!-- Add more status items as needed -->
             </div>
@@ -141,8 +141,10 @@
                 .then(response => response.json())
                 .then(data => {
                     document.getElementById('website-status').innerText = data.website ? 'Operational' : 'Down';
-                    document.getElementById('api-status').innerText = data.api ? 'Operational' : 'Down';
-                    document.getElementById('database-status').innerText = data.database ? 'Operational' : 'Down';
+                    document.getElementById('nameserver1-status').innerText = data.nameserver1 ? 'Operational' : 'Down';
+                    document.getElementById('nameserver2-status').innerText = data.nameserver2 ? 'Operational' : 'Down';
+                    document.getElementById('customer_database-status').innerText = data.customer_database ? 'Operational' : 'Down';
+                    document.getElementById('usa_node1-status').innerText = data.usa_node1 ? 'Operational' : 'Down';
                 })
                 .catch(error => {
                     console.error('Error fetching status:', error);
