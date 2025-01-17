@@ -43,35 +43,54 @@ $services = [
 ];
 
 $ping = -1;
-if (array_key_exists($service, $services)) {
+$cacheFile = 'cache_' . $service . '.json';
+$cacheDuration = 60; // Cache duration in seconds (1 minute)
+
+if (file_exists($cacheFile)) {
+    $cacheData = json_decode(file_get_contents($cacheFile), true);
+    if (time() - $cacheData['timestamp'] < $cacheDuration) {
+        $ping = $cacheData['ping'];
+        $uptime = $cacheData['uptime'];
+    }
+}
+
+if ($ping == -1 && array_key_exists($service, $services)) {
     $ping = average_ping($services[$service]['host'], $services[$service]['port'], 10);
-}
 
-// Load uptime data from a file (or database)
-$uptimeDataFile = 'uptime_data.json';
-$uptimeData = [];
-if (file_exists($uptimeDataFile)) {
-    $uptimeData = json_decode(file_get_contents($uptimeDataFile), true);
-}
+    // Load uptime data from a file (or database)
+    $uptimeDataFile = 'uptime_data.json';
+    $uptimeData = [];
+    if (file_exists($uptimeDataFile)) {
+        $uptimeData = json_decode(file_get_contents($uptimeDataFile), true);
+    }
 
-// Calculate uptime percentage
-$uptime = 99.99; // Default value
-if (isset($uptimeData[$service])) {
-    $totalChecks = $uptimeData[$service]['total_checks'];
-    $upChecks = $uptimeData[$service]['up_checks'];
-    $uptime = ($upChecks / $totalChecks) * 100;
-    $uptime = round($uptime, 2);
-}
+    // Calculate uptime percentage
+    $uptime = 100.00; // Default value
+    if (isset($uptimeData[$service])) {
+        $totalChecks = $uptimeData[$service]['total_checks'];
+        $upChecks = $uptimeData[$service]['up_checks'];
+        $uptime = ($upChecks / $totalChecks) * 100;
+        $uptime = round($uptime, 2);
+    }
 
-// Update uptime data
-if (!isset($uptimeData[$service])) {
-    $uptimeData[$service] = ['total_checks' => 0, 'up_checks' => 0];
+    // Update uptime data
+    if (!isset($uptimeData[$service])) {
+        $uptimeData[$service] = ['total_checks' => 0, 'up_checks' => 0];
+    }
+    $uptimeData[$service]['total_checks']++;
+    if ($ping >= 0) {
+        $uptimeData[$service]['up_checks']++;
+    }
+    file_put_contents($uptimeDataFile, json_encode($uptimeData));
+
+    // Cache the results
+    $cacheData = [
+        'timestamp' => time(),
+        'ping' => $ping,
+        'uptime' => $uptime
+    ];
+    file_put_contents($cacheFile, json_encode($cacheData));
 }
-$uptimeData[$service]['total_checks']++;
-if ($ping >= 0) {
-    $uptimeData[$service]['up_checks']++;
-}
-file_put_contents($uptimeDataFile, json_encode($uptimeData));
 
 ?>
 <!DOCTYPE html>
