@@ -18,6 +18,13 @@ if ($conn->connect_error) {
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $user_id = $_POST['user_id'];
     $role = $_POST['role'];
+
+    // Validate role value
+    $valid_roles = ['user', 'staff', 'admin', 'management', 'owner'];
+    if (!in_array($role, $valid_roles)) {
+        die("Invalid role value.");
+    }
+
     $stmt = $conn->prepare("UPDATE users SET role = ? WHERE id = ?");
     $stmt->bind_param("si", $role, $user_id);
     $stmt->execute();
