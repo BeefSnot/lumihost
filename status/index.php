@@ -77,7 +77,7 @@
                     <h5><a href="details.php?service=lumi_radio" class="status-link">Lumi Radio</a></h5>
                     <p id="lumi_radio-status">Loading...</p>
                 </div>
-                <!-- Add more status if needed! -->
+                <!-- Add more status items if needed!-->
             </div>
         </div>
     </section>
@@ -149,6 +149,7 @@
                     document.getElementById('nameserver2-status').innerText = data.nameserver2 ? 'Operational' : 'Down';
                     document.getElementById('customer_database-status').innerText = data.customer_database ? 'Operational' : 'Down';
                     document.getElementById('usa_node1-status').innerText = data.usa_node1 ? 'Operational' : 'Down';
+                    document.getElementById('lumi_radio-status').innerText = data.lumi_radio ? 'Operational' : 'Down';
                 })
                 .catch(error => {
                     console.error('Error fetching status:', error);
