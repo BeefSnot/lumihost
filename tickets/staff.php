@@ -58,7 +58,7 @@ if (!isset($_SESSION['user_id']) || !in_array($_SESSION['role'], ['staff', 'admi
             </div>
             <div id="tickets-list" class="mt-4">
                 <?php
-                $conn = new mysqli('localhost', 'lumihost_ticketsystem', 'bACPfJTDXPkX4EKv7kMU', 'lumihost_ticketsystem');
+                $conn = new mysqli('localhost', 'lumihost_ticketsystem', 'gAhA7C5jzVPQtpTP4CA6', 'lumihost_ticketsystem');
                 if ($conn->connect_error) {
                     die("Connection failed: " . $conn->connect_error);
                 }
