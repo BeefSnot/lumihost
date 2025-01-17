@@ -300,7 +300,7 @@ if (!isset($_SESSION['verified']) || $_SESSION['verified'] !== true) {
 
     <!-- Back to Top Button -->
     <button id="back-to-top" class="btn btn-primary" title="Go to top">
-        <i class="fas fa-arrow-up"></i>
+        <i class="fas fa-server"></i>
     </button>
 
     <footer>
