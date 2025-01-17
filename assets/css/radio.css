@@ -31,6 +31,11 @@ body.dark-theme {
     border-radius: 10px;
 }
 
+.logo-small {
+    width: 100px; /* Adjust the width as needed */
+    height: auto;
+}
+
 .footer-col h5 {
     color: #ffffff;
 }

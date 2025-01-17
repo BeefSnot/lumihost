@@ -50,7 +50,7 @@
                 <h4>LUMI Radio<span class="main">.</span></h4>
             </div>
             <div class="text-center dark-background">
-                <img src="../selfuploads/lumiradiologo.jpg" alt="LUMI Radio Logo" class="logo mb-4">
+                <img src="../selfuploads/lumiradiologo.jpg" alt="LUMI Radio Logo" class="logo-small mb-4">
                 <iframe src="https://radio.lumihost.net/public/lumi_radio/embed?theme=dark" frameborder="0" allowtransparency="true" style="width: 100%; min-height: 150px; border: 0;"></iframe>
                 <div class="links mt-4">
                     <button class="btn btn-primary" onclick="window.open('https://radio.lumihost.net/public/lumi_radio/playlist.pls', '_blank')">
