@@ -91,7 +91,7 @@ if (!isset($_SESSION['verified']) || $_SESSION['verified'] !== true) {
                             </div>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="https://lumihost.net">Support (coming soon)</a>
+                            <a class="nav-link" href="https://lumihost.net/tickets/tickets.php">Support (coming soon)</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="https://lumihost.net/status">Status</a>
@@ -308,7 +308,7 @@ if (!isset($_SESSION['verified']) || $_SESSION['verified'] !== true) {
                             <li><a href="https://lumihost.net">Home</a></li>
                             <li><a href="https://lumihost.net">About</a></li>
                             <li><a href="https://billing.lumihost.net/">Hosting</a></li>
-                            <li><a href="https://billing.lumihost.net">Support (Ticket system coming soon)</a></li>
+                            <li><a href="https://billing.lumihost.net/tickets/tickets.php">Support</a></li>
                         </ul>
                     </div>
                 </div>

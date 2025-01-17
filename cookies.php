@@ -59,10 +59,10 @@
                             </div>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Support</a>
+                            <a class="nav-link" href="https://lumihost.net/tickets/tickets.php">Support</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Status</a>
+                            <a class="nav-link" href="https://lumihost.net/status">Status</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link nav-btn" href="#">Login</a>
