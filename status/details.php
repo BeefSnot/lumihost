@@ -173,6 +173,7 @@ file_put_contents($historicalDataFile, json_encode($historicalData));
                     <span class="legend-item" style="color: orange;">&#9632; 95% - 98.99%</span>
                     <span class="legend-item" style="color: red;">&#9632; Below 95%</span>
                 </div>
+                <a href="index.php" class="btn btn-primary mt-4">Back to Status Page</a>
             </div>
         </div>
     </section>
