@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LUMI Radio</title>
+    <title>LUMI Radio Requests</title>
     <link rel="stylesheet" href="../assets/css/radio.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
@@ -37,39 +37,23 @@
                         <li class="nav-item">
                             <a class="nav-link" href="../radio/index.php">Radio</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="../radio/request.php">Requests</a>
+                        </li>
                     </ul>
                 </div>
             </div>
         </nav>
     </header>
 
-    <section id="radio">
+    <section id="requests">
         <div class="container mt-5">
             <div class="section-title text-center">
-                <h6>Welcome to</h6>
-                <h4>LUMI Radio<span class="main">.</span></h4>
+                <h6>Request Your Favorite Songs</h6>
+                <h4>LUMI Radio Requests<span class="main">.</span></h4>
             </div>
             <div class="text-center dark-background">
-                <img src="../selfuploads/lumiradiologo.jpg" alt="LUMI Radio Logo" class="logo-small mb-4">
-                <iframe src="https://radio.lumihost.net/public/lumi_radio/embed?theme=dark" frameborder="0" allowtransparency="true" style="width: 100%; min-height: 150px; border: 0;"></iframe>
-                <div class="links mt-4">
-                    <button class="btn btn-primary" onclick="window.open('https://radio.lumihost.net/public/lumi_radio/playlist.pls', '_blank')">
-                        Click to listen with media player
-                    </button>
-                    <button class="btn btn-secondary mt-2" onclick="window.location.href='request.php'">
-                        Click here to request a song!
-                    </button>
-                    <button class="btn btn-secondary mt-2" onclick="window.location.href='podcasts.php'">
-                        Click here for podcasts!
-                    </button>
-                    <button class="btn btn-secondary mt-2" onclick="window.location.href='schedule.php'">
-                        Click here for scheduling!
-                    </button>
-                </div>
-                <div class="previous-songs mt-5">
-                    <h2>Previous Songs</h2>
-                    <iframe src="https://radio.lumihost.net/public/lumi_radio/history?theme=dark" frameborder="0" allowtransparency="true" style="width: 100%; min-height: 300px; border: 0;"></iframe>
-                </div>
+                <iframe src="https://radio.lumihost.net/public/lumi_radio/embed-requests?theme=dark" frameborder="0" allowtransparency="true" style="width: 100%; min-height: 850px; border: 0;"></iframe>
             </div>
         </div>
     </section>
