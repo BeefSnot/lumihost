@@ -67,7 +67,7 @@
                     <p id="nameserver2-status">Loading...</p>
                 </div>
                 <div class="status-item">
-                    <h5><a href="details.php?service=database" class="status-link">Customer Database</a></h5>
+                    <h5><a href="details.php?service=database" class="status-link">Database</a></h5>
                     <p id="database-status">Loading...</p>
                 </div>
                 <div class="status-item">
