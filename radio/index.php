@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LUMI Radio</title>
-    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/radio.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
@@ -49,7 +49,7 @@
                 <h6>Welcome to</h6>
                 <h4>LUMI Radio<span class="main">.</span></h4>
             </div>
-            <div class="text-center">
+            <div class="text-center dark-background">
                 <img src="../selfuploads/logo.jpeg" alt="LUMI Radio Logo" class="logo mb-4">
                 <iframe src="https://radio.lumihost.net/public/lumi_radio/embed?theme=dark" frameborder="0" allowtransparency="true" style="width: 100%; min-height: 150px; border: 0;"></iframe>
                 <div class="links mt-4">
