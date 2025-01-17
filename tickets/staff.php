@@ -22,7 +22,7 @@ $userRole = $_SESSION['role'];
 $staffResult = $conn->query("SELECT id, username FROM users WHERE role IN ('staff', 'admin')");
 
 // Fetch tickets assigned to the current user
-$ticketsQuery = "SELECT tickets.id, tickets.subject, tickets.message, tickets.status, tickets.severity, tickets.created_at, users.username 
+$ticketsQuery = "SELECT tickets.id, tickets.subject, tickets.message, tickets.status, tickets.severity, tickets.created_at, users.username, tickets.assigned_to 
                  FROM tickets 
                  JOIN users ON tickets.user_id = users.id 
                  WHERE tickets.assigned_to = $userId OR '$userRole' IN ('admin', 'management', 'owner')";
@@ -113,7 +113,7 @@ $ticketsResult = $conn->query($ticketsQuery);
                                     <label for="assigned_to">Assign to</label>
                                     <select class="form-control" id="assigned_to" name="assigned_to">
                                         <?php while ($staff = $staffResult->fetch_assoc()): ?>
-                                            <option value="<?php echo $staff['id']; ?>" <?php if ($row['assigned_to'] == $staff['id']) echo 'selected'; ?>><?php echo $staff['username']; ?></option>
+                                            <option value="<?php echo $staff['id']; ?>" <?php if (isset($row['assigned_to']) && $row['assigned_to'] == $staff['id']) echo 'selected'; ?>><?php echo $staff['username']; ?></option>
                                         <?php endwhile; ?>
                                     </select>
                                 </div>
