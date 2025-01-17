@@ -60,7 +60,7 @@
     <section id="status">
         <div class="container mt-5">
             <div class="text-center">
-                <div class="status-title-box">
+                <div class="section-title">
                     <h6>Service Status</h6>
                 </div>
             </div>
