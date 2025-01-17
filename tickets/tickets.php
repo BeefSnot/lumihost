@@ -62,6 +62,14 @@
                     <label for="message">Message</label>
                     <textarea class="form-control" id="message" name="message" rows="5" required></textarea>
                 </div>
+                <div class="form-group">
+                    <label for="severity">Severity</label>
+                    <select class="form-control" id="severity" name="severity" required>
+                        <option value="low">Low</option>
+                        <option value="medium">Medium</option>
+                        <option value="high">High</option>
+                    </select>
+                </div>
                 <button type="submit" class="btn btn-primary">Submit Ticket</button>
             </form>
         </div>
