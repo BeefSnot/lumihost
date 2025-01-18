@@ -32,7 +32,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     echo "Executed statement and fetched results.<br>";
 
     if ($stmt->num_rows > 0) {
+        echo "User found.<br>";
         if (password_verify($password, $hashed_password)) {
+            echo "Password verified.<br>";
             $_SESSION['user_id'] = $id;
             $_SESSION['username'] = $username;
             $_SESSION['role'] = $role;
@@ -40,9 +42,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             header('Location: admin.php');
             exit;
         } else {
+            echo "Password verification failed.<br>";
             $error = "Invalid username or password.";
         }
     } else {
+        echo "User not found.<br>";
         $error = "Invalid username or password.";
     }
 
