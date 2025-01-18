@@ -60,7 +60,7 @@
     <section id="status">
         <div class="container mt-5">
             <div class="text-center">
-                <div class="section-title">
+                <div class="status-title-box">
                     <h6>Service Status</h6>
                 </div>
             </div>
@@ -154,18 +154,19 @@
         // JavaScript to fetch and display status data
         document.addEventListener("DOMContentLoaded", function() {
             fetchStatus();
+            setInterval(fetchStatus, 30000); // Update every 30 seconds
         });
 
         function fetchStatus() {
             fetch('status.php')
                 .then(response => response.json())
                 .then(data => {
-                    document.getElementById('website-status').innerText = data.status.website ? 'Operational' : 'Down';
-                    document.getElementById('nameserver1-status').innerText = data.status.nameserver1 ? 'Operational' : 'Down';
-                    document.getElementById('nameserver2-status').innerText = data.status.nameserver2 ? 'Operational' : 'Down';
-                    document.getElementById('customer_database-status').innerText = data.status.customer_database ? 'Operational' : 'Down';
-                    document.getElementById('usa_node1-status').innerText = data.status.usa_node1 ? 'Operational' : 'Down';
-                    document.getElementById('lumi_radio-status').innerText = data.status.lumi_radio ? 'Operational' : 'Down';
+                    document.getElementById('website-status').innerText = data.status.website.status ? 'Operational' : 'Down';
+                    document.getElementById('nameserver1-status').innerText = data.status.nameserver1.status ? 'Operational' : 'Down';
+                    document.getElementById('nameserver2-status').innerText = data.status.nameserver2.status ? 'Operational' : 'Down';
+                    document.getElementById('customer_database-status').innerText = data.status.customer_database.status ? 'Operational' : 'Down';
+                    document.getElementById('usa_node1-status').innerText = data.status.usa_node1.status ? 'Operational' : 'Down';
+                    document.getElementById('lumi_radio-status').innerText = data.status.lumi_radio.status ? 'Operational' : 'Down';
                     document.getElementById('average-uptime').innerText = '7 Day Average Uptime: ' + data.averageUptime + '%';
                 })
                 .catch(error => {

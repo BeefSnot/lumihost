@@ -5,32 +5,16 @@ function ping($host, $port, $timeout) {
     $starttime = microtime(true);
     $fsock = @fsockopen($host, $port, $errno, $errstr, $timeout);
     $stoptime = microtime(true);
-    $status = 0;
+    $status = false;
+    $responseTime = -1;
 
-    if (!$fsock) {
-        $status = -1;  // Site is down
-    } else {
+    if ($fsock) {
         fclose($fsock);
-        $status = ($stoptime - $starttime) * 1000;
-        $status = floor($status);
+        $status = true;
+        $responseTime = ($stoptime - $starttime) * 1000; // Convert to milliseconds
     }
 
-    return $status;
-}
-
-function average_ping($host, $port, $timeout, $attempts = 5) {
-    $totalPing = 0;
-    $successfulPings = 0;
-
-    for ($i = 0; $i < $attempts; $i++) {
-        $ping = ping($host, $port, $timeout);
-        if ($ping >= 0) {
-            $totalPing += $ping;
-            $successfulPings++;
-        }
-    }
-
-    return $successfulPings > 0 ? floor($totalPing / $successfulPings) : -1;
+    return ['status' => $status, 'responseTime' => $responseTime];
 }
 
 $services = [
@@ -56,7 +40,7 @@ if (file_exists($cacheFile)) {
 }
 
 if ($ping == -1 && array_key_exists($service, $services)) {
-    $ping = average_ping($services[$service]['host'], $services[$service]['port'], 10);
+    $ping = ping($services[$service]['host'], $services[$service]['port'], 10)['responseTime'];
 
     // Load uptime data from a file (or database)
     $uptimeDataFile = 'uptime_data.json';
