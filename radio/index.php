@@ -8,6 +8,23 @@
     <link rel="stylesheet" href="../assets/css/radio.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        .btn-floating {
+            animation: float 2s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+            100% {
+                transform: translateY(0);
+            }
+        }
+    </style>
 </head>
 
 <body class="dark-theme">
@@ -37,6 +54,9 @@
                         <li class="nav-item">
                             <a class="nav-link" href="../radio/index.php">Radio</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link btn btn-primary btn-floating" href="https://radio.lumihost.net/public/lumi_radio/dj">WebDJ Login</a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -52,19 +72,19 @@
             <div class="text-center dark-background">
                 <iframe src="https://radio.lumihost.net/public/lumi_radio/embed?theme=dark" frameborder="0" allowtransparency="true" style="width: 100%; min-height: 150px; border: 0;"></iframe>
                 <div class="links mt-4">
-                    <button class="btn btn-primary" onclick="window.open('https://radio.lumihost.net/public/lumi_radio/playlist.pls', '_blank')">
+                    <button class="btn btn-primary btn-floating" onclick="window.open('https://radio.lumihost.net/public/lumi_radio/playlist.pls', '_blank')">
                         Click to listen with media player
                     </button>
-                    <button class="btn btn-secondary mt-2" onclick="window.location.href='request.php'">
+                    <button class="btn btn-primary btn-floating mt-2" onclick="window.location.href='request.php'">
                         Click here to request a song!
                     </button>
-                    <button class="btn btn-secondary mt-2" onclick="window.location.href='podcasts.php'">
+                    <button class="btn btn-primary btn-floating mt-2" onclick="window.location.href='podcasts.php'">
                         Click here for podcasts!
                     </button>
-                    <button class="btn btn-secondary mt-2" onclick="window.location.href='schedule.php'">
+                    <button class="btn btn-primary btn-floating mt-2" onclick="window.location.href='schedule.php'">
                         Click here for scheduling!
                     </button>
-                    <button class="btn btn-primary mt-2" onclick="window.location.href='https://radio.lumihost.net/public/lumi_radio/dj'">
+                    <button class="btn btn-primary btn-floating mt-2" onclick="window.location.href='https://radio.lumihost.net/public/lumi_radio/dj'">
                         WebDJ Login
                     </button>
                 </div>
