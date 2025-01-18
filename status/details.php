@@ -106,7 +106,7 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-$issues = $conn->query("SELECT * FROM issues");
+$issues = $conn->query("SELECT * FROM issues WHERE status != 'closed'");
 if ($issues === false) {
     die("Query failed: " . $conn->error);
 }
@@ -125,6 +125,11 @@ $conn->close();
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            color: white;
+        }
+    </style>
 </head>
 
 <body class="dark-theme">
