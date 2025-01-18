@@ -49,7 +49,10 @@
                             <a class="nav-link" href="../radio/index.php">Radio</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="../status/index.php">Status</a>
+                            <a class="nav-link" href="index.php">Status</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link btn btn-primary" href="admin_login.php">Status Login</a>
                         </li>
                     </ul>
                 </div>

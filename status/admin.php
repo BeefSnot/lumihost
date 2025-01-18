@@ -5,27 +5,41 @@ if (!isset($_SESSION['admin_id'])) {
     exit;
 }
 
+$conn = new mysqli('localhost', 'lumihost_status', 'uZKwgga7z6qQZSNMcPdQ', 'lumihost_status');
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $service = $_POST['service'];
-    $issue = $_POST['issue'];
+    if (isset($_POST['report_issue'])) {
+        $service = $_POST['service'];
+        $issue = $_POST['issue'];
 
-    $conn = new mysqli('localhost', 'lumihost_status', 'uZKwgga7z6qQZSNMcPdQ', 'lumihost_status');
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
+        $stmt = $conn->prepare("INSERT INTO issues (service, issue, status) VALUES (?, ?, 'open')");
+        if ($stmt === false) {
+            die("Prepare failed: " . $conn->error);
+        }
+        $stmt->bind_param("ss", $service, $issue);
+        if ($stmt->execute() === false) {
+            die("Execute failed: " . $stmt->error);
+        }
+        $stmt->close();
+        $success = "Issue reported successfully.";
+    } elseif (isset($_POST['update_issue'])) {
+        $issue_id = $_POST['issue_id'];
+        $status = $_POST['status'];
 
-    $stmt = $conn->prepare("INSERT INTO issues (service, issue) VALUES (?, ?)");
-    if ($stmt === false) {
-        die("Prepare failed: " . $conn->error);
+        $stmt = $conn->prepare("UPDATE issues SET status = ? WHERE id = ?");
+        if ($stmt === false) {
+            die("Prepare failed: " . $conn->error);
+        }
+        $stmt->bind_param("si", $status, $issue_id);
+        if ($stmt->execute() === false) {
+            die("Execute failed: " . $stmt->error);
+        }
+        $stmt->close();
+        $success = "Issue updated successfully.";
     }
-    $stmt->bind_param("ss", $service, $issue);
-    if ($stmt->execute() === false) {
-        die("Execute failed: " . $stmt->error);
-    }
-    $stmt->close();
-    $conn->close();
-
-    $success = "Issue reported successfully.";
 }
 
 $services = [
@@ -37,6 +51,9 @@ $services = [
     'lumi_radio' => 'Lumi Radio',
     // Add more services as needed
 ];
+
+$issues = $conn->query("SELECT * FROM issues")->fetch_all(MYSQLI_ASSOC);
+$conn->close();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -67,8 +84,45 @@ $services = [
                         <label for="issue">Issue</label>
                         <textarea class="form-control" id="issue" name="issue" rows="3" required></textarea>
                     </div>
-                    <button type="submit" class="btn btn-primary">Report Issue</button>
+                    <button type="submit" class="btn btn-primary" name="report_issue">Report Issue</button>
                 </form>
+            </div>
+        </div>
+        <div class="row justify-content-center mt-5">
+            <div class="col-md-8">
+                <h2>Manage Issues</h2>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Service</th>
+                            <th>Issue</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($issues as $issue): ?>
+                        <tr>
+                            <td><?php echo $issue['id']; ?></td>
+                            <td><?php echo $issue['service']; ?></td>
+                            <td><?php echo $issue['issue']; ?></td>
+                            <td><?php echo $issue['status']; ?></td>
+                            <td>
+                                <form action="admin.php" method="POST" class="d-inline">
+                                    <input type="hidden" name="issue_id" value="<?php echo $issue['id']; ?>">
+                                    <select name="status" class="form-control d-inline w-auto">
+                                        <option value="open" <?php if ($issue['status'] == 'open') echo 'selected'; ?>>Open</option>
+                                        <option value="in_progress" <?php if ($issue['status'] == 'in_progress') echo 'selected'; ?>>In Progress</option>
+                                        <option value="closed" <?php if ($issue['status'] == 'closed') echo 'selected'; ?>>Closed</option>
+                                    </select>
+                                    <button type="submit" class="btn btn-primary" name="update_issue">Update</button>
+                                </form>
+                            </td>
+                        </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
