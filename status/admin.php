@@ -1,7 +1,7 @@
 <?php
 session_start();
-if (!isset($_SESSION['admin']) || $_SESSION['admin'] !== true) {
-    header('Location: login.php');
+if (!isset($_SESSION['admin_id'])) {
+    header('Location: admin_login.php');
     exit;
 }
 
@@ -9,13 +9,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $service = $_POST['service'];
     $issue = $_POST['issue'];
 
-    $issuesFile = 'issues_' . $service . '.json';
-    $issues = [];
-    if (file_exists($issuesFile)) {
-        $issues = json_decode(file_get_contents($issuesFile), true);
+    $conn = new mysqli('localhost', 'lumihost_status', 'uZKwgga7z6qQZSNMcPdQ', 'lumihost_status');
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
     }
-    $issues[] = $issue;
-    file_put_contents($issuesFile, json_encode($issues));
+
+    $stmt = $conn->prepare("INSERT INTO issues (service, issue) VALUES (?, ?)");
+    if ($stmt === false) {
+        die("Prepare failed: " . $conn->error);
+    }
+    $stmt->bind_param("ss", $service, $issue);
+    if ($stmt->execute() === false) {
+        die("Execute failed: " . $stmt->error);
+    }
+    $stmt->close();
+    $conn->close();
 
     $success = "Issue reported successfully.";
 }
