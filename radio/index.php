@@ -55,7 +55,7 @@
                             <a class="nav-link" href="../radio/index.php">Radio</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link btn btn-primary btn-floating" href="https://radio.lumihost.net/public/lumi_radio/dj">WebDJ Login</a>
+                            <a class="nav-link" href="https://radio.lumihost.net/public/lumi_radio/dj">WebDJ Login</a>
                         </li>
                     </ul>
                 </div>
@@ -83,9 +83,6 @@
                     </button>
                     <button class="btn btn-primary btn-floating mt-2" onclick="window.location.href='schedule.php'">
                         Click here for scheduling!
-                    </button>
-                    <button class="btn btn-primary btn-floating mt-2" onclick="window.location.href='https://radio.lumihost.net/public/lumi_radio/dj'">
-                        WebDJ Login
                     </button>
                 </div>
                 <div class="previous-songs mt-5">
