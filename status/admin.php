@@ -18,6 +18,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $service = $_POST['service'];
         $issue = $_POST['issue'];
 
+        echo "Service: $service<br>";
+        echo "Issue: $issue<br>";
+
         $stmt = $conn->prepare("INSERT INTO issues (service, issue, status) VALUES (?, ?, 'open')");
         if ($stmt === false) {
             die("Prepare failed: " . $conn->error);
@@ -31,6 +34,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     } elseif (isset($_POST['update_issue'])) {
         $issue_id = $_POST['issue_id'];
         $status = $_POST['status'];
+
+        echo "Issue ID: $issue_id<br>";
+        echo "Status: $status<br>";
 
         $stmt = $conn->prepare("UPDATE issues SET status = ? WHERE id = ?");
         if ($stmt === false) {
@@ -55,7 +61,11 @@ $services = [
     // Add more services as needed
 ];
 
-$issues = $conn->query("SELECT * FROM issues")->fetch_all(MYSQLI_ASSOC);
+$issues = $conn->query("SELECT * FROM issues");
+if ($issues === false) {
+    die("Query failed: " . $conn->error);
+}
+$issues = $issues->fetch_all(MYSQLI_ASSOC);
 $conn->close();
 ?>
 <!DOCTYPE html>
