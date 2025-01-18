@@ -70,3 +70,12 @@ footer .copyright {
     border-top: 1px solid #333;
     margin-top: 20px;
 }
+
+.issues-list table {
+    color: #ffffff;
+}
+
+.issues-list table th,
+.issues-list table td {
+    color: #ffffff;
+}
