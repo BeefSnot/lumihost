@@ -7,21 +7,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $username = $_POST['username'];
     $password = $_POST['password'];
 
-    echo "Received POST request.<br>";
-
     $conn = new mysqli('localhost', 'lumihost_status', 'uZKwgga7z6qQZSNMcPdQ', 'lumihost_status');
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
     }
 
-    echo "Connected to the database.<br>";
-
     $stmt = $conn->prepare("SELECT id, password, role FROM users WHERE username = ?");
     if ($stmt === false) {
         die("Prepare failed: " . $conn->error);
     }
-
-    echo "Prepared statement.<br>";
 
     $stmt->bind_param("s", $username);
     $stmt->execute();
@@ -29,24 +23,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $stmt->bind_result($id, $hashed_password, $role);
     $stmt->fetch();
 
-    echo "Executed statement and fetched results.<br>";
-
     if ($stmt->num_rows > 0) {
-        echo "User found.<br>";
         if (password_verify($password, $hashed_password)) {
-            echo "Password verified.<br>";
             $_SESSION['user_id'] = $id;
             $_SESSION['username'] = $username;
             $_SESSION['role'] = $role;
-            echo "Login successful. Redirecting to admin.php...";
             header('Location: admin.php');
             exit;
         } else {
-            echo "Password verification failed.<br>";
             $error = "Invalid username or password.";
         }
     } else {
-        echo "User not found.<br>";
         $error = "Invalid username or password.";
     }
 
