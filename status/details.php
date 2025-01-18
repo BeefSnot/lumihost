@@ -97,6 +97,13 @@ array_shift($historicalData); // Remove the oldest entry
 $historicalData[] = $uptime; // Add the latest uptime
 file_put_contents($historicalDataFile, json_encode($historicalData));
 
+// Load issues from a file (or database)
+$issuesFile = 'issues_' . $service . '.json';
+$issues = [];
+if (file_exists($issuesFile)) {
+    $issues = json_decode(file_get_contents($issuesFile), true);
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -163,6 +170,26 @@ file_put_contents($historicalDataFile, json_encode($historicalData));
                     <span class="legend-item" style="color: red;">&#9632; Below 95%</span>
                 </div>
                 <a href="index.php" class="btn btn-primary mt-4">Back to Status Page</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="issues">
+        <div class="container mt-5">
+            <div class="section-title text-center">
+                <h6>Issues</h6>
+                <h4>Reported Issues<span class="main">.</span></h4>
+            </div>
+            <div class="issues-list text-center dark-background">
+                <?php if (empty($issues)): ?>
+                    <p>No issues reported.</p>
+                <?php else: ?>
+                    <ul>
+                        <?php foreach ($issues as $issue): ?>
+                            <li><?php echo htmlspecialchars($issue); ?></li>
+                        <?php endforeach; ?>
+                    </ul>
+                <?php endif; ?>
             </div>
         </div>
     </section>
