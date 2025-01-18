@@ -64,6 +64,9 @@
                     <button class="btn btn-secondary mt-2" onclick="window.location.href='schedule.php'">
                         Click here for scheduling!
                     </button>
+                    <button class="btn btn-primary mt-2" onclick="window.location.href='https://radio.lumihost.net/public/lumi_radio/dj'">
+                        WebDJ Login
+                    </button>
                 </div>
                 <div class="previous-songs mt-5">
                     <h2>Previous Songs</h2>
