@@ -87,3 +87,17 @@ footer .copyright {
 .issues-list table td {
     background-color: #151720;
 }
+
+/* Ensure text color is white for better visibility */
+.issues-list {
+    color: #ffffff;
+}
+
+.issues-list p {
+    color: #ffffff;
+}
+
+.issues-list table th,
+.issues-list table td {
+    color: #ffffff !important;
+}

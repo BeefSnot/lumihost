@@ -129,6 +129,10 @@ $conn->close();
         body {
             color: white;
         }
+        .issues-list table th,
+        .issues-list table td {
+            color: #ffffff !important;
+        }
     </style>
 </head>
 
