@@ -28,6 +28,7 @@ $services = [
 ];
 
 $ping = -1;
+$responseTime = -1;
 $cacheFile = 'cache_' . $service . '.json';
 $cacheDuration = 60; // Cache duration in seconds (1 minute)
 
@@ -35,12 +36,15 @@ if (file_exists($cacheFile)) {
     $cacheData = json_decode(file_get_contents($cacheFile), true);
     if (time() - $cacheData['timestamp'] < $cacheDuration) {
         $ping = $cacheData['ping'];
+        $responseTime = $cacheData['responseTime'];
         $uptime = $cacheData['uptime'];
     }
 }
 
 if ($ping == -1 && array_key_exists($service, $services)) {
-    $ping = ping($services[$service]['host'], $services[$service]['port'], 10)['responseTime'];
+    $pingResult = ping($services[$service]['host'], $services[$service]['port'], 10);
+    $ping = $pingResult['responseTime'];
+    $responseTime = $pingResult['responseTime'];
 
     // Load uptime data from a file (or database)
     $uptimeDataFile = 'uptime_data.json';
@@ -72,6 +76,7 @@ if ($ping == -1 && array_key_exists($service, $services)) {
     $cacheData = [
         'timestamp' => time(),
         'ping' => $ping,
+        'responseTime' => $responseTime,
         'uptime' => $uptime
     ];
     file_put_contents($cacheFile, json_encode($cacheData));
@@ -150,7 +155,7 @@ file_put_contents($historicalDataFile, json_encode($historicalData));
             </div>
             <div class="status-details text-center dark-background">
                 <p>Uptime: <?php echo $uptime; ?>%</p>
-                <p>Ping: <?php echo $ping >= 0 ? $ping . ' ms' : 'Down'; ?></p>
+                <p>Ping: <?php echo $ping >= 0 ? round($ping) . ' ms' : 'Down'; ?> (Response Time: <?php echo round($responseTime); ?> ms)</p>
                 <canvas id="uptimeChart" width="400" height="200"></canvas>
                 <div class="legend mt-4">
                     <span class="legend-item" style="color: green;">&#9632; 99% and above</span>
