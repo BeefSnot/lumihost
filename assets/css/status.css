@@ -79,3 +79,11 @@ footer .copyright {
 .issues-list table td {
     color: #ffffff;
 }
+
+.issues-list table th {
+    background-color: #1a1d29;
+}
+
+.issues-list table td {
+    background-color: #151720;
+}
