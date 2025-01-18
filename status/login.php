@@ -7,20 +7,29 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $username = $_POST['username'];
     $password = $_POST['password'];
 
+    echo "Received POST request.<br>";
+
     $conn = new mysqli('localhost', 'lumihost_status', 'uZKwgga7z6qQZSNMcPdQ', 'lumihost_status');
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
     }
 
+    echo "Connected to the database.<br>";
+
     $stmt = $conn->prepare("SELECT id, password, role FROM users WHERE username = ?");
     if ($stmt === false) {
         die("Prepare failed: " . $conn->error);
     }
+
+    echo "Prepared statement.<br>";
+
     $stmt->bind_param("s", $username);
     $stmt->execute();
     $stmt->store_result();
     $stmt->bind_result($id, $hashed_password, $role);
     $stmt->fetch();
+
+    echo "Executed statement and fetched results.<br>";
 
     if ($stmt->num_rows > 0) {
         if (password_verify($password, $hashed_password)) {
