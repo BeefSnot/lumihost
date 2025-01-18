@@ -141,10 +141,10 @@
                     <div class="footer-col py-4">
                         <h5>Navigation<span class="main">.</span></h5>
                         <ul>
-                            <li><a href="#">Home</a></li>
-                            <li><a href="#">About</a></li>
-                            <li><a href="#">Hosting</a></li>
-                            <li><a href="#">Support</a></li>
+                            <li><a href="/index.php">Home</a></li>
+                            <li><a href="/about.html">About</a></li>
+                            <li><a href="https://billing.lumihost.net">Hosting</a></li>
+                            <li><a href="https://lumihost.net/tickets">Support</a></li>
                         </ul>
                     </div>
                 </div>
