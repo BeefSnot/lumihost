@@ -27,6 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $_SESSION['user_id'] = $id;
             $_SESSION['username'] = $username;
             $_SESSION['role'] = $role;
+            echo "Login successful. Redirecting to admin.php...";
             header('Location: admin.php');
             exit;
         } else {
