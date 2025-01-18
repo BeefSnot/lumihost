@@ -97,12 +97,21 @@ array_shift($historicalData); // Remove the oldest entry
 $historicalData[] = $uptime; // Add the latest uptime
 file_put_contents($historicalDataFile, json_encode($historicalData));
 
-// Load issues from a file (or database)
-$issuesFile = 'issues_' . $service . '.json';
-$issues = [];
-if (file_exists($issuesFile)) {
-    $issues = json_decode(file_get_contents($issuesFile), true);
+// Load issues from a database
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
+$conn = new mysqli('localhost', 'lumihost_status', 'uZKwgga7z6qQZSNMcPdQ', 'lumihost_status');
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
 }
+
+$issues = $conn->query("SELECT * FROM issues");
+if ($issues === false) {
+    die("Query failed: " . $conn->error);
+}
+$issues = $issues->fetch_all(MYSQLI_ASSOC);
+$conn->close();
 
 ?>
 <!DOCTYPE html>
@@ -184,11 +193,28 @@ if (file_exists($issuesFile)) {
                 <?php if (empty($issues)): ?>
                     <p>No issues reported.</p>
                 <?php else: ?>
-                    <ul>
-                        <?php foreach ($issues as $issue): ?>
-                            <li><?php echo htmlspecialchars($issue); ?></li>
-                        <?php endforeach; ?>
-                    </ul>
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Service</th>
+                                <th>Issue</th>
+                                <th>Status</th>
+                                <th>Reported At</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($issues as $issue): ?>
+                            <tr>
+                                <td><?php echo $issue['id']; ?></td>
+                                <td><?php echo $issue['service']; ?></td>
+                                <td><?php echo $issue['issue']; ?></td>
+                                <td><?php echo $issue['status']; ?></td>
+                                <td><?php echo $issue['reported_at']; ?></td>
+                            </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
                 <?php endif; ?>
             </div>
         </div>
