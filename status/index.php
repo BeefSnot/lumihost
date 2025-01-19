@@ -93,6 +93,10 @@
                     <p id="usa_node1-status">Loading...</p>
                 </div>
                 <div class="status-item">
+                    <h5><a href="details.php?service=usa_node2" class="status-link">USA Node 2 (Pheonix AZ)</a></h5>
+                    <p id="usa_node2-status">Loading...</p>
+                </div>
+                <div class="status-item">
                     <h5><a href="details.php?service=lumi_radio" class="status-link">Lumi Radio</a></h5>
                     <p id="lumi_radio-status">Loading...</p>
                 </div>
