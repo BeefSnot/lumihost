@@ -94,7 +94,7 @@ if (!isset($_SESSION['verified']) || $_SESSION['verified'] !== true) {
                             <a class="nav-link" href="https://lumihost.net/tickets/tickets.php">Support (coming soon)</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="https://lumihost.net/status">Status</a>
+                            <a class="nav-link" href="/status/index.php">Status</a>
                         </li>
                         <li class="nav-item">
                             <a href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link nav-btn dropdown-toggle">
