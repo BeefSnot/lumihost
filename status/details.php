@@ -24,6 +24,7 @@ $services = [
     'customer_database' => ['host' => 'webpanel.lumihost.net', 'port' => 3306],
     'usa_node1' => ['host' => 'radio.lumihost.net', 'port' => 80],
     'lumi_radio' => ['host' => '99.148.48.237', 'port' => 80],
+    'usa_node2' => ['host' => '23.150.24.77', 'port' => 80],
     // Add more services as needed
 ];
 

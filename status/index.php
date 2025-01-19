@@ -170,6 +170,8 @@
                     document.getElementById('customer_database-status').innerText = data.status.customer_database.status ? 'Operational' : 'Down';
                     document.getElementById('usa_node1-status').innerText = data.status.usa_node1.status ? 'Operational' : 'Down';
                     document.getElementById('lumi_radio-status').innerText = data.status.lumi_radio.status ? 'Operational' : 'Down';
+                    document.getElementById('usa_node2-status').innerText = data.status.usa_node2.status ? 'Operational' : 'Down';
+
                     document.getElementById('average-uptime').innerText = '7 Day Average Uptime: ' + data.averageUptime + '%';
                 })
                 .catch(error => {
