@@ -32,31 +32,41 @@ $totalUptime = 0;
 $totalServices = count($services);
 
 foreach ($services as $service => $details) {
-    $pingResult = ping($details['host'], $details['port'], 10);
-    $status[$service] = $pingResult;
+    try {
+        $pingResult = ping($details['host'], $details['port'], 10);
+        $status[$service] = $pingResult;
 
-    $uptimeDataFile = 'historical_uptime_' . $service . '.json';
-    $historicalData = [];
-    if (file_exists($uptimeDataFile)) {
-        $historicalData = json_decode(file_get_contents($uptimeDataFile), true);
-    } else {
-        $historicalData = array_fill(0, 24, 100); // Initialize with 24 hours of 100% uptime
+        $uptimeDataFile = 'historical_uptime_' . $service . '.json';
+        $historicalData = [];
+        if (file_exists($uptimeDataFile)) {
+            $historicalData = json_decode(file_get_contents($uptimeDataFile), true);
+        } else {
+            $historicalData = array_fill(0, 24, 100); // Initialize with 24 hours of 100% uptime
+        }
+
+        // Update historical data
+        array_shift($historicalData); // Remove the oldest entry
+        $historicalData[] = $pingResult['status'] ? 100 : 0; // Add the latest uptime
+
+        // Calculate uptime percentage
+        $uptimePercentage = array_sum($historicalData) / count($historicalData);
+
+        // Save updated historical data
+        file_put_contents($uptimeDataFile, json_encode($historicalData));
+
+        $status[$service]['uptime'] = round($uptimePercentage, 2);
+        $status[$service]['lastChecked'] = date('Y-m-d H:i:s');
+
+        $totalUptime += $uptimePercentage;
+    } catch (Exception $e) {
+        $status[$service] = [
+            'status' => false,
+            'responseTime' => -1,
+            'uptime' => 0,
+            'lastChecked' => date('Y-m-d H:i:s'),
+            'error' => $e->getMessage()
+        ];
     }
-
-    // Update historical data
-    array_shift($historicalData); // Remove the oldest entry
-    $historicalData[] = $pingResult['status'] ? 100 : 0; // Add the latest uptime
-
-    // Calculate uptime percentage
-    $uptimePercentage = array_sum($historicalData) / count($historicalData);
-
-    // Save updated historical data
-    file_put_contents($uptimeDataFile, json_encode($historicalData));
-
-    $status[$service]['uptime'] = round($uptimePercentage, 2);
-    $status[$service]['lastChecked'] = date('Y-m-d H:i:s');
-
-    $totalUptime += $uptimePercentage;
 }
 
 $averageUptime = $totalUptime / $totalServices;
