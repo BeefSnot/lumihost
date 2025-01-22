@@ -93,6 +93,10 @@
                     <p id="usa_node1-status">Loading...</p>
                 </div>
                 <div class="status-item">
+                    <h5><a href="details.php?service=usa_node2" class="status-link">USA Node 2 (Pheonix AZ)</a></h5>
+                    <p id="usa_node2-status">Loading...</p>
+                </div>
+                <div class="status-item">
                     <h5><a href="details.php?service=lumi_radio" class="status-link">Lumi Radio</a></h5>
                     <p id="lumi_radio-status">Loading...</p>
                 </div>
@@ -119,7 +123,7 @@
                     <div class="footer-col py-4">
                         <h5>Login<span class="main">.</span></h5>
                         <ul>
-                            <li><a href="https://lumihost.net">Game Panel (coming soon)</a></li>
+                            <li><a href="https://gamepanel.lumihost.net">Game Panel</a></li>
                             <li><a href="https://webpanel.lumihost.net:2222">Web Panel</a></li>
                             <li><a href="https://billing.lumihost.net">Billing Panel</a></li>
                         </ul>
@@ -170,6 +174,8 @@
                     document.getElementById('customer_database-status').innerText = data.status.customer_database.status ? 'Operational' : 'Down';
                     document.getElementById('usa_node1-status').innerText = data.status.usa_node1.status ? 'Operational' : 'Down';
                     document.getElementById('lumi_radio-status').innerText = data.status.lumi_radio.status ? 'Operational' : 'Down';
+                    document.getElementById('usa_node2-status').innerText = data.status.usa_node2.status ? 'Operational' : 'Down';
+
                     document.getElementById('average-uptime').innerText = '7 Day Average Uptime: ' + data.averageUptime + '%';
                 })
                 .catch(error => {

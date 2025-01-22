@@ -83,25 +83,25 @@ if (!isset($_SESSION['verified']) || $_SESSION['verified'] !== true) {
                                 Hosting
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="https://lumihost.net">Minecraft Hosting (coming soon)</a>
+                                <a class="dropdown-item" href="https://billing.lumihost.net/">Minecraft Hosting</a>
                                 <a class="dropdown-item" href="https://lumihost.net/">Rust Hosting (coming soon)</a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="https://billing.lumihost.net/web-hosting">Website Hosting (Available Now)</a>
-                                <a class="dropdown-item" href="https://billing.lumihost.net/">Dedicated Hosting Hosting (coming soon)</a>
+                                <a class="dropdown-item" href="https://billing.lumihost.net/web-hosting">Website Hosting</a>
+                                <a class="dropdown-item" href="https://lumihost.net/">Dedicated Server Hosting (coming soon)</a>
                             </div>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="https://lumihost.net/tickets/tickets.php">Support (coming soon)</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="https://lumihost.net/status">Status</a>
+                            <a class="nav-link" href="/status/index.php">Status</a>
                         </li>
                         <li class="nav-item">
                             <a href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link nav-btn dropdown-toggle">
                                 login
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="https://lumihost.net">Game Panel (Coming Soon)</a>
+                                <a class="dropdown-item" href="https://gamepanel.lumihost.net">Game Panel</a>
                                 <a class="dropdown-item" href="https://webpanel.lumihost.net:2222">Web Panel</a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="https://billing.lumihost.net">Billing Panel</a>
@@ -262,7 +262,7 @@ if (!isset($_SESSION['verified']) || $_SESSION['verified'] !== true) {
                         <p><span class="main"><i class="fas fa-check"></i></span> Pterodactyl Control Panel</p>
                         <p><span class="main"><i class="fas fa-check"></i></span> DDoS Protected</p>
                         <p><span class="main"><i class="fas fa-check"></i></span> Dedicated Support</p>
-                        <a href="https://lumihost.net" class="btn btn-primary w-100">ORDER NOW (coming soon)</a>
+                        <a href="https://billing.lumihost.net" class="btn btn-primary w-100">ORDER NOW</a>
                     </div>
                 </div>
 
@@ -322,7 +322,7 @@ if (!isset($_SESSION['verified']) || $_SESSION['verified'] !== true) {
                     <div class="footer-col py-4">
                         <h5>Login<span class="main">.</span></h5>
                         <ul>
-                            <li><a href="https://lumihost.net">Game Panel (coming soon)</a></li>
+                            <li><a href="https://gamepanel.lumihost.net">Game Panel</a></li>
                             <li><a href="https://webpanel.lumihost.net:2222">Web Panel</a></li>
                             <li><a href="https://billing.lumihost.net">Billing Panel</a></li>
                             <li><a href="/staff.php">Staff Center</a></li>

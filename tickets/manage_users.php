@@ -148,7 +148,7 @@ $result = $conn->query("SELECT id, username, email, role FROM users");
                     <div class="footer-col py-4">
                         <h5>Login<span class="main">.</span></h5>
                         <ul>
-                            <li><a href="https://lumihost.net">Game Panel (coming soon)</a></li>
+                            <li><a href="https://gamepanel.lumihost.net">Game Panel</a></li>
                             <li><a href="https://webpanel.lumihost.net:2222">Web Panel</a></li>
                             <li><a href="https://billing.lumihost.net">Billing Panel</a></li>
                         </ul>
