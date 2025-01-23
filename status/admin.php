@@ -18,9 +18,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $service = $_POST['service'];
         $issue = $_POST['issue'];
 
-        echo "Service: $service<br>";
-        echo "Issue: $issue<br>";
-
         $stmt = $conn->prepare("INSERT INTO issues (service, issue, status) VALUES (?, ?, 'open')");
         if ($stmt === false) {
             die("Prepare failed: " . $conn->error);
@@ -35,9 +32,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $issue_id = $_POST['issue_id'];
         $status = $_POST['status'];
 
-        echo "Issue ID: $issue_id<br>";
-        echo "Status: $status<br>";
-
         $stmt = $conn->prepare("UPDATE issues SET status = ? WHERE id = ?");
         if ($stmt === false) {
             die("Prepare failed: " . $conn->error);
@@ -51,16 +45,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 }
 
-$services = [
-    'website' => 'Website',
-    'nameserver1' => 'Nameserver 1',
-    'nameserver2' => 'Nameserver 2',
-    'customer_database' => 'Customer Database',
-    'usa_node1' => 'USA Node 1',
-    'lumi_radio' => 'Lumi Radio',
-    // Add more services as needed
-];
+// Fetch services from the database
+$services_result = $conn->query("SELECT service_name FROM services");
+if ($services_result === false) {
+    die("Query failed: " . $conn->error);
+}
+$services = [];
+while ($row = $services_result->fetch_assoc()) {
+    $services[$row['service_name']] = $row['service_name'];
+}
 
+// Fetch issues from the database
 $issues = $conn->query("SELECT * FROM issues");
 if ($issues === false) {
     die("Query failed: " . $conn->error);
