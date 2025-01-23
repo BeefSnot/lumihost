@@ -14,6 +14,11 @@ body {
   overscroll-behavior: contain;
 }
 
+body.light-theme {
+    background-color: #ffffff;
+    color: #000000;
+}
+
 *,
 *:after,
 *:before {
@@ -188,12 +193,24 @@ span.main {
   background-color: #1487d3;
 }
 
+.navbar-light .navbar-nav .nav-link {
+    color: rgba(0, 0, 0, 0.75);
+}
+
+.navbar-light .navbar-nav .nav-link:hover {
+    color: rgba(0, 0, 0, 1);
+}
+
 .hero .text-group {
   padding: 175px 0;
 }
 
 .hero.page .text-group {
   padding: 50px 0;
+}
+
+.hero.page.light-theme {
+    background: #f8f9fa;
 }
 
 .hero .text-group h1 {
@@ -232,6 +249,11 @@ span.main {
   font-size: 32px;
   font-weight: 800;
   letter-spacing: 0.5px;
+}
+
+.section-title.light-theme h6,
+.section-title.light-theme h4 {
+    color: #000000;
 }
 
 /**********************************************************
@@ -387,6 +409,15 @@ footer .footer-col {
   letter-spacing: 0.5px;
 }
 
+.footer-col.light-theme h5,
+.footer-col.light-theme ul li a {
+    color: rgba(0, 0, 0, 0.75);
+}
+
+.footer-col.light-theme ul li a:hover {
+    color: rgba(0, 0, 0, 1);
+}
+
 footer ul {
   list-style-type: none;
   padding: 0;
@@ -439,4 +470,9 @@ footer .copyright {
 
 #back-to-top:hover {
     background-color: #0056b3; /* Darker blue on hover */
+}
+
+.dark-background.light-theme {
+    background-color: #f8f9fa;
+    color: #000000;
 }

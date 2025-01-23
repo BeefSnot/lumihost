@@ -108,6 +108,9 @@ if (!isset($_SESSION['verified']) || $_SESSION['verified'] !== true) {
                                 <a class="dropdown-item" href="/staff.php">Staff Center </a>
                           </div>
                       </li>
+                      <li class="nav-item">
+                          <button id="theme-toggle" class="btn btn-secondary">Light Theme</button>
+                      </li>
                     </ul>
                 </div>
             </div>
@@ -399,6 +402,21 @@ if (!isset($_SESSION['verified']) || $_SESSION['verified'] !== true) {
         if (!getCookie("acceptCookies")) {
             document.querySelector('.cookie-alert').classList.add('show');
         }
+
+        document.getElementById('theme-toggle').addEventListener('click', function() {
+            const body = document.body;
+            const themeToggle = document.getElementById('theme-toggle');
+            
+            if (body.classList.contains('dark-theme')) {
+                body.classList.remove('dark-theme');
+                body.classList.add('light-theme');
+                themeToggle.textContent = 'Dark Theme';
+            } else {
+                body.classList.remove('light-theme');
+                body.classList.add('dark-theme');
+                themeToggle.textContent = 'Light Theme';
+            }
+        });
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>
