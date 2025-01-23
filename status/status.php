@@ -17,57 +17,42 @@ function ping($host, $port, $timeout) {
     return ['status' => $status, 'responseTime' => $responseTime];
 }
 
-$services = [
-    'website' => ['host' => 'lumihost.net', 'port' => 80],
-    'nameserver1' => ['host' => 'ns1.lumihost.net', 'port' => 53],
-    'nameserver2' => ['host' => 'ns2.lumihost.net', 'port' => 53],
-    'customer_database' => ['host' => 'webpanel.lumihost.net', 'port' => 3306],
-    'usa_node1' => ['host' => 'radio.lumihost.net', 'port' => 80],
-    'lumi_radio' => ['host' => '99.148.48.236', 'port' => 80],
-    'usa_node2' => ['host' => 'phoenix.lumihost.net', 'port' => 80], // Ensure this entry is correct
-    // Add more services as needed
-];
+$conn = new mysqli('localhost', 'lumihost_status', 'uZKwgga7z6qQZSNMcPdQ', 'lumihost_status');
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
 
+$services = $conn->query("SELECT * FROM services");
 $status = [];
 $totalUptime = 0;
-$totalServices = count($services);
+$totalServices = $services->num_rows;
 
-foreach ($services as $service => $details) {
-    try {
-        $pingResult = ping($details['host'], $details['port'], 10);
-        $status[$service] = $pingResult;
+while ($service = $services->fetch_assoc()) {
+    $pingResult = ping($service['host'], $service['port'], 10);
+    $status[$service['service_name']] = $pingResult;
 
-        $uptimeDataFile = 'historical_uptime_' . $service . '.json';
-        $historicalData = [];
-        if (file_exists($uptimeDataFile)) {
-            $historicalData = json_decode(file_get_contents($uptimeDataFile), true);
-        } else {
-            $historicalData = array_fill(0, 24, 100); // Initialize with 24 hours of 100% uptime
-        }
-
-        // Update historical data
-        array_shift($historicalData); // Remove the oldest entry
-        $historicalData[] = $pingResult['status'] ? 100 : 0; // Add the latest uptime
-
-        // Calculate uptime percentage
-        $uptimePercentage = array_sum($historicalData) / count($historicalData);
-
-        // Save updated historical data
-        file_put_contents($uptimeDataFile, json_encode($historicalData));
-
-        $status[$service]['uptime'] = round($uptimePercentage, 2);
-        $status[$service]['lastChecked'] = date('Y-m-d H:i:s');
-
-        $totalUptime += $uptimePercentage;
-    } catch (Exception $e) {
-        $status[$service] = [
-            'status' => false,
-            'responseTime' => -1,
-            'uptime' => 0,
-            'lastChecked' => date('Y-m-d H:i:s'),
-            'error' => $e->getMessage()
-        ];
+    $uptimeDataFile = 'historical_uptime_' . $service['service_name'] . '.json';
+    $historicalData = [];
+    if (file_exists($uptimeDataFile)) {
+        $historicalData = json_decode(file_get_contents($uptimeDataFile), true);
+    } else {
+        $historicalData = array_fill(0, 24, 100); // Initialize with 24 hours of 100% uptime
     }
+
+    // Update historical data
+    array_shift($historicalData); // Remove the oldest entry
+    $historicalData[] = $pingResult['status'] ? 100 : 0; // Add the latest uptime
+
+    // Calculate uptime percentage
+    $uptimePercentage = array_sum($historicalData) / count($historicalData);
+
+    // Save updated historical data
+    file_put_contents($uptimeDataFile, json_encode($historicalData));
+
+    $status[$service['service_name']]['uptime'] = round($uptimePercentage, 2);
+    $status[$service['service_name']]['lastChecked'] = date('Y-m-d H:i:s');
+
+    $totalUptime += $uptimePercentage;
 }
 
 $averageUptime = $totalUptime / $totalServices;
@@ -78,4 +63,5 @@ $response = [
 ];
 
 echo json_encode($response);
+$conn->close();
 ?>

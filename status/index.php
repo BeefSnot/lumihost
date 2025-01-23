@@ -71,35 +71,8 @@
                 <h4>LUMI Host Status<span class="main">.</span></h4>
                 <h5 id="average-uptime">7 Day Average Uptime: Loading...</h5>
             </div>
-            <div class="status-list text-center dark-background">
-                <div class="status-item">
-                    <h5><a href="details.php?service=website" class="status-link">Website</a></h5>
-                    <p id="website-status">Loading...</p>
-                </div>
-                <div class="status-item">
-                    <h5><a href="details.php?service=nameserver1" class="status-link">Nameserver 1</a></h5>
-                    <p id="nameserver1-status">Loading...</p>
-                </div>
-                <div class="status-item">
-                    <h5><a href="details.php?service=nameserver2" class="status-link">Nameserver 2</a></h5>
-                    <p id="nameserver2-status">Loading...</p>
-                </div>
-                <div class="status-item">
-                    <h5><a href="details.php?service=customer_database" class="status-link">Customer Database</a></h5>
-                    <p id="customer_database-status">Loading...</p>
-                </div>
-                <div class="status-item">
-                    <h5><a href="details.php?service=usa_node1" class="status-link">USA Node 1 (Tulsa OK)</a></h5>
-                    <p id="usa_node1-status">Loading...</p>
-                </div>
-                <div class="status-item">
-                    <h5><a href="details.php?service=usa_node2" class="status-link">USA Node 2 (Phoenix AZ)</a></h5>
-                    <p id="usa_node2-status">Loading...</p>
-                </div>
-                <div class="status-item">
-                    <h5><a href="details.php?service=lumi_radio" class="status-link">Lumi Radio</a></h5>
-                    <p id="lumi_radio-status">Loading...</p>
-                </div>
+            <div class="status-list text-center dark-background" id="status-list">
+                <!-- Status items will be dynamically inserted here -->
             </div>
         </div>
     </section>
@@ -167,13 +140,18 @@
             fetch('status.php')
                 .then(response => response.json())
                 .then(data => {
-                    document.getElementById('website-status').innerText = data.status.website.status ? 'Operational' : 'Down';
-                    document.getElementById('nameserver1-status').innerText = data.status.nameserver1.status ? 'Operational' : 'Down';
-                    document.getElementById('nameserver2-status').innerText = data.status.nameserver2.status ? 'Operational' : 'Down';
-                    document.getElementById('customer_database-status').innerText = data.status.customer_database.status ? 'Operational' : 'Down';
-                    document.getElementById('usa_node1-status').innerText = data.status.usa_node1.status ? 'Operational' : 'Down';
-                    document.getElementById('lumi_radio-status').innerText = data.status.lumi_radio.status ? 'Operational' : 'Down';
-                    document.getElementById('usa_node2-status').innerText = data.status.usa_node2.status ? 'Operational' : 'Down';
+                    const statusList = document.getElementById('status-list');
+                    statusList.innerHTML = ''; // Clear existing items
+
+                    for (const [service, details] of Object.entries(data.status)) {
+                        const statusItem = document.createElement('div');
+                        statusItem.classList.add('status-item');
+                        statusItem.innerHTML = `
+                            <h5><a href="details.php?service=${service}" class="status-link">${service}</a></h5>
+                            <p>${details.status ? 'Operational' : 'Down'}</p>
+                        `;
+                        statusList.appendChild(statusItem);
+                    }
 
                     document.getElementById('average-uptime').innerText = '7 Day Average Uptime: ' + data.averageUptime + '%';
                 })
