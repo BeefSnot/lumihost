@@ -4,7 +4,6 @@ html {
 }
 
 body {
-  background-color: #151720;
   color: #fff;
   overflow-x: hidden;
   margin: 0;
@@ -24,6 +23,7 @@ body {
   border: 0 none;
   position: relative;
   outline: none;
+  background-color: transparent; /* Ensure no background color is applied */
 }
 
 a {
@@ -104,7 +104,6 @@ span.main {
 }
 
 .cookie-alert {
-  background-color: #1e212b;
   position: fixed;
   bottom: 15px;
   right: 15px;
@@ -152,7 +151,6 @@ span.main {
 
 .navbar {
   padding: 1rem;
-  background-color: rgba(21, 23, 32, 0.25);
 }
 
 .navbar-brand img {
@@ -217,7 +215,6 @@ span.main {
   font-weight: 600;
   display: inline;
   border-radius: 8px;
-  padding: 5px 10px;
   background-color: rgba(21, 146, 232, 0.2);
   color: rgb(21, 146, 232);
 }
@@ -272,8 +269,6 @@ span.main {
 
 #reviews {
   margin-top: 50px;
-  padding: 15px 0;
-  background-color: #262a39;
 }
 
 .owl-stage-outer {
@@ -364,7 +359,6 @@ span.main {
 **********************************************************/
 
 footer {
-  background-color: #262a39;
 }
 
 footer .footer-col {
@@ -405,8 +399,12 @@ footer ul li:last-child {
   border-color: transparent;
 }
 
+footer a:hover {
+  color: #1487d3;
+  text-decoration: none;
+}
+
 footer .copyright {
-  background-color: #151720;
   padding: 15px 0;
   color: white;
 }
