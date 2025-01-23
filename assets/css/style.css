@@ -1,14 +1,17 @@
 html {
   scroll-behavior: smooth;
   overflow-x: hidden;
+  overscroll-behavior: contain;
+  background-color: #1592e8; /* Change this to your desired blue color */
 }
 
 body {
-  background-color: #151720;
+  background-color: #1592e8; /* Change this to your desired blue color */
   color: #fff;
   overflow-x: hidden;
   margin: 0;
   font-family: "Montserrat", sans-serif;
+  overscroll-behavior: contain;
 }
 
 *,
@@ -24,6 +27,7 @@ body {
   border: 0 none;
   position: relative;
   outline: none;
+  background-color: #1592e8; /* Change this to your desired blue color */
 }
 
 a {
