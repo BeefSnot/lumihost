@@ -59,10 +59,10 @@
                             </div>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Support</a>
+                            <a class="nav-link" href="https://lumihost.net/tickets/tickets.php">Support</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Status</a>
+                            <a class="nav-link" href="https://lumihost.net/status">Status</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link nav-btn" href="#">Login</a>
@@ -169,7 +169,7 @@
                     <div class="footer-col py-4">
                         <h5>Login<span class="main">.</span></h5>
                         <ul>
-                            <li><a href="#">GamePanel</a></li>
+                            <li><a href="https://gamepanel.lumihost.net">Game Panel</a></li>
                             <li><a href="https://webpanel.lumihost.net:2222">Web Panel</a></li>
                             <li><a href="https://billing.lumihost.net">Billing Panel</a></li>
                         </ul>

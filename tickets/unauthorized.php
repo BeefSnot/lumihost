@@ -1,21 +1,3 @@
-<?php
-// Enable error reporting
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
-session_start();
-if (!isset($_SESSION['user_id']) || !in_array($_SESSION['role'], ['admin', 'management', 'owner'])) {
-    header('Location: unauthorized.php');
-    exit;
-}
-
-$conn = new mysqli('localhost', 'lumihost_ticketsystem', 'gAhA7C5jzVPQtpTP4CA6', 'lumihost_ticketsystem');
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -27,15 +9,7 @@ if ($conn->connect_error) {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="../assets/css/style.css">
-    <title>Admin Panel | Lumi Host</title>
-    <style>
-        body {
-            color: #f8f9fa;
-        }
-        .card-body {
-            color: #333;
-        }
-    </style>
+    <title>Unauthorized Access | Lumi Host</title>
 </head>
 <body>
     <header class="hero page">
@@ -64,14 +38,12 @@ if ($conn->connect_error) {
         </nav>
     </header>
 
-    <section id="admin">
+    <section id="unauthorized">
         <div class="container mt-5">
             <div class="section-title text-center">
-                <h6>Admin Panel</h6>
-                <h4>Welcome, Admin<span class="main">.</span></h4>
-            </div>
-            <div class="text-center mt-4">
-                <a href="manage_users.php" class="btn btn-primary">Manage User Roles</a>
+                <h6>Unauthorized Access</h6>
+                <h4>You do not have permission to see this page<span class="main">.</span></h4>
+                <p>Please <a href="https://lumihost.net">click here</a> to go back to the main page.</p>
             </div>
         </div>
     </section>

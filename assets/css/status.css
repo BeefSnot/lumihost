@@ -1,0 +1,111 @@
+body {
+    background-color: #f8f9fa;
+    color: #343a40;
+}
+
+body.dark-theme {
+    background-color: #151720;
+    color: #ffffff;
+}
+
+.navbar-dark .navbar-nav .nav-link {
+    color: rgba(255, 255, 255, 0.75);
+}
+
+.navbar-dark .navbar-nav .nav-link:hover {
+    color: rgba(255, 255, 255, 1);
+}
+
+.hero.page {
+    background: #1a1d29;
+    padding: 20px 0;
+}
+
+.section-title h6 {
+    font-size: 1.2rem;
+    color: #6c757d;
+}
+
+.section-title h4 {
+    font-size: 2rem;
+    color: #343a40;
+}
+
+.dark-background {
+    background-color: #343a40;
+    color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.status-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.status-item {
+    margin: 10px 0;
+}
+
+.footer-col h5 {
+    font-size: 1.5rem;
+    color: #ffffff;
+}
+
+.footer-col ul li a {
+    color: #ffffff;
+}
+
+.footer-col ul li a:hover {
+    color: #adb5bd;
+}
+
+footer {
+    background: #1a1d29;
+    color: #ffffff;
+    padding: 20px 0;
+}
+
+footer .container {
+    border-top: 1px solid #333;
+    padding-top: 20px;
+}
+
+footer .copyright {
+    text-align: center;
+    padding: 10px 0;
+    border-top: 1px solid #333;
+    margin-top: 20px;
+}
+
+.issues-list table {
+    color: #ffffff;
+}
+
+.issues-list table th,
+.issues-list table td {
+    color: #ffffff;
+}
+
+.issues-list table th {
+    background-color: #1a1d29;
+}
+
+.issues-list table td {
+    background-color: #151720;
+}
+
+/* Ensure text color is white for better visibility */
+.issues-list {
+    color: #ffffff;
+}
+
+.issues-list p {
+    color: #ffffff;
+}
+
+.issues-list table th,
+.issues-list table td {
+    color: #ffffff !important;
+}

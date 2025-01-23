@@ -1,0 +1,80 @@
+body.dark-theme {
+    background-color: #151720;
+    color: #ffffff;
+}
+
+.navbar-dark .navbar-nav .nav-link {
+    color: rgba(255, 255, 255, 0.75);
+}
+
+.navbar-dark .navbar-nav .nav-link:hover {
+    color: rgba(255, 255, 255, 1);
+}
+
+.hero.page {
+    background: #1a1d29;
+    padding: 20px 0;
+}
+
+.section-title h6 {
+    color: #ffffff;
+}
+
+.section-title h4 {
+    color: #ffffff;
+}
+
+.dark-background {
+    background-color: #1a1d29;
+    color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.logo-small {
+    width: 50px; /* Adjust the width to make it smaller */
+    height: auto;
+}
+
+.footer-col h5 {
+    color: #ffffff;
+}
+
+.footer-col ul li a {
+    color: rgba(255, 255, 255, 0.75);
+}
+
+.footer-col ul li a:hover {
+    color: rgba(255, 255, 255, 1);
+}
+
+footer {
+    background: #1a1d29;
+    color: #ffffff;
+    padding: 20px 0;
+}
+
+footer .container {
+    border-top: 1px solid #333;
+    padding-top: 20px;
+}
+
+footer .copyright {
+    text-align: center;
+    padding: 10px 0;
+    border-top: 1px solid #333;
+    margin-top: 20px;
+}
+
+.footer-col ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-col ul li {
+    margin-bottom: 10px;
+}
+
+.footer-col ul li a {
+    text-decoration: none;
+}

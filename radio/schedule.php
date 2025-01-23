@@ -1,43 +1,16 @@
-<?php
-// Enable error reporting
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
-session_start();
-if (!isset($_SESSION['user_id']) || !in_array($_SESSION['role'], ['admin', 'management', 'owner'])) {
-    header('Location: unauthorized.php');
-    exit;
-}
-
-$conn = new mysqli('localhost', 'lumihost_ticketsystem', 'gAhA7C5jzVPQtpTP4CA6', 'lumihost_ticketsystem');
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-?>
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <title>LUMI Radio Schedule</title>
+    <link rel="stylesheet" href="../assets/css/radio.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <link rel="stylesheet" href="../assets/css/style.css">
-    <title>Admin Panel | Lumi Host</title>
-    <style>
-        body {
-            color: #f8f9fa;
-        }
-        .card-body {
-            color: #333;
-        }
-    </style>
 </head>
-<body>
+
+<body class="dark-theme">
     <header class="hero page">
         <nav class="navbar navbar-expand-lg navbar-dark">
             <div class="container">
@@ -50,13 +23,22 @@ if ($conn->connect_error) {
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item">
-                            <a class="nav-link " href="#">Home</a>
+                            <a class="nav-link" href="https://lumihost.net">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="apply.html">Apply</a>
+                            <a class="nav-link" href="../about.html">About</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="admin.php">Admin</a>
+                            <a class="nav-link" href="../apply.html">Apply</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="../radio/index.php">Radio</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="../radio/podcasts.php">Podcasts</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="../radio/schedule.php">Schedule</a>
                         </li>
                     </ul>
                 </div>
@@ -64,14 +46,14 @@ if ($conn->connect_error) {
         </nav>
     </header>
 
-    <section id="admin">
+    <section id="schedule">
         <div class="container mt-5">
             <div class="section-title text-center">
-                <h6>Admin Panel</h6>
-                <h4>Welcome, Admin<span class="main">.</span></h4>
+                <h6>Check Out Our</h6>
+                <h4>LUMI Radio Schedule<span class="main">.</span></h4>
             </div>
-            <div class="text-center mt-4">
-                <a href="manage_users.php" class="btn btn-primary">Manage User Roles</a>
+            <div class="text-center dark-background">
+                <iframe src="https://radio.lumihost.net/public/lumi_radio/schedule/embed?theme=dark" frameborder="0" allowtransparency="true" style="width: 100%; min-height: 800px; border: 0;"></iframe>
             </div>
         </div>
     </section>
@@ -83,10 +65,10 @@ if ($conn->connect_error) {
                     <div class="footer-col py-4">
                         <h5>Navigation<span class="main">.</span></h5>
                         <ul>
-                            <li><a href="index.php">Home</a></li>
-                            <li><a href="about.html">About</a></li>
-                            <li><a href="apply.html">Apply</a></li>
-                            <li><a href="admin.php">Admin</a></li>
+                            <li><a href="../index.php">Home</a></li>
+                            <li><a href="../about.html">About</a></li>
+                            <li><a href="../apply.html">Apply</a></li>
+                            <li><a href="../staff.php">Staff Center</a></li>
                         </ul>
                     </div>
                 </div>
@@ -104,9 +86,9 @@ if ($conn->connect_error) {
                     <div class="footer-col py-4">
                         <h5>Legal<span class="main">.</span></h5>
                         <ul>
-                            <li><a href="tos.php">Terms of Service</a></li>
-                            <li><a href="pp.php">Privacy Policy</a></li>
-                            <li><a href="cookies.php">Cookie Policy</a></li>
+                            <li><a href="../tos.php">Terms of Service</a></li>
+                            <li><a href="../pp.php">Privacy Policy</a></li>
+                            <li><a href="../cookies.php">Cookie Policy</a></li>
                         </ul>
                     </div>
                 </div>
@@ -131,4 +113,5 @@ if ($conn->connect_error) {
         });
     </script>
 </body>
+
 </html>

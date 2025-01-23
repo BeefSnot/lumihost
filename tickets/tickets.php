@@ -62,6 +62,14 @@
                     <label for="message">Message</label>
                     <textarea class="form-control" id="message" name="message" rows="5" required></textarea>
                 </div>
+                <div class="form-group">
+                    <label for="severity">Severity</label>
+                    <select class="form-control" id="severity" name="severity" required>
+                        <option value="low">Low</option>
+                        <option value="medium">Medium</option>
+                        <option value="high">High</option>
+                    </select>
+                </div>
                 <button type="submit" class="btn btn-primary">Submit Ticket</button>
             </form>
         </div>
@@ -85,7 +93,7 @@
                     <div class="footer-col py-4">
                         <h5>Login<span class="main">.</span></h5>
                         <ul>
-                            <li><a href="https://lumihost.net">Game Panel (coming soon)</a></li>
+                            <li><a href="https://gamepanel.lumihost.net">Game Panel</a></li>
                             <li><a href="https://webpanel.lumihost.net:2222">Web Panel</a></li>
                             <li><a href="https://billing.lumihost.net">Billing Panel</a></li>
                         </ul>

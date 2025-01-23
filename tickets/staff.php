@@ -1,6 +1,36 @@
+<?php
+// Enable error reporting
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+session_start();
+if (!isset($_SESSION['user_id']) || !in_array($_SESSION['role'], ['staff', 'admin', 'management', 'owner'])) {
+    header('Location: unauthorized.php');
+    exit;
+}
+
+$conn = new mysqli('localhost', 'lumihost_ticketsystem', 'gAhA7C5jzVPQtpTP4CA6', 'lumihost_ticketsystem');
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+$userId = $_SESSION['user_id'];
+$userRole = $_SESSION['role'];
+
+// Fetch staff members for assignment dropdown
+$staffResult = $conn->query("SELECT id, username FROM users WHERE role IN ('staff', 'admin')");
+
+// Fetch tickets assigned to the current user
+$ticketsQuery = "SELECT tickets.id, tickets.subject, tickets.message, tickets.status, tickets.severity, tickets.created_at, users.username, tickets.assigned_to 
+                 FROM tickets 
+                 JOIN users ON tickets.user_id = users.id 
+                 WHERE tickets.assigned_to = $userId OR '$userRole' IN ('admin', 'management', 'owner')";
+$ticketsResult = $conn->query($ticketsQuery);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,16 +42,7 @@
     <link rel="stylesheet" href="../assets/css/style.css">
     <title>Staff Tickets | Lumi Host</title>
 </head>
-
 <body>
-    <?php
-    session_start();
-    if (!isset($_SESSION['user_id']) || $_SESSION['role'] != 'staff') {
-        error_log("User ID: " . (isset($_SESSION['user_id']) ? $_SESSION['user_id'] : 'not set') . " Role: " . (isset($_SESSION['role']) ? $_SESSION['role'] : 'not set'));
-        header('Location: tickets.php');
-        exit;
-    }
-    ?>
     <header class="hero page">
         <nav class="navbar navbar-expand-lg navbar-dark">
             <div class="container">
@@ -58,43 +79,49 @@
                 <a href="logout.php" class="btn btn-primary">Logout</a>
             </div>
             <div id="tickets-list" class="mt-4">
-                <?php
-                $conn = new mysqli('localhost', 'lumihost_tickets', 'uncUzyW2ChkeXyX9Gw2J', 'lumihost_tickets');
-                if ($conn->connect_error) {
-                    die("Connection failed: " . $conn->connect_error);
-                }
-
-                $result = $conn->query("SELECT tickets.id, tickets.subject, tickets.message, tickets.status, tickets.created_at, users.username FROM tickets JOIN users ON tickets.user_id = users.id");
-
-                while ($row = $result->fetch_assoc()) {
-                    echo '<div class="card mb-3">';
-                    echo '<div class="card-body" style="color: black;">';
-                    echo '<h5 class="card-title">' . $row['subject'] . '</h5>';
-                    echo '<p class="card-text"><strong>Submitted by:</strong> ' . $row['username'] . '</p>';
-                    echo '<p class="card-text"><strong>Message:</strong> ' . $row['message'] . '</p>';
-                    echo '<p class="card-text"><strong>Status:</strong> ' . $row['status'] . '</p>';
-                    echo '<p class="card-text"><strong>Created at:</strong> ' . $row['created_at'] . '</p>';
-                    echo '<form onsubmit="updateTicket(event, ' . $row['id'] . ')">';
-                    echo '<div class="form-group">';
-                    echo '<label for="status">Update Status</label>';
-                    echo '<select class="form-control" id="status" name="status">';
-                    echo '<option value="open"' . ($row['status'] == 'open' ? ' selected' : '') . '>Open</option>';
-                    echo '<option value="in_progress"' . ($row['status'] == 'in_progress' ? ' selected' : '') . '>In Progress</option>';
-                    echo '<option value="closed"' . ($row['status'] == 'closed' ? ' selected' : '') . '>Closed</option>';
-                    echo '</select>';
-                    echo '</div>';
-                    echo '<div class="form-group">';
-                    echo '<label for="reply">Reply</label>';
-                    echo '<textarea class="form-control" id="reply" name="reply" rows="3"></textarea>';
-                    echo '</div>';
-                    echo '<button type="submit" class="btn btn-primary">Update</button>';
-                    echo '</form>';
-                    echo '</div>';
-                    echo '</div>';
-                }
-
-                $conn->close();
-                ?>
+                <?php while ($row = $ticketsResult->fetch_assoc()): ?>
+                    <div class="card mb-3">
+                        <div class="card-body" style="color: black;">
+                            <h5 class="card-title"><?php echo $row['subject']; ?></h5>
+                            <p class="card-text"><strong>Submitted by:</strong> <?php echo $row['username']; ?></p>
+                            <p class="card-text"><strong>Message:</strong> <?php echo $row['message']; ?></p>
+                            <p class="card-text"><strong>Status:</strong> <?php echo $row['status']; ?></p>
+                            <p class="card-text"><strong>Severity:</strong> <?php echo $row['severity']; ?></p>
+                            <p class="card-text"><strong>Created at:</strong> <?php echo $row['created_at']; ?></p>
+                            <form onsubmit="updateTicket(event, <?php echo $row['id']; ?>)">
+                                <div class="form-group">
+                                    <label for="status">Update Status</label>
+                                    <select class="form-control" id="status" name="status">
+                                        <option value="open" <?php if ($row['status'] == 'open') echo 'selected'; ?>>Open</option>
+                                        <option value="in_progress" <?php if ($row['status'] == 'in_progress') echo 'selected'; ?>>In Progress</option>
+                                        <option value="closed" <?php if ($row['status'] == 'closed') echo 'selected'; ?>>Closed</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="severity">Update Severity</label>
+                                    <select class="form-control" id="severity" name="severity">
+                                        <option value="low" <?php if ($row['severity'] == 'low') echo 'selected'; ?>>Low</option>
+                                        <option value="medium" <?php if ($row['severity'] == 'medium') echo 'selected'; ?>>Medium</option>
+                                        <option value="high" <?php if ($row['severity'] == 'high') echo 'selected'; ?>>High</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="reply">Reply</label>
+                                    <textarea class="form-control" id="reply" name="reply" rows="3"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="assigned_to">Assign to</label>
+                                    <select class="form-control" id="assigned_to" name="assigned_to">
+                                        <?php while ($staff = $staffResult->fetch_assoc()): ?>
+                                            <option value="<?php echo $staff['id']; ?>" <?php if (isset($row['assigned_to']) && $row['assigned_to'] == $staff['id']) echo 'selected'; ?>><?php echo $staff['username']; ?></option>
+                                        <?php endwhile; ?>
+                                    </select>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Update</button>
+                            </form>
+                        </div>
+                    </div>
+                <?php endwhile; ?>
             </div>
         </div>
     </section>
@@ -117,7 +144,7 @@
                     <div class="footer-col py-4">
                         <h5>Login<span class="main">.</span></h5>
                         <ul>
-                            <li><a href="https://lumihost.net">Game Panel (coming soon)</a></li>
+                            <li><a href="https://gamepanel.lumihost.net">Game Panel</a></li>
                             <li><a href="https://webpanel.lumihost.net:2222">Web Panel</a></li>
                             <li><a href="https://billing.lumihost.net">Billing Panel</a></li>
                         </ul>
@@ -157,14 +184,16 @@
             event.preventDefault();
             const form = event.target;
             const status = form.status.value;
+            const severity = form.severity.value;
             const reply = form.reply.value;
+            const assigned_to = form.assigned_to.value;
 
             fetch('update_ticket.php', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ ticketId, status, reply })
+                body: JSON.stringify({ ticketId, status, severity, reply, assigned_to })
             })
             .then(response => response.text())
             .then(data => {
