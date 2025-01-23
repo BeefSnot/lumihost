@@ -138,7 +138,7 @@ $conn->close();
 
 <body class="dark-theme">
     <header class="hero page">
-        <nav class="navbar navbar-expand-lg navbar-dark">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container">
                 <a class="navbar-brand" href="#">
                     <img class="img-fluid" src="/assets/img/logonew.png" alt="Lumi Host">
@@ -175,12 +175,12 @@ $conn->close();
     <section id="status-details">
         <div class="container mt-5">
             <div class="section-title text-center">
-                <h6><?php echo ucfirst($service); ?> Status</h6>
-                <h4><?php echo ucfirst($service); ?> Details<span class="main">.</span></h4>
+                <h6 class="text-uppercase text-muted"><?php echo ucfirst($service); ?> Status</h6>
+                <h4 class="font-weight-bold"><?php echo ucfirst($service); ?> Details<span class="main">.</span></h4>
             </div>
-            <div class="status-details text-center dark-background">
-                <p>Uptime: <?php echo $uptime; ?>%</p>
-                <p>Ping: <?php echo $ping >= 0 ? round($ping) . ' ms' : 'Down'; ?> (Response Time: <?php echo round($responseTime); ?> ms)</p>
+            <div class="status-details text-center dark-background p-4 rounded">
+                <p class="lead">Uptime: <?php echo $uptime; ?>%</p>
+                <p class="lead">Ping: <?php echo $ping >= 0 ? round($ping) . ' ms' : 'Down'; ?></p>
                 <canvas id="uptimeChart" width="400" height="200"></canvas>
                 <div class="legend mt-4">
                     <span class="legend-item" style="color: green;">&#9632; 99% and above</span>
@@ -195,14 +195,14 @@ $conn->close();
     <section id="issues">
         <div class="container mt-5">
             <div class="section-title text-center">
-                <h6>Issues</h6>
-                <h4>Reported Issues<span class="main">.</span></h4>
+                <h6 class="text-uppercase text-muted">Issues</h6>
+                <h4 class="font-weight-bold">Reported Issues<span class="main">.</span></h4>
             </div>
-            <div class="issues-list text-center dark-background">
+            <div class="issues-list text-center dark-background p-4 rounded">
                 <?php if (empty($issues)): ?>
-                    <p>No issues reported.</p>
+                    <p class="lead">No issues reported.</p>
                 <?php else: ?>
-                    <table class="table table-bordered">
+                    <table class="table table-bordered table-dark">
                         <thead>
                             <tr>
                                 <th>ID</th>
@@ -229,46 +229,44 @@ $conn->close();
         </div>
     </section>
 
-    <footer>
+    <footer class="bg-dark text-white py-4">
         <div class="container">
             <div class="row">
                 <div class="col-md-4">
-                    <div class="footer-col py-4">
+                    <div class="footer-col">
                         <h5>Navigation<span class="main">.</span></h5>
-                        <ul>
-                            <li><a href="../index.php">Home</a></li>
-                            <li><a href="../about.html">About</a></li>
-                            <li><a href="../apply.html">Apply</a></li>
-                            <li><a href="../staff.php">Staff Center</a></li>
+                        <ul class="list-unstyled">
+                            <li><a href="../index.php" class="text-white">Home</a></li>
+                            <li><a href="../about.html" class="text-white">About</a></li>
+                            <li><a href="../apply.html" class="text-white">Apply</a></li>
+                            <li><a href="../staff.php" class="text-white">Staff Center</a></li>
                         </ul>
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="footer-col py-4">
+                    <div class="footer-col">
                         <h5>Login<span class="main">.</span></h5>
-                        <ul>
-                            <li><a href="https://gamepanel.lumihost.net">Game Panel</a></li>
-                            <li><a href="https://webpanel.lumihost.net:2222">Web Panel</a></li>
-                            <li><a href="https://billing.lumihost.net">Billing Panel</a></li>
+                        <ul class="list-unstyled">
+                            <li><a href="https://gamepanel.lumihost.net" class="text-white">Game Panel</a></li>
+                            <li><a href="https://webpanel.lumihost.net:2222" class="text-white">Web Panel</a></li>
+                            <li><a href="https://billing.lumihost.net" class="text-white">Billing Panel</a></li>
                         </ul>
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="footer-col py-4">
+                    <div class="footer-col">
                         <h5>Legal<span class="main">.</span></h5>
-                        <ul>
-                            <li><a href="../tos.php">Terms of Service</a></li>
-                            <li><a href="../pp.php">Privacy Policy</a></li>
-                            <li><a href="../cookies.php">Cookie Policy</a></li>
+                        <ul class="list-unstyled">
+                            <li><a href="../tos.php" class="text-white">Terms of Service</a></li>
+                            <li><a href="../pp.php" class="text-white">Privacy Policy</a></li>
+                            <li><a href="../cookies.php" class="text-white">Cookie Policy</a></li>
                         </ul>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="copyright">
-            <div class="container">
-                <h6 class="mb-0">Copyright © 2025 Lumi Host. | All Rights Reserved |</h6>
-            </div>
+        <div class="text-center mt-3">
+            <h6 class="mb-0">Copyright © 2025 Lumi Host. | All Rights Reserved |</h6>
         </div>
     </footer>
 

@@ -1,3 +1,8 @@
+body {
+    background-color: #f8f9fa;
+    color: #343a40;
+}
+
 body.dark-theme {
     background-color: #151720;
     color: #ffffff;
@@ -17,15 +22,17 @@ body.dark-theme {
 }
 
 .section-title h6 {
-    color: #ffffff;
+    font-size: 1.2rem;
+    color: #6c757d;
 }
 
 .section-title h4 {
-    color: #ffffff;
+    font-size: 2rem;
+    color: #343a40;
 }
 
 .dark-background {
-    background-color: #1a1d29;
+    background-color: #343a40;
     color: #ffffff;
     padding: 20px;
     border-radius: 10px;
@@ -42,15 +49,16 @@ body.dark-theme {
 }
 
 .footer-col h5 {
+    font-size: 1.5rem;
     color: #ffffff;
 }
 
 .footer-col ul li a {
-    color: rgba(255, 255, 255, 0.75);
+    color: #ffffff;
 }
 
 .footer-col ul li a:hover {
-    color: rgba(255, 255, 255, 1);
+    color: #adb5bd;
 }
 
 footer {
