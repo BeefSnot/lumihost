@@ -1,5 +1,6 @@
 <?php
 $service = $_GET['service'] ?? 'unknown';
+$uptime = 100.00; // Initialize uptime with a default value
 
 function ping($host, $port, $timeout) {
     $starttime = microtime(true);
@@ -54,7 +55,6 @@ if ($ping == -1 && array_key_exists($service, $services)) {
     }
 
     // Calculate uptime percentage
-    $uptime = 100.00; // Default value
     if (isset($uptimeData[$service])) {
         $totalChecks = $uptimeData[$service]['total_checks'];
         $upChecks = $uptimeData[$service]['up_checks'];
