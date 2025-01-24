@@ -67,7 +67,7 @@ if (!isset($_SESSION['verified']) || $_SESSION['verified'] !== true) {
     <header class="hero">
         <nav class="navbar navbar-expand-lg navbar-dark">
             <div class="container">
-                <a class="navbar-brand" href="#">
+                <a class="navbar-brand" href="https://lumihost.net">
                     <img class="img-fluid" src="/assets/img/logonew.png" alt="Lumi Host">
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
