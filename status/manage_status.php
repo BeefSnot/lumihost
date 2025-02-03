@@ -1,4 +1,6 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 session_start();
 if (!isset($_SESSION['admin_id'])) {
     header('Location: admin_login.php');
@@ -17,15 +19,25 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $port = $_POST['port'];
 
         $stmt = $conn->prepare("INSERT INTO services (service_name, host, port) VALUES (?, ?, ?)");
+        if ($stmt === false) {
+            die("Prepare failed: " . $conn->error);
+        }
         $stmt->bind_param("ssi", $service_name, $host, $port);
-        $stmt->execute();
+        if ($stmt->execute() === false) {
+            die("Execute failed: " . $stmt->error);
+        }
         $stmt->close();
     } elseif (isset($_POST['remove_service'])) {
         $service_id = $_POST['service_id'];
 
         $stmt = $conn->prepare("DELETE FROM services WHERE id = ?");
+        if ($stmt === false) {
+            die("Prepare failed: " . $conn->error);
+        }
         $stmt->bind_param("i", $service_id);
-        $stmt->execute();
+        if ($stmt->execute() === false) {
+            die("Execute failed: " . $stmt->error);
+        }
         $stmt->close();
     }
 }
@@ -42,19 +54,30 @@ $previous_services = [
 
 foreach ($previous_services as $service) {
     $stmt = $conn->prepare("SELECT id FROM services WHERE service_name = ? AND host = ? AND port = ?");
+    if ($stmt === false) {
+        die("Prepare failed: " . $conn->error);
+    }
     $stmt->bind_param("ssi", $service['service_name'], $service['host'], $service['port']);
     $stmt->execute();
     $stmt->store_result();
     if ($stmt->num_rows == 0) {
         $stmt->close();
         $stmt = $conn->prepare("INSERT INTO services (service_name, host, port) VALUES (?, ?, ?)");
+        if ($stmt === false) {
+            die("Prepare failed: " . $conn->error);
+        }
         $stmt->bind_param("ssi", $service['service_name'], $service['host'], $service['port']);
-        $stmt->execute();
+        if ($stmt->execute() === false) {
+            die("Execute failed: " . $stmt->error);
+        }
     }
     $stmt->close();
 }
 
 $services = $conn->query("SELECT * FROM services");
+if ($services === false) {
+    die("Query failed: " . $conn->error);
+}
 $conn->close();
 ?>
 <!DOCTYPE html>
