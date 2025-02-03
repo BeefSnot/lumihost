@@ -12,21 +12,26 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
+$cacheFile = 'status_cache.json';
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (isset($_POST['add_service'])) {
         $service_name = $_POST['service_name'];
         $host = $_POST['host'];
-        $port = $_POST['port'];
 
-        $stmt = $conn->prepare("INSERT INTO services (service_name, host, port) VALUES (?, ?, ?)");
+        $stmt = $conn->prepare("INSERT INTO services (service_name, host) VALUES (?, ?)");
         if ($stmt === false) {
             die("Prepare failed: " . $conn->error);
         }
-        $stmt->bind_param("ssi", $service_name, $host, $port);
+        $stmt->bind_param("ss", $service_name, $host);
         if ($stmt->execute() === false) {
             die("Execute failed: " . $stmt->error);
         }
         $stmt->close();
+        // Invalidate cache
+        if (file_exists($cacheFile)) {
+            unlink($cacheFile);
+        }
     } elseif (isset($_POST['remove_service'])) {
         $service_id = $_POST['service_id'];
 
@@ -39,6 +44,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             die("Execute failed: " . $stmt->error);
         }
         $stmt->close();
+        // Invalidate cache
+        if (file_exists($cacheFile)) {
+            unlink($cacheFile);
+        }
     }
 }
 
@@ -68,10 +77,6 @@ $conn->close();
                 <label for="host">Host</label>
                 <input type="text" class="form-control" id="host" name="host" required>
             </div>
-            <div class="form-group">
-                <label for="port">Port</label>
-                <input type="number" class="form-control" id="port" name="port" required>
-            </div>
             <button type="submit" name="add_service" class="btn btn-primary">Add Service</button>
         </form>
         <h3>Existing Services</h3>
@@ -81,7 +86,6 @@ $conn->close();
                     <th>ID</th>
                     <th>Service Name</th>
                     <th>Host</th>
-                    <th>Port</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -91,7 +95,6 @@ $conn->close();
                     <td><?php echo $service['id']; ?></td>
                     <td><?php echo $service['service_name']; ?></td>
                     <td><?php echo $service['host']; ?></td>
-                    <td><?php echo $service['port']; ?></td>
                     <td>
                         <form action="manage_status.php" method="POST" class="d-inline">
                             <input type="hidden" name="service_id" value="<?php echo $service['id']; ?>">

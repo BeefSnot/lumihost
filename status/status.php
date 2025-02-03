@@ -1,20 +1,36 @@
 <?php
 header('Content-Type: application/json');
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 
-function ping($host, $port, $timeout) {
-    $starttime = microtime(true);
-    $fsock = @fsockopen($host, $port, $errno, $errstr, $timeout);
-    $stoptime = microtime(true);
-    $status = false;
+function ping($host, $timeout = 5) {
+    $command = sprintf('ping -c 1 -W %d %s', $timeout, escapeshellarg($host));
+    $output = [];
+    $result = 1;
+    exec($command, $output, $result);
+
+    $status = ($result === 0);
     $responseTime = -1;
 
-    if ($fsock) {
-        fclose($fsock);
-        $status = true;
-        $responseTime = ($stoptime - $starttime) * 1000; // Convert to milliseconds
+    if ($status) {
+        foreach ($output as $line) {
+            if (preg_match('/time=([0-9.]+) ms/', $line, $matches)) {
+                $responseTime = floatval($matches[1]);
+                break;
+            }
+        }
     }
 
     return ['status' => $status, 'responseTime' => $responseTime];
+}
+
+$cacheFile = 'status_cache.json';
+$cacheDuration = 60; // Cache duration in seconds (1 minute)
+
+if (file_exists($cacheFile) && (time() - filemtime($cacheFile)) < $cacheDuration) {
+    // Serve cached data
+    echo file_get_contents($cacheFile);
+    exit;
 }
 
 $conn = new mysqli('localhost', 'lumihost_status', 'uZKwgga7z6qQZSNMcPdQ', 'lumihost_status');
@@ -23,12 +39,16 @@ if ($conn->connect_error) {
 }
 
 $services = $conn->query("SELECT * FROM services");
+if ($services === false) {
+    die("Query failed: " . $conn->error);
+}
+
 $status = [];
 $totalUptime = 0;
 $totalServices = $services->num_rows;
 
 while ($service = $services->fetch_assoc()) {
-    $pingResult = ping($service['host'], $service['port'], 10);
+    $pingResult = ping($service['host'], 5);
     $status[$service['service_name']] = $pingResult;
 
     $uptimeDataFile = 'historical_uptime_' . $service['service_name'] . '.json';
@@ -61,6 +81,9 @@ $response = [
     'status' => $status,
     'averageUptime' => round($averageUptime, 2)
 ];
+
+// Cache the response
+file_put_contents($cacheFile, json_encode($response));
 
 echo json_encode($response);
 $conn->close();

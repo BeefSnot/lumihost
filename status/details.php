@@ -2,29 +2,34 @@
 $service = $_GET['service'] ?? 'unknown';
 $uptime = 100.00; // Initialize uptime with a default value
 
-function ping($host, $port, $timeout) {
-    $starttime = microtime(true);
-    $fsock = @fsockopen($host, $port, $errno, $errstr, $timeout);
-    $stoptime = microtime(true);
-    $status = false;
+function ping($host, $timeout = 5) {
+    $command = sprintf('ping -c 1 -W %d %s', $timeout, escapeshellarg($host));
+    $output = [];
+    $result = 1;
+    exec($command, $output, $result);
+
+    $status = ($result === 0);
     $responseTime = -1;
 
-    if ($fsock) {
-        fclose($fsock);
-        $status = true;
-        $responseTime = ($stoptime - $starttime) * 1000; // Convert to milliseconds
+    if ($status) {
+        foreach ($output as $line) {
+            if (preg_match('/time=([0-9.]+) ms/', $line, $matches)) {
+                $responseTime = floatval($matches[1]);
+                break;
+            }
+        }
     }
 
     return ['status' => $status, 'responseTime' => $responseTime];
 }
 
 $services = [
-    'website' => ['host' => 'lumihost.net', 'port' => 80],
-    'nameserver1' => ['host' => 'ns1.lumihost.net', 'port' => 53],
-    'nameserver2' => ['host' => 'ns2.lumihost.net', 'port' => 53],
-    'customer_database' => ['host' => 'webpanel.lumihost.net', 'port' => 3306],
-    'usa_node1' => ['host' => 'radio.lumihost.net', 'port' => 80],
-    'lumi_radio' => ['host' => '99.148.48.236', 'port' => 80],
+    'website' => ['host' => 'lumihost.net'],
+    'nameserver1' => ['host' => 'ns1.lumihost.net'],
+    'nameserver2' => ['host' => 'ns2.lumihost.net'],
+    'customer_database' => ['host' => 'webpanel.lumihost.net'],
+    'usa_node1' => ['host' => 'radio.lumihost.net'],
+    'lumi_radio' => ['host' => '99.148.48.236'],
     // Add more services as needed
 ];
 
@@ -43,7 +48,7 @@ if (file_exists($cacheFile)) {
 }
 
 if ($ping == -1 && array_key_exists($service, $services)) {
-    $pingResult = ping($services[$service]['host'], $services[$service]['port'], 10);
+    $pingResult = ping($services[$service]['host'], 5);
     $ping = $pingResult['responseTime'];
     $responseTime = $pingResult['responseTime'];
 
