@@ -50,6 +50,7 @@ $previous_services = [
     ['service_name' => 'Customer Database', 'host' => 'webpanel.lumihost.net', 'port' => 3306],
     ['service_name' => 'USA Node 1', 'host' => 'radio.lumihost.net', 'port' => 80],
     ['service_name' => 'Lumi Radio', 'host' => '99.148.48.236', 'port' => 80],
+    ['service_name' => 'USA Node 2 (Phoenix AZ)', 'host' => 'phoenix.lumihost.net', 'port' => 80], // Add this line
 ];
 
 foreach ($previous_services as $service) {
