@@ -15,18 +15,20 @@ if ($conn->connect_error) {
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (isset($_POST['report_issue'])) {
-        $service = $_POST['service'];
+        $services = $_POST['services'];
         $issue = $_POST['issue'];
 
-        $stmt = $conn->prepare("INSERT INTO issues (service, issue, status) VALUES (?, ?, 'open')");
-        if ($stmt === false) {
-            die("Prepare failed: " . $conn->error);
+        foreach ($services as $service) {
+            $stmt = $conn->prepare("INSERT INTO issues (service, issue, status) VALUES (?, ?, 'open')");
+            if ($stmt === false) {
+                die("Prepare failed: " . $conn->error);
+            }
+            $stmt->bind_param("ss", $service, $issue);
+            if ($stmt->execute() === false) {
+                die("Execute failed: " . $stmt->error);
+            }
+            $stmt->close();
         }
-        $stmt->bind_param("ss", $service, $issue);
-        if ($stmt->execute() === false) {
-            die("Execute failed: " . $stmt->error);
-        }
-        $stmt->close();
         $success = "Issue reported successfully.";
     } elseif (isset($_POST['update_issue'])) {
         $issue_id = $_POST['issue_id'];
@@ -81,8 +83,8 @@ $conn->close();
                 <?php endif; ?>
                 <form action="admin.php" method="POST">
                     <div class="form-group">
-                        <label for="service">Service</label>
-                        <select class="form-control" id="service" name="service" required>
+                        <label for="services">Services</label>
+                        <select class="form-control" id="services" name="services[]" multiple required>
                             <?php foreach ($services as $key => $value): ?>
                                 <option value="<?php echo $key; ?>"><?php echo $value; ?></option>
                             <?php endforeach; ?>

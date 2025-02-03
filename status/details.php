@@ -1,4 +1,7 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 $service = $_GET['service'] ?? 'unknown';
 $uptime = 100.00; // Initialize uptime with a default value
 
@@ -19,6 +22,15 @@ function ping($host, $timeout = 5) {
             }
         }
     }
+
+    // Debugging output
+    echo '<pre>';
+    echo 'Command: ' . $command . "\n";
+    echo 'Result: ' . $result . "\n";
+    echo 'Output: ' . print_r($output, true) . "\n";
+    echo 'Status: ' . ($status ? 'true' : 'false') . "\n";
+    echo 'Response Time: ' . $responseTime . "\n";
+    echo '</pre>';
 
     return ['status' => $status, 'responseTime' => $responseTime];
 }
@@ -51,6 +63,11 @@ if ($ping == -1 && array_key_exists($service, $services)) {
     $pingResult = ping($services[$service]['host'], 5);
     $ping = $pingResult['responseTime'];
     $responseTime = $pingResult['responseTime'];
+
+    // Debugging output
+    echo '<pre>';
+    echo 'Ping Result: ' . print_r($pingResult, true) . "\n";
+    echo '</pre>';
 
     // Load uptime data from a file (or database)
     $uptimeDataFile = 'uptime_data.json';
@@ -103,9 +120,6 @@ $historicalData[] = $uptime; // Add the latest uptime
 file_put_contents($historicalDataFile, json_encode($historicalData));
 
 // Load issues from a database
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-
 $conn = new mysqli('localhost', 'lumihost_status', 'uZKwgga7z6qQZSNMcPdQ', 'lumihost_status');
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
@@ -129,7 +143,7 @@ $conn->close();
     <link rel="stylesheet" href="../assets/css/status.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <style>
         body {
             color: white;
@@ -137,6 +151,13 @@ $conn->close();
         .issues-list table th,
         .issues-list table td {
             color: #ffffff !important;
+        }
+        .apexcharts-menu {
+            background-color: #1a1d29 !important;
+            color: #ffffff !important;
+        }
+        .apexcharts-menu-item:hover {
+            background-color: #343a40 !important;
         }
     </style>
 </head>
@@ -186,7 +207,7 @@ $conn->close();
             <div class="status-details text-center dark-background p-4 rounded">
                 <p class="lead">Uptime: <?php echo $uptime; ?>%</p>
                 <p class="lead">Ping: <?php echo $ping >= 0 ? round($ping) . ' ms' : 'Down'; ?></p>
-                <canvas id="uptimeChart" width="400" height="200"></canvas>
+                <div id="uptimeChart"></div>
                 <div class="legend mt-4">
                     <span class="legend-item" style="color: green;">&#9632; 99% and above</span>
                     <span class="legend-item" style="color: orange;">&#9632; 95% - 98.99%</span>
@@ -285,41 +306,54 @@ $conn->close();
             duration: 1200,
         });
 
-        // JavaScript to render the uptime chart
+        // JavaScript to render the uptime chart using ApexCharts
         document.addEventListener("DOMContentLoaded", function() {
-            const ctx = document.getElementById('uptimeChart').getContext('2d');
             const historicalData = <?php echo json_encode($historicalData); ?>;
             const labels = Array.from({ length: historicalData.length }, (_, i) => i + 1);
 
-            const data = {
-                labels: labels,
-                datasets: [{
-                    label: 'Uptime (%)',
-                    data: historicalData,
-                    backgroundColor: historicalData.map(value => {
-                        if (value >= 99) return 'green';
-                        if (value >= 95) return 'orange';
-                        return 'red';
-                    }),
-                    borderColor: 'black',
-                    borderWidth: 1
-                }]
-            };
-
-            const config = {
-                type: 'bar',
-                data: data,
-                options: {
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            max: 100
-                        }
+            var options = {
+                series: [{
+                    name: 'Uptime (%)',
+                    data: historicalData
+                }],
+                chart: {
+                    height: 350,
+                    type: 'bar',
+                },
+                plotOptions: {
+                    bar: {
+                        colors: {
+                            ranges: [{
+                                from: 0,
+                                to: 94.99,
+                                color: 'red'
+                            }, {
+                                from: 95,
+                                to: 98.99,
+                                color: 'orange'
+                            }, {
+                                from: 99,
+                                to: 100,
+                                color: 'green'
+                            }]
+                        },
+                        columnWidth: '50%',
                     }
+                },
+                dataLabels: {
+                    enabled: false
+                },
+                xaxis: {
+                    categories: labels,
+                },
+                yaxis: {
+                    max: 100,
+                    min: 0,
                 }
             };
 
-            new Chart(ctx, config);
+            var chart = new ApexCharts(document.querySelector("#uptimeChart"), options);
+            chart.render();
         });
     </script>
 </body>
