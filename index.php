@@ -15,8 +15,8 @@ if (!isset($_SESSION['verified']) || $_SESSION['verified'] !== true) {
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <link rel="stylesheet" href="assets/css/style.css">    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" integrity="sha512-tS3S5qG0BlhnQROyJXvNjeEM4UpMXHrQfTGmbQ1gKmelCxlSEBUaxhRBj/EFTzpbP4RVSrpEikbmdJobCvhE3g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css" integrity="sha512-sMXtMNL1zRzolHYKEujM2AqCLUR9F2C4/05cdbxjjLSRvMQIciEPCQZo++nk7go3BtSuK9kfa/s+a4f4i5pLkw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
     <link rel="stylesheet" href="https://unpkg.com/aos@2.3.0/dist/aos.css" />
     <title>Home | Lumi Host</title>
 
@@ -210,36 +210,40 @@ if (!isset($_SESSION['verified']) || $_SESSION['verified'] !== true) {
 
     <section class="pb-5" id="reviews">
         <div class="container mt-5">
-            <div class="section-title text-center" data-aos="fade-up" data-aos-delay="200" class="aos-init aos-animate shadow">
+            <div class="section-title text-center" data-aos="fade-up" data-aos-delay="200">
                 <h6>REVIEWS</h6>
-                <h4>Don<span class="main">'</span>t just take our word for it<span class="main">.</span></h4>
+                <h4>Don't just take our word for it<span class="main">.</span></h4>
             </div>
-            <div class="owl-carousel owl-theme" data-aos="fade-up" data-aos-delay="300" class="aos-init aos-animate">
-                <div class="h-100">
-                    <div class="review-card text-center">
-                        <h4 class="mb-0">Name</h4>
-                        <span>Kimmy</span>
-                        <p class="mb-0 mt-4">Lumi Host really helped all my needs! I needed fast and reliable web hosting! Thanks Lumi Host!</p>
+            <div class="swiper-container" data-aos="fade-up" data-aos-delay="300">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <div class="review-card text-center">
+                            <h4 class="mb-0">Name</h4>
+                            <span>Kimmy</span>
+                            <p class="mb-0 mt-4">Lumi Host really helped all my needs! I needed fast and reliable web hosting! Thanks Lumi Host!</p>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="review-card text-center">
+                            <h4 class="mb-0">Name</h4>
+                            <span>Ethan</span>
+                            <p class="mb-0 mt-4">I needed a website for my small business, and Lumi Host had what I needed! I got lightning fast web hosting, with amazing uptime and protection!</p>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="review-card text-center">
+                            <h4 class="mb-0">Name</h4>
+                            <span>Titus</span>
+                            <p class="mb-0 mt-4">I was in the market for a website for my wig company! Lumi Host was the best choice for me! I get backups every night so I know my data is safe!</p>
+                        </div>
                     </div>
                 </div>
-
-<div class="h-100">
-                    <div class="review-card text-center">
-                        <h4 class="mb-0">Name</h4>
-                        <span>Ethan</span>
-                        <p class="mb-0 mt-4">I needed a website for my small business, and Lumi Host had what I needed! I got lightning fast web hosting, with amazing uptime and protection!</p>
-                    </div>
-                </div>
-
-                <div class="h-100">
-                    <div class="review-card text-center">
-                        <h4 class="mb-0">Name</h4>
-                        <span>Titus</span>
-                        <p class="mb-0 mt-4">I was in the market for a website for my wig company! Lumi Host was the best choice for me! I get backups every night so I know my data is safe!</p>
-                    </div>
-                </div>
+                <!-- Add Pagination -->
+                <div class="swiper-pagination"></div>
+                <!-- Add Navigation -->
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
             </div>
-
         </div>
     </section>
 
@@ -403,33 +407,30 @@ if (!isset($_SESSION['verified']) || $_SESSION['verified'] !== true) {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js" integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
     <script src="assets/js/main.js"></script>
     <script src="https://unpkg.com/aos@2.3.0/dist/aos.js"></script>
     <script>
-        $('.owl-carousel').owlCarousel({
-            loop: true,
-            margin: 30,
-            nav: false,
-            responsive: {
-                0: {
-                    items: 1
+        document.addEventListener('DOMContentLoaded', function () {
+            var swiper = new Swiper('.swiper-container', {
+                loop: true,
+                pagination: {
+                    el: '.swiper-pagination',
+                    clickable: true,
                 },
-                600: {
-                    items: 1
+                navigation: {
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev',
                 },
-                900: {
-                    items: 1
+                autoplay: {
+                    delay: 5000,
                 },
-                1400: {
-                    items: 1
-                }
-            }
-        })
+            });
+        });
 
         AOS.init({
             duration: 1200,
-        })
+        });
 
         // Back to Top Button
         const backToTopButton = document.getElementById('back-to-top');
