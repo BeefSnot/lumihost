@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LUMI Host Status</title>
     <link rel="stylesheet" href="../assets/css/status.css">
-    <link rel="stylesheet" href="assets/css/font-awesome.min.css">
-    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../assets/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
     <style>
         .status-title-box {
             background-color: #007bff;
@@ -26,7 +26,7 @@
         <nav class="navbar navbar-expand-lg navbar-dark">
             <div class="container">
                 <a class="navbar-brand" href="#">
-                    <img class="img-fluid" src="/assets/img/logonew.png" alt="Lumi Host">
+                    <img class="img-fluid" src="../assets/img/logonew.png" alt="Lumi Host">
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -120,11 +120,12 @@
         </div>
     </footer>
 
-    <script src="assets/js/jquery.slim.min.js"></script>
-    <script src="assets/js/popper.min.js"></script>
-    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="../assets/js/jquery.slim.min.js"></script>
+    <script src="../assets/js/popper.min.js"></script>
+    <script src="../assets/js/bootstrap.min.js"></script>
     <script src="../assets/js/main.js"></script>
-    <script src="assets/js/aos.js"></script>    <script>
+    <script src="../assets/js/aos.js"></script>
+    <script>
         AOS.init({
             duration: 1200,
         });

@@ -23,9 +23,6 @@ function ping($host, $timeout = 5) {
         }
     }
 
-    // Debugging information
-    error_log("Ping to $host: status=$status, responseTime=$responseTime ms");
-
     return ['status' => $status, 'responseTime' => $responseTime];
 }
 
@@ -50,25 +47,7 @@ if (file_exists($cacheFile)) {
         $ping = $cacheData['ping'];
         $responseTime = $cacheData['responseTime'];
         $uptime = $cacheData['uptime'];
-
-        // Debugging information
-        error_log("Cache hit: ping=$ping, responseTime=$responseTime, uptime=$uptime");
-    } else {
-        // Debugging information
-        error_log("Cache expired");
     }
-} else {
-    // Debugging information
-    error_log("Cache file not found");
-}
-
-if ($ping == -1 && array_key_exists($service, $services)) {
-    $pingResult = ping($services[$service]['host'], 5);
-    $ping = $pingResult['responseTime'];
-    $responseTime = $pingResult['responseTime'];
-
-    // Debugging information
-    error_log("Ping result: ping=$ping, responseTime=$responseTime");
 }
 
 if ($ping == -1 && array_key_exists($service, $services)) {
@@ -318,6 +297,9 @@ $conn->close();
             const historicalData = <?php echo json_encode($historicalData); ?>;
             const labels = Array.from({ length: historicalData.length }, (_, i) => i + 1);
 
+            console.log('Historical Data:', historicalData); // Debugging line
+            console.log('Labels:', labels); // Debugging line
+
             var options = {
                 series: [{
                     name: 'Uptime (%)',
@@ -326,6 +308,31 @@ $conn->close();
                 chart: {
                     height: 350,
                     type: 'bar',
+                    animations: {
+                        enabled: true,
+                        easing: 'easeinout',
+                        speed: 800,
+                        animateGradually: {
+                            enabled: true,
+                            delay: 150
+                        },
+                        dynamicAnimation: {
+                            enabled: true,
+                            speed: 350
+                        }
+                    },
+                    toolbar: {
+                        show: true,
+                        tools: {
+                            download: true,
+                            selection: true,
+                            zoom: true,
+                            zoomin: true,
+                            zoomout: true,
+                            pan: true,
+                            reset: true
+                        }
+                    }
                 },
                 plotOptions: {
                     bar: {
@@ -358,7 +365,12 @@ $conn->close();
                     min: 0,
                 },
                 tooltip: {
-                    theme: 'dark'
+                    theme: 'dark',
+                    y: {
+                        formatter: function (val) {
+                            return val + "%";
+                        }
+                    }
                 }
             };
 

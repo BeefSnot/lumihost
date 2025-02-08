@@ -24,6 +24,44 @@ if (!isset($_SESSION['verified']) || $_SESSION['verified'] !== true) {
     <meta name="keywords" content="keywords, Hosting, ONE, seperated, with, commas">
     <meta name="theme-color" content="#b31629">
     <meta name="author" content="beefsnot">
+    <style>
+        .cookie-alert {
+            position: fixed;
+            bottom: 15px;
+            right: 15px;
+            width: 320px;
+            margin: 0 !important;
+            z-index: 999;
+            opacity: 0;
+            border-radius: 8px;
+            border: none;
+            background-color: #151720; /* Ensure background color is set */
+            color: #ffffff; /* Ensure text color is set */
+            transform: translateY(100%);
+            transition: all 500ms ease-out;
+        }
+
+        .cookie-alert.show {
+            opacity: 1;
+            transform: translateY(0%);
+            transition-delay: 1000ms;
+        }
+
+        .cookie-alert .card-body {
+            background-color: #151720; /* Ensure background color is set */
+            color: #ffffff; /* Ensure text color is set */
+        }
+
+        .cookie-alert .btn-primary {
+            background-color: #1592e8;
+            border-color: #1592e8;
+        }
+
+        .cookie-alert .btn-primary:hover {
+            background-color: #1487d3;
+            border-color: #1487d3;
+        }
+    </style>
 </head>
 
 <body>
@@ -68,7 +106,7 @@ if (!isset($_SESSION['verified']) || $_SESSION['verified'] !== true) {
         <nav class="navbar navbar-expand-lg navbar-dark">
             <div class="container">
                 <a class="navbar-brand" href="https://lumihost.net">
-                    <img class="img-fluid" src="/assets/img/logonew.png" alt="Lumi Host">
+                    <img class="img-fluid" src="/assets/img/logonew.svg" alt="Lumi Host">
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
