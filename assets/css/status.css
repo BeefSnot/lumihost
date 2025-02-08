@@ -28,11 +28,11 @@ body.dark-theme {
 
 .section-title h4 {
     font-size: 2rem;
-    color: #343a40;
+    color: #ffffff;
 }
 
 .dark-background {
-    background-color: #343a40;
+    background-color: #1a1d29;
     color: #ffffff;
     padding: 20px;
     border-radius: 10px;
@@ -85,7 +85,7 @@ footer .copyright {
 
 .issues-list table th,
 .issues-list table td {
-    color: #ffffff;
+    color: #ffffff !important;
 }
 
 .issues-list table th {
@@ -103,9 +103,4 @@ footer .copyright {
 
 .issues-list p {
     color: #ffffff;
-}
-
-.issues-list table th,
-.issues-list table td {
-    color: #ffffff !important;
 }
