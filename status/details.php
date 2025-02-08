@@ -23,8 +23,14 @@ function ping($host, $timeout = 5) {
         }
     }
 
-    // Debugging information
-    error_log("Ping to $host: status=$status, responseTime=$responseTime ms");
+    // Debugging output
+    echo '<pre>';
+    echo 'Command: ' . $command . "\n";
+    echo 'Result: ' . $result . "\n";
+    echo 'Output: ' . print_r($output, true) . "\n";
+    echo 'Status: ' . ($status ? 'true' : 'false') . "\n";
+    echo 'Response Time: ' . $responseTime . "\n";
+    echo '</pre>';
 
     return ['status' => $status, 'responseTime' => $responseTime];
 }
@@ -50,16 +56,7 @@ if (file_exists($cacheFile)) {
         $ping = $cacheData['ping'];
         $responseTime = $cacheData['responseTime'];
         $uptime = $cacheData['uptime'];
-
-        // Debugging information
-        error_log("Cache hit: ping=$ping, responseTime=$responseTime, uptime=$uptime");
-    } else {
-        // Debugging information
-        error_log("Cache expired");
     }
-} else {
-    // Debugging information
-    error_log("Cache file not found");
 }
 
 if ($ping == -1 && array_key_exists($service, $services)) {
@@ -67,14 +64,10 @@ if ($ping == -1 && array_key_exists($service, $services)) {
     $ping = $pingResult['responseTime'];
     $responseTime = $pingResult['responseTime'];
 
-    // Debugging information
-    error_log("Ping result: ping=$ping, responseTime=$responseTime");
-}
-
-if ($ping == -1 && array_key_exists($service, $services)) {
-    $pingResult = ping($services[$service]['host'], 5);
-    $ping = $pingResult['responseTime'];
-    $responseTime = $pingResult['responseTime'];
+    // Debugging output
+    echo '<pre>';
+    echo 'Ping Result: ' . print_r($pingResult, true) . "\n";
+    echo '</pre>';
 
     // Load uptime data from a file (or database)
     $uptimeDataFile = 'uptime_data.json';
@@ -164,7 +157,7 @@ $conn->close();
             color: #ffffff !important;
         }
         .apexcharts-menu-item:hover {
-            background-color: #1a1d29 !important;
+            background-color: #343a40 !important;
         }
     </style>
 </head>
@@ -213,7 +206,7 @@ $conn->close();
             </div>
             <div class="status-details text-center dark-background p-4 rounded">
                 <p class="lead">Uptime: <?php echo $uptime; ?>%</p>
-                <p class="lead">Ping: <?php echo $responseTime >= 0 ? $responseTime . ' ms' : 'N/A'; ?></p>
+                <p class="lead">Ping: <?php echo $ping >= 0 ? round($ping) . ' ms' : 'Down'; ?></p>
                 <div id="uptimeChart"></div>
                 <div class="legend mt-4">
                     <span class="legend-item" style="color: green;">&#9632; 99% and above</span>
@@ -303,11 +296,11 @@ $conn->close();
         </div>
     </footer>
 
-    <script src="assets/js/jquery.slim.min.js"></script>
-    <script src="assets/js/popper.min.js"></script>
-    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js"></script>
     <script src="../assets/js/main.js"></script>
-    <script src="assets/js/aos.js"></script>
+    <script src="https://unpkg.com/aos@2.3.0/dist/aos.js"></script>
     <script>
         AOS.init({
             duration: 1200,
@@ -356,9 +349,6 @@ $conn->close();
                 yaxis: {
                     max: 100,
                     min: 0,
-                },
-                tooltip: {
-                    theme: 'dark'
                 }
             };
 

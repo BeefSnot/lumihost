@@ -1,21 +1,27 @@
 <?php
 header('Content-Type: application/json');
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 
 function ping($host, $timeout = 5) {
-    $starttime = microtime(true);
-    $file      = @fsockopen($host, 80, $errno, $errstr, $timeout);
-    $stoptime  = microtime(true);
-    $status    = 0;
+    $command = sprintf('ping -c 1 -W %d %s', $timeout, escapeshellarg($host));
+    $output = [];
+    $result = 1;
+    exec($command, $output, $result);
 
-    if (!$file) {
-        $status = -1;  // Site is down
-    } else {
-        fclose($file);
-        $status = ($stoptime - $starttime) * 1000;
-        $status = floor($status);
+    $status = ($result === 0);
+    $responseTime = -1;
+
+    if ($status) {
+        foreach ($output as $line) {
+            if (preg_match('/time=([0-9.]+) ms/', $line, $matches)) {
+                $responseTime = floatval($matches[1]);
+                break;
+            }
+        }
     }
 
-    return ['status' => $status >= 0, 'responseTime' => $status];
+    return ['status' => $status, 'responseTime' => $responseTime];
 }
 
 $cacheFile = 'status_cache.json';
@@ -33,6 +39,10 @@ if ($conn->connect_error) {
 }
 
 $services = $conn->query("SELECT * FROM services");
+if ($services === false) {
+    die("Query failed: " . $conn->error);
+}
+
 $status = [];
 $totalUptime = 0;
 $totalServices = $services->num_rows;
