@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Splash Screen | Lumi Host</title>
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #151720;
+            color: #ffffff;
+            font-family: 'Montserrat', sans-serif;
+        }
+        .splash-container {
+            text-align: center;
+        }
+        .splash-logo {
+            width: 150px;
+            animation: spin 2s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .splash-message {
+            margin-top: 20px;
+            font-size: 24px;
+        }
+    </style>
+</head>
+<body>
+    <div class="splash-container">
+        <img src="assets/img/LUMI_ATLAS_Host2_Transparent_HIGHLIGHTED.png" alt="Lumi Host Logo" class="splash-logo">
+        <div class="splash-message">Lumi Host | Illuminate Your Digital World</div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(function() {
+                window.location.href = 'turnstile.html';
+            }, 3000); // Adjust the delay as needed
+        });
+    </script>
+</body>
+</html>
