@@ -2,6 +2,10 @@
 session_start();
 require_once 'includes/auth.php';
 require_once 'includes/db.php';
+require 'vendor/autoload.php'; // Include the Composer autoload file
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
 
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
@@ -36,8 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $recipientsResult->close();
 
         // Send the newsletter using PHPMailer
-        require 'vendor/autoload.php';
-        $mail = new PHPMailer\PHPMailer\PHPMailer();
+        $mail = new PHPMailer(true);
         $mail->isSMTP();
         $mail->Host = 'mail.lumihost.net';
         $mail->SMTPAuth = true;
