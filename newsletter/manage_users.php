@@ -66,6 +66,7 @@ if ($result === false) {
                 <li><a href="create_user.php">Create User</a></li>
                 <li><a href="manage_users.php">Manage Users</a></li>
                 <li><a href="send_newsletter.php">Send Newsletter</a></li>
+                <li><a href="manage_newsletters.php">Manage Newsletters</a></li>
                 <li><a href="logout.php">Logout</a></li>
             </ul>
         </nav>

@@ -103,6 +103,7 @@ HTML;
                 <li><a href="index.php">Dashboard</a></li>
                 <li><a href="create_theme.php">Create Theme</a></li>
                 <li><a href="send_newsletter.php">Send Newsletter</a></li>
+                <li><a href="manage_newsletters.php">Manage Newsletters</a></li>
                 <li><a href="logout.php">Logout</a></li>
             </ul>
         </nav>
