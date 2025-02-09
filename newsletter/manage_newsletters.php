@@ -16,8 +16,8 @@ $query = "
     SELECT n.id, n.subject, n.body, n.sent_at, u.username AS sender, GROUP_CONCAT(g.name SEPARATOR ', ') AS groups
     FROM newsletters n
     JOIN users u ON n.sender_id = u.id
-    JOIN newsletter_groups ng ON n.id = ng.newsletter_id
-    JOIN groups g ON ng.group_id = g.id
+    LEFT JOIN newsletter_groups ng ON n.id = ng.newsletter_id
+    LEFT JOIN groups g ON ng.group_id = g.id
     GROUP BY n.id
     ORDER BY n.sent_at DESC
 ";
