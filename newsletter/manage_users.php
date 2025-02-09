@@ -50,7 +50,7 @@ if ($result === false) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manage Users</title>
-    <link rel="stylesheet" href="/newsletter/assets/css/newsletter.css">
+    <link rel="stylesheet" href="assets/css/newsletter.css">
 </head>
 <body>
     <header>
