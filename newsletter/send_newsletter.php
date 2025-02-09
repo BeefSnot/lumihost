@@ -18,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $recipients = $_POST['recipients'];
 
     // Send the newsletter using PHPMailer
-    require 'vendor/autoload.php';
+    require '../vendor/autoload.php'; // Updated path
     $mail = new PHPMailer\PHPMailer\PHPMailer();
     $mail->isSMTP();
     $mail->Host = 'mail.lumihost.net';
