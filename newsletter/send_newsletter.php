@@ -3,6 +3,9 @@ session_start();
 require_once 'includes/auth.php';
 require_once 'includes/db.php';
 
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 if (!isLoggedIn()) {
     header('Location: login.php');
     exit();
