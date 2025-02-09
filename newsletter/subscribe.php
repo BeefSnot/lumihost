@@ -3,6 +3,10 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
 require_once 'includes/db.php';
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+require 'vendor/autoload.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['email'])) {
@@ -23,6 +27,42 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $stmt->close();
             }
             $message = 'Subscribed successfully';
+
+            // Fetch the "Thanks For Subscribing" theme from the database
+            $themeStmt = $db->prepare("SELECT content FROM themes WHERE name = 'Thanks For Subscribing'");
+            if ($themeStmt === false) {
+                die('Prepare failed: ' . htmlspecialchars($db->error));
+            }
+            $themeStmt->execute();
+            $themeStmt->bind_result($themeContent);
+            $themeStmt->fetch();
+            $themeStmt->close();
+
+            // Send the "Thanks For Subscribing" email
+            $mail = new PHPMailer(true);
+            try {
+                // Server settings
+                $mail->isSMTP();
+                $mail->Host = 'mail.lumihost.net';
+                $mail->SMTPAuth = true;
+                $mail->Username = 'newsletter@lumihost.net';
+                $mail->Password = 'rcfY6UFxEa2KhXcxb2LW';
+                $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+                $mail->Port = 587;
+
+                // Recipients
+                $mail->setFrom('newsletter@lumihost.net', 'Lumi Host Newsletter');
+                $mail->addAddress($email);
+
+                // Content
+                $mail->isHTML(true);
+                $mail->Subject = 'Thanks for Subscribing!';
+                $mail->Body = $themeContent;
+
+                $mail->send();
+            } catch (Exception $e) {
+                error_log("Mailer Error: {$mail->ErrorInfo}");
+            }
         } elseif ($action === 'unsubscribe') {
             foreach ($groups as $group_id) {
                 $stmt = $db->prepare("DELETE FROM group_subscriptions WHERE email = ? AND group_id = ?");
@@ -60,7 +100,7 @@ while ($row = $groupsResult->fetch_assoc()) {
     <link rel="stylesheet" href="../assets/css/style.css">
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
     <link rel="stylesheet" href="https://unpkg.com/aos@2.3.0/dist/aos.css" />
-    <title>Subscribe/Unsubscribe | Lumi Host</title>
+    <title>Lumi Host | Subscription Management</title>
 </head>
 <body>
     <div class="card cookie-alert shadow">
