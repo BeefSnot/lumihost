@@ -12,7 +12,7 @@ if (!isLoggedIn()) {
 }
 
 // Fetch all newsletters
-$newslettersResult = $db->query("
+$query = "
     SELECT n.id, n.subject, n.body, n.sent_at, u.username AS sender, GROUP_CONCAT(g.name SEPARATOR ', ') AS groups
     FROM newsletters n
     JOIN users u ON n.sender_id = u.id
@@ -20,7 +20,9 @@ $newslettersResult = $db->query("
     JOIN groups g ON ng.group_id = g.id
     GROUP BY n.id
     ORDER BY n.sent_at DESC
-");
+";
+
+$newslettersResult = $db->query($query);
 
 if ($newslettersResult === false) {
     die('Query failed: ' . htmlspecialchars($db->error));
@@ -31,7 +33,8 @@ while ($row = $newslettersResult->fetch_assoc()) {
     $newsletters[] = $row;
 }
 
-// Debugging: Log the fetched newsletters
+// Debugging: Log the query and the fetched newsletters
+error_log('Query: ' . $query);
 error_log('Fetched newsletters: ' . print_r($newsletters, true));
 ?>
 <!DOCTYPE html>
