@@ -54,6 +54,17 @@ $usersResult = $db->query("SELECT email FROM users");
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Send Newsletter</title>
     <link rel="stylesheet" href="assets/css/newsletter.css">
+    <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+    <script>
+        tinymce.init({
+            selector: '#body',
+            plugins: 'print preview importcss searchreplace autolink autosave save directionality code visualblocks visualchars fullscreen image link media template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists wordcount imagetools textpattern noneditable help charmap quickbars emoticons',
+            toolbar: 'undo redo | bold italic underline strikethrough | fontselect fontsizeselect formatselect | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist | forecolor backcolor removeformat | pagebreak | charmap emoticons | fullscreen  preview save print | insertfile image media template link anchor codesample | ltr rtl',
+            height: 500,
+            menubar: 'file edit view insert format tools table help',
+            content_css: 'assets/css/newsletter.css'
+        });
+    </script>
 </head>
 <body>
     <header>
