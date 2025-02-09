@@ -17,13 +17,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $subject = $_POST['subject'];
     $body = $_POST['body'];
     $theme = $_POST['theme'];
-    $recipients = $_POST['recipients'];
+    $group_id = $_POST['group'];
 
-    // Debugging: Check if form data is received
-    error_log("Form data received: Subject - $subject, Body - $body, Theme - $theme, Recipients - " . implode(', ', $recipients));
+    // Save the newsletter to the database
+    $stmt = $db->prepare('INSERT INTO newsletters (subject, body, theme) VALUES (?, ?, ?)');
+    $stmt->bind_param('sss', $subject, $body, $theme);
+    $stmt->execute();
+    $stmt->close();
+
+    // Fetch recipients based on group subscription
+    $recipientsResult = $db->prepare('SELECT email FROM group_subscriptions WHERE group_id = ?');
+    $recipientsResult->bind_param('i', $group_id);
+    $recipientsResult->execute();
+    $recipientsResult->bind_result($email);
+    $recipients = [];
+    while ($recipientsResult->fetch()) {
+        $recipients[] = $email;
+    }
+    $recipientsResult->close();
 
     // Send the newsletter using PHPMailer
-    require __DIR__ . '/vendor/autoload.php'; // Updated path
+    require __DIR__ . '/vendor/autoload.php';
     $mail = new PHPMailer\PHPMailer\PHPMailer();
     $mail->isSMTP();
     $mail->Host = 'mail.lumihost.net';
@@ -49,8 +63,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $message = 'Newsletter could not be sent. Mailer Error: ' . $mail->ErrorInfo;
     }
 
-    // Debugging: Check if email sending process is executed
     error_log("Email sending process executed. Message: $message");
+}
+
+// Fetch available groups
+$groupsResult = $db->query("SELECT id, name FROM groups");
+$groups = [];
+while ($row = $groupsResult->fetch_assoc()) {
+    $groups[] = $row;
 }
 
 $usersResult = $db->query("SELECT email FROM users");
@@ -96,7 +116,7 @@ $usersResult = $db->query("SELECT email FROM users");
         <?php if ($message): ?>
             <p><?php echo $message; ?></p>
         <?php endif; ?>
-        <form method="post" onsubmit="return validateForm()">
+        <form method="post">
             <label for="subject">Subject:</label>
             <input type="text" id="subject" name="subject" required>
             <label for="body">Body:</label>
@@ -106,20 +126,14 @@ $usersResult = $db->query("SELECT email FROM users");
                 <option value="default">Default</option>
                 <option value="custom">Custom</option>
             </select>
-            <label for="recipients">Recipients:</label>
-            <select id="recipients" name="recipients[]" multiple>
-                <?php while ($row = $usersResult->fetch_assoc()): ?>
-                    <option value="<?php echo $row['email']; ?>"><?php echo $row['email']; ?></option>
-                <?php endwhile; ?>
+            <label for="group">Group:</label>
+            <select id="group" name="group" required>
+                <?php foreach ($groups as $group): ?>
+                    <option value="<?php echo $group['id']; ?>"><?php echo $group['name']; ?></option>
+                <?php endforeach; ?>
             </select>
             <button type="submit">Send</button>
         </form>
     </main>
-    <script>
-        function validateForm() {
-            alert('Form is being submitted');
-            return true;
-        }
-    </script>
 </body>
 </html>
