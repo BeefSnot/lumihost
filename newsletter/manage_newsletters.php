@@ -3,6 +3,9 @@ session_start();
 require_once 'includes/auth.php';
 require_once 'includes/db.php';
 
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 if (!isLoggedIn()) {
     header('Location: login.php');
     exit();
@@ -18,6 +21,10 @@ $newslettersResult = $db->query("
     GROUP BY n.id
     ORDER BY n.sent_at DESC
 ");
+
+if ($newslettersResult === false) {
+    die('Query failed: ' . htmlspecialchars($db->error));
+}
 
 $newsletters = [];
 while ($row = $newslettersResult->fetch_assoc()) {
