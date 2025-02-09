@@ -72,8 +72,8 @@ $usersResult = $db->query("SELECT email FROM users");
             menubar: 'file edit view insert format tools table help',
             content_css: 'assets/css/newsletter.css',
             setup: function (editor) {
-                editor.on('init', function () {
-                    alert('TinyMCE initialized');
+                editor.on('change', function () {
+                    tinymce.triggerSave();
                 });
             }
         });
@@ -96,7 +96,7 @@ $usersResult = $db->query("SELECT email FROM users");
         <?php if ($message): ?>
             <p><?php echo $message; ?></p>
         <?php endif; ?>
-        <form method="post">
+        <form method="post" onsubmit="return validateForm()">
             <label for="subject">Subject:</label>
             <input type="text" id="subject" name="subject" required>
             <label for="body">Body:</label>
@@ -115,5 +115,11 @@ $usersResult = $db->query("SELECT email FROM users");
             <button type="submit">Send</button>
         </form>
     </main>
+    <script>
+        function validateForm() {
+            alert('Form is being submitted');
+            return true;
+        }
+    </script>
 </body>
 </html>
