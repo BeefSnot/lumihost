@@ -14,56 +14,68 @@ if (!isLoggedIn()) {
 $message = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $subject = $_POST['subject'];
-    $body = $_POST['body'];
-    $theme = $_POST['theme'];
-    $group_id = $_POST['group'];
+    $subject = $_POST['subject'] ?? '';
+    $body = $_POST['body'] ?? '';
+    $theme = $_POST['theme'] ?? '';
+    $group_id = $_POST['group'] ?? '';
 
-    // Save the newsletter to the database
-    $stmt = $db->prepare('INSERT INTO newsletters (subject, body, theme) VALUES (?, ?, ?)');
-    $stmt->bind_param('sss', $subject, $body, $theme);
-    $stmt->execute();
-    $stmt->close();
-
-    // Fetch recipients based on group subscription
-    $recipientsResult = $db->prepare('SELECT email FROM group_subscriptions WHERE group_id = ?');
-    $recipientsResult->bind_param('i', $group_id);
-    $recipientsResult->execute();
-    $recipientsResult->bind_result($email);
-    $recipients = [];
-    while ($recipientsResult->fetch()) {
-        $recipients[] = $email;
-    }
-    $recipientsResult->close();
-
-    // Send the newsletter using PHPMailer
-    require __DIR__ . '/vendor/autoload.php';
-    $mail = new PHPMailer\PHPMailer\PHPMailer();
-    $mail->isSMTP();
-    $mail->Host = 'mail.lumihost.net';
-    $mail->SMTPAuth = true;
-    $mail->Username = 'newsletter@lumihost.net';
-    $mail->Password = 'rcfY6UFxEa2KhXcxb2LW';
-    $mail->SMTPSecure = 'tls';
-    $mail->Port = 587;
-
-    $mail->setFrom('newsletter@lumihost.net', 'Lumi Host Newsletter');
-
-    foreach ($recipients as $recipient) {
-        $mail->addAddress($recipient);
-    }
-
-    $mail->isHTML(true);
-    $mail->Subject = $subject;
-    $mail->Body    = $body;
-
-    if ($mail->send()) {
-        $message = 'Newsletter sent successfully';
+    if (empty($group_id)) {
+        $message = 'Please select a group.';
     } else {
-        $message = 'Newsletter could not be sent. Mailer Error: ' . $mail->ErrorInfo;
-    }
+        // Save the newsletter to the database
+        $stmt = $db->prepare('INSERT INTO newsletters (subject, body, theme) VALUES (?, ?, ?)');
+        if ($stmt === false) {
+            die('Prepare failed: ' . htmlspecialchars($db->error));
+        }
+        $stmt->bind_param('sss', $subject, $body, $theme);
+        if ($stmt->execute() === false) {
+            die('Execute failed: ' . htmlspecialchars($stmt->error));
+        }
+        $stmt->close();
 
-    error_log("Email sending process executed. Message: $message");
+        // Fetch recipients based on group subscription
+        $recipientsResult = $db->prepare('SELECT email FROM group_subscriptions WHERE group_id = ?');
+        if ($recipientsResult === false) {
+            die('Prepare failed: ' . htmlspecialchars($db->error));
+        }
+        $recipientsResult->bind_param('i', $group_id);
+        $recipientsResult->execute();
+        $recipientsResult->bind_result($email);
+        $recipients = [];
+        while ($recipientsResult->fetch()) {
+            $recipients[] = $email;
+        }
+        $recipientsResult->close();
+
+        // Send the newsletter using PHPMailer
+        require __DIR__ . '/vendor/autoload.php';
+        $mail = new PHPMailer\PHPMailer\PHPMailer();
+        $mail->isSMTP();
+        $mail->Host = 'mail.lumihost.net';
+        $mail->SMTPAuth = true;
+        $mail->Username = 'newsletter@lumihost.net';
+        $mail->Password = 'rcfY6UFxEa2KhXcxb2LW';
+        $mail->SMTPSecure = 'tls';
+        $mail->Port = 587;
+
+        $mail->setFrom('newsletter@lumihost.net', 'Lumi Host Newsletter');
+
+        foreach ($recipients as $recipient) {
+            $mail->addAddress($recipient);
+        }
+
+        $mail->isHTML(true);
+        $mail->Subject = $subject;
+        $mail->Body    = $body;
+
+        if ($mail->send()) {
+            $message = 'Newsletter sent successfully';
+        } else {
+            $message = 'Newsletter could not be sent. Mailer Error: ' . $mail->ErrorInfo;
+        }
+
+        error_log("Email sending process executed. Message: $message");
+    }
 }
 
 // Fetch available groups
