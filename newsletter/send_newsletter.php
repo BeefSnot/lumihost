@@ -67,6 +67,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $mail->Port = 587;
 
         $mail->setFrom('newsletter@lumihost.net', 'Lumi Host Newsletter');
+        $mail->addAddress('newsletter@lumihost.net'); // Add a single recipient in the "To" field
 
         // Add recipients as BCC
         foreach ($recipients as $recipient) {
