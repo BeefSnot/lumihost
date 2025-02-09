@@ -3,12 +3,16 @@ session_start();
 require_once 'includes/auth.php';
 require_once 'includes/db.php';
 
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 if (!isLoggedIn()) {
     header('Location: login.php');
     exit();
 }
 
 if ($_SESSION['role'] !== 'admin') {
+    error_log('Unauthorized access attempt by user with role: ' . $_SESSION['role']);
     header('Location: unauthorized.php');
     exit();
 }
@@ -18,12 +22,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $role = $_POST['role'];
 
     $stmt = $db->prepare("UPDATE users SET role = ? WHERE id = ?");
+    if ($stmt === false) {
+        error_log('Prepare failed: ' . htmlspecialchars($db->error));
+        die('Prepare failed: ' . htmlspecialchars($db->error));
+    }
     $stmt->bind_param("si", $role, $userId);
-    $stmt->execute();
+    if ($stmt->execute() === false) {
+        error_log('Execute failed: ' . htmlspecialchars($stmt->error));
+        die('Execute failed: ' . htmlspecialchars($stmt->error));
+    }
     $stmt->close();
 }
 
 $result = $db->query("SELECT id, username, email, role FROM users");
+if ($result === false) {
+    error_log('Query failed: ' . htmlspecialchars($db->error));
+    die('Query failed: ' . htmlspecialchars($db->error));
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -31,7 +46,7 @@ $result = $db->query("SELECT id, username, email, role FROM users");
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manage Users</title>
-    <link rel="stylesheet" href="assets/css/newsletter.css">
+    <link rel="stylesheet" href="/newsletter/assets/css/newsletter.css">
 </head>
 <body>
     <header>
