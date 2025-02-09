@@ -28,6 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Fetch recipients based on group subscription
         $recipientsResult = $db->prepare('SELECT email FROM group_subscriptions WHERE group_id = ?');
         if ($recipientsResult === false) {
+            error_log('Prepare failed: ' . htmlspecialchars($db->error));
             die('Prepare failed: ' . htmlspecialchars($db->error));
         }
         $recipientsResult->bind_param('i', $group_id);
@@ -41,29 +42,35 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         // Send the newsletter using PHPMailer
         $mail = new PHPMailer(true);
-        $mail->isSMTP();
-        $mail->Host = 'mail.lumihost.net';
-        $mail->SMTPAuth = true;
-        $mail->Username = 'newsletter@lumihost.net';
-        $mail->Password = 'rcfY6UFxEa2KhXcxb2LW';
-        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-        $mail->Port = 587;
+        try {
+            $mail->isSMTP();
+            $mail->Host = 'mail.lumihost.net';
+            $mail->SMTPAuth = true;
+            $mail->Username = 'newsletter@lumihost.net';
+            $mail->Password = 'rcfY6UFxEa2KhXcxb2LW';
+            $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+            $mail->Port = 587;
 
-        $mail->setFrom('newsletter@lumihost.net', 'Lumi Host Newsletter');
-        $mail->Subject = $subject;
-        $mail->Body = $body;
-        $mail->isHTML(true);
+            $mail->setFrom('newsletter@lumihost.net', 'Lumi Host Newsletter');
+            $mail->Subject = $subject;
+            $mail->Body = $body;
+            $mail->isHTML(true);
 
-        foreach ($recipients as $recipient) {
-            $mail->addAddress($recipient);
-            if (!$mail->send()) {
-                $message .= 'Mailer Error (' . htmlspecialchars($recipient) . ') ' . $mail->ErrorInfo . '<br>';
+            foreach ($recipients as $recipient) {
+                $mail->addAddress($recipient);
+                if (!$mail->send()) {
+                    $message .= 'Mailer Error (' . htmlspecialchars($recipient) . ') ' . $mail->ErrorInfo . '<br>';
+                    error_log('Mailer Error (' . htmlspecialchars($recipient) . ') ' . $mail->ErrorInfo);
+                }
+                $mail->clearAddresses();
             }
-            $mail->clearAddresses();
-        }
 
-        if (empty($message)) {
-            $message = 'Newsletter sent successfully';
+            if (empty($message)) {
+                $message = 'Newsletter sent successfully';
+            }
+        } catch (Exception $e) {
+            $message = 'Message could not be sent. Mailer Error: ' . $mail->ErrorInfo;
+            error_log('Mailer Error: ' . $mail->ErrorInfo);
         }
     }
 }
