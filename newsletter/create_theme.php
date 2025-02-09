@@ -20,6 +20,72 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $message = 'Theme created successfully';
 }
+
+// Fetch the latest updates
+$updatesResult = $db->query("SELECT title, content FROM updates ORDER BY created_at DESC LIMIT 5");
+$updates = [];
+while ($row = $updatesResult->fetch_assoc()) {
+    $updates[] = $row;
+}
+
+// Generate the updates HTML
+$updatesHtml = '';
+foreach ($updates as $update) {
+    $updatesHtml .= '<h2>' . htmlspecialchars($update['title']) . '</h2>';
+    $updatesHtml .= '<p>' . htmlspecialchars($update['content']) . '</p>';
+}
+
+// Default theme content with placeholders
+$defaultThemeContent = <<<HTML
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Newsletter Theme</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/newsletter.css">
+    <style>
+        .hero {
+            background: #1a1d29;
+            color: #ffffff;
+            padding: 50px 0;
+            text-align: center;
+        }
+        .content {
+            padding: 20px;
+            background: #151720;
+            color: #ffffff;
+        }
+        .content h2 {
+            color: #1592e8;
+        }
+        .content p {
+            color: #ffffff;
+        }
+        .footer {
+            background: #1a1d29;
+            color: #ffffff;
+            padding: 20px 0;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <header class="hero">
+        <h1>Welcome to Our Newsletter</h1>
+        <p>Stay updated with the latest news and updates</p>
+    </header>
+    <main class="content">
+        $updatesHtml
+    </main>
+    <footer class="footer">
+        <p>&copy; 2025 Lumi Host. All Rights Reserved.</p>
+    </footer>
+</body>
+</html>
+HTML;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -50,7 +116,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <label for="theme_name">Theme Name:</label>
             <input type="text" id="theme_name" name="theme_name" required>
             <label for="theme_content">Theme Content (HTML):</label>
-            <textarea id="theme_content" name="theme_content" required></textarea>
+            <textarea id="theme_content" name="theme_content" required><?php echo htmlspecialchars($defaultThemeContent); ?></textarea>
             <button type="submit">Create Theme</button>
         </form>
     </main>
