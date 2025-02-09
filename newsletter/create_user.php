@@ -11,6 +11,9 @@ if (!isLoggedIn()) {
     exit();
 }
 
+// Debugging: Log the current user's role
+error_log('Current user role: ' . $_SESSION['role']);
+
 if ($_SESSION['role'] !== 'admin') {
     error_log('Unauthorized access attempt by user with role: ' . $_SESSION['role']);
     header('Location: unauthorized.php');
