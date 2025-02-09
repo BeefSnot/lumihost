@@ -113,6 +113,9 @@ $usersResult = $db->query("SELECT email FROM users");
             height: 500,
             menubar: 'file edit view insert format tools table help',
             content_css: 'assets/css/newsletter.css',
+            relative_urls: false,
+            remove_script_host: false,
+            convert_urls: true,
             setup: function (editor) {
                 editor.on('change', function () {
                     tinymce.triggerSave();
