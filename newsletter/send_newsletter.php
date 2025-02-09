@@ -95,6 +95,13 @@ while ($row = $groupsResult->fetch_assoc()) {
     $groups[] = $row;
 }
 
+// Fetch available themes
+$themesResult = $db->query("SELECT id, name FROM themes");
+$themes = [];
+while ($row = $themesResult->fetch_assoc()) {
+    $themes[] = $row;
+}
+
 $usersResult = $db->query("SELECT email FROM users");
 ?>
 <!DOCTYPE html>
@@ -148,8 +155,9 @@ $usersResult = $db->query("SELECT email FROM users");
             <textarea id="body" name="body" required></textarea>
             <label for="theme">Theme:</label>
             <select id="theme" name="theme">
-                <option value="default">Default</option>
-                <option value="custom">Custom</option>
+                <?php foreach ($themes as $theme): ?>
+                    <option value="<?php echo $theme['id']; ?>"><?php echo $theme['name']; ?></option>
+                <?php endforeach; ?>
             </select>
             <label for="group">Group:</label>
             <select id="group" name="group" required>
