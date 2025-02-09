@@ -68,8 +68,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $mail->setFrom('newsletter@lumihost.net', 'Lumi Host Newsletter');
 
+        // Add recipients as BCC
         foreach ($recipients as $recipient) {
-            $mail->addAddress($recipient);
+            $mail->addBCC($recipient);
         }
 
         $mail->isHTML(true);
