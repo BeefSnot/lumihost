@@ -96,7 +96,7 @@ while ($row = $groupsResult->fetch_assoc()) {
 }
 
 // Fetch available themes
-$themesResult = $db->query("SELECT id, name FROM themes");
+$themesResult = $db->query("SELECT id, name, content FROM themes");
 $themes = [];
 while ($row = $themesResult->fetch_assoc()) {
     $themes[] = $row;
@@ -129,6 +129,14 @@ $usersResult = $db->query("SELECT email FROM users");
                 });
             }
         });
+
+        function loadThemeContent(themeId) {
+            const themes = <?php echo json_encode($themes); ?>;
+            const selectedTheme = themes.find(theme => theme.id == themeId);
+            if (selectedTheme) {
+                tinymce.get('body').setContent(selectedTheme.content);
+            }
+        }
     </script>
 </head>
 <body>
@@ -154,7 +162,8 @@ $usersResult = $db->query("SELECT email FROM users");
             <label for="body">Body:</label>
             <textarea id="body" name="body" required></textarea>
             <label for="theme">Theme:</label>
-            <select id="theme" name="theme">
+            <select id="theme" name="theme" onchange="loadThemeContent(this.value)">
+                <option value="">Select a theme</option>
                 <?php foreach ($themes as $theme): ?>
                     <option value="<?php echo $theme['id']; ?>"><?php echo $theme['name']; ?></option>
                 <?php endforeach; ?>
