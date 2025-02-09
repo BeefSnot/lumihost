@@ -40,9 +40,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['username'] = $username;
             $_SESSION['role'] = $role;
 
-            // Debugging: Log successful login
-            error_log('User logged in successfully: ' . $username);
-
             // Redirect to the dashboard
             header('Location: index.php');
             exit();
