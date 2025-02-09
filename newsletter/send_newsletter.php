@@ -11,11 +11,16 @@ if (!isLoggedIn()) {
     exit();
 }
 
+$message = '';
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $subject = $_POST['subject'];
     $body = $_POST['body'];
     $theme = $_POST['theme'];
     $recipients = $_POST['recipients'];
+
+    // Debugging: Check if form data is received
+    error_log("Form data received: Subject - $subject, Body - $body, Theme - $theme, Recipients - " . implode(', ', $recipients));
 
     // Send the newsletter using PHPMailer
     require __DIR__ . '/vendor/autoload.php'; // Updated path
@@ -43,6 +48,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
         $message = 'Newsletter could not be sent. Mailer Error: ' . $mail->ErrorInfo;
     }
+
+    // Debugging: Check if email sending process is executed
+    error_log("Email sending process executed. Message: $message");
 }
 
 $usersResult = $db->query("SELECT email FROM users");
@@ -62,7 +70,12 @@ $usersResult = $db->query("SELECT email FROM users");
             toolbar: 'undo redo | bold italic underline strikethrough | fontselect fontsizeselect formatselect | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist | forecolor backcolor removeformat | pagebreak | charmap emoticons | fullscreen  preview save print | insertfile image media template link anchor codesample | ltr rtl',
             height: 500,
             menubar: 'file edit view insert format tools table help',
-            content_css: 'assets/css/newsletter.css'
+            content_css: 'assets/css/newsletter.css',
+            setup: function (editor) {
+                editor.on('init', function () {
+                    alert('TinyMCE initialized');
+                });
+            }
         });
     </script>
 </head>
@@ -80,7 +93,7 @@ $usersResult = $db->query("SELECT email FROM users");
     </header>
     <main>
         <h2>Send a New Newsletter</h2>
-        <?php if (isset($message)): ?>
+        <?php if ($message): ?>
             <p><?php echo $message; ?></p>
         <?php endif; ?>
         <form method="post">
