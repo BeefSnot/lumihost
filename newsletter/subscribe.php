@@ -52,7 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 // Recipients
                 $mail->setFrom('newsletter@lumihost.net', 'Lumi Host Newsletter');
-                $mail->addAddress($email);
+                $mail->addAddress($email); // Add the recipient's email address
 
                 // Content
                 $mail->isHTML(true);
@@ -101,6 +101,44 @@ while ($row = $groupsResult->fetch_assoc()) {
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
     <link rel="stylesheet" href="https://unpkg.com/aos@2.3.0/dist/aos.css" />
     <title>Lumi Host | Subscription Management</title>
+    <style>
+        .cookie-alert {
+            position: fixed;
+            bottom: 15px;
+            right: 15px;
+            width: 320px;
+            margin: 0 !important;
+            z-index: 999;
+            opacity: 0;
+            border-radius: 8px;
+            border: none;
+            background-color: #151720; /* Ensure background color is set */
+            color: #ffffff; /* Ensure text color is set */
+            transform: translateY(100%);
+            transition: all 500ms ease-out;
+        }
+
+        .cookie-alert.show {
+            opacity: 1;
+            transform: translateY(0%);
+            transition-delay: 1000ms;
+        }
+
+        .cookie-alert .card-body {
+            background-color: #151720; /* Ensure background color is set */
+            color: #ffffff; /* Ensure text color is set */
+        }
+
+        .cookie-alert .btn-primary {
+            background-color: #1592e8;
+            border-color: #1592e8;
+        }
+
+        .cookie-alert .btn-primary:hover {
+            background-color: #1487d3;
+            border-color: #1487d3;
+        }
+    </style>
 </head>
 <body>
     <div class="card cookie-alert shadow">

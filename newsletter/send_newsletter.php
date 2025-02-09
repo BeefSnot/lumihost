@@ -16,23 +16,11 @@ $message = '';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $subject = $_POST['subject'] ?? '';
     $body = $_POST['body'] ?? '';
-    $theme = $_POST['theme'] ?? '';
     $group_id = $_POST['group'] ?? '';
 
     if (empty($group_id)) {
         $message = 'Please select a group.';
     } else {
-        // Save the newsletter to the database
-        $stmt = $db->prepare('INSERT INTO newsletters (subject, body, theme) VALUES (?, ?, ?)');
-        if ($stmt === false) {
-            die('Prepare failed: ' . htmlspecialchars($db->error));
-        }
-        $stmt->bind_param('sss', $subject, $body, $theme);
-        if ($stmt->execute() === false) {
-            die('Execute failed: ' . htmlspecialchars($stmt->error));
-        }
-        $stmt->close();
-
         // Fetch recipients based on group subscription
         $recipientsResult = $db->prepare('SELECT email FROM group_subscriptions WHERE group_id = ?');
         if ($recipientsResult === false) {
@@ -47,44 +35,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
         $recipientsResult->close();
 
-        // Embed the image inline using base64 encoding
-        $imagePath = 'https://lumihost.net/assets/img/logonew.svg';
-        $imageData = base64_encode(file_get_contents($imagePath));
-        $imageSrc = 'data:image/svg+xml;base64,' . $imageData;
-
-        // Replace the image URL in the body with the base64 encoded image
-        $body = str_replace('https://lumihost.net/assets/img/logonew.svg', $imageSrc, $body);
-
         // Send the newsletter using PHPMailer
-        require __DIR__ . '/vendor/autoload.php';
+        require 'vendor/autoload.php';
         $mail = new PHPMailer\PHPMailer\PHPMailer();
         $mail->isSMTP();
         $mail->Host = 'mail.lumihost.net';
         $mail->SMTPAuth = true;
         $mail->Username = 'newsletter@lumihost.net';
         $mail->Password = 'rcfY6UFxEa2KhXcxb2LW';
-        $mail->SMTPSecure = 'tls';
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
         $mail->Port = 587;
 
         $mail->setFrom('newsletter@lumihost.net', 'Lumi Host Newsletter');
-        $mail->addAddress('newsletter@lumihost.net'); // Add a single recipient in the "To" field
-
-        // Add recipients as BCC
-        foreach ($recipients as $recipient) {
-            $mail->addBCC($recipient);
-        }
-
-        $mail->isHTML(true);
         $mail->Subject = $subject;
-        $mail->Body    = $body;
+        $mail->Body = $body;
+        $mail->isHTML(true);
 
-        if ($mail->send()) {
-            $message = 'Newsletter sent successfully';
-        } else {
-            $message = 'Newsletter could not be sent. Mailer Error: ' . $mail->ErrorInfo;
+        foreach ($recipients as $recipient) {
+            $mail->addAddress($recipient);
+            if (!$mail->send()) {
+                $message .= 'Mailer Error (' . htmlspecialchars($recipient) . ') ' . $mail->ErrorInfo . '<br>';
+            }
+            $mail->clearAddresses();
         }
 
-        error_log("Email sending process executed. Message: $message");
+        if (empty($message)) {
+            $message = 'Newsletter sent successfully';
+        }
     }
 }
 
