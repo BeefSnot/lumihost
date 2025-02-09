@@ -3,6 +3,9 @@ session_start();
 require_once 'includes/auth.php';
 require_once 'includes/db.php';
 
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 if (isLoggedIn()) {
     header('Location: index.php');
     exit();
@@ -12,27 +15,32 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = $_POST['username'];
     $password = $_POST['password'];
 
-    // Debugging: Check if db connection is established
+    // Check if db connection is established
     if ($db->connect_error) {
         die('Database connection failed: ' . $db->connect_error);
     }
 
     // Prepare and execute the query to fetch user details
-    $stmt = $db->prepare("SELECT password FROM users WHERE username = ?");
+    $stmt = $db->prepare("SELECT id, password, role FROM users WHERE username = ?");
     if ($stmt === false) {
         die('Prepare failed: ' . htmlspecialchars($db->error));
     }
     $stmt->bind_param("s", $username);
     $stmt->execute();
     $stmt->store_result();
-    $stmt->bind_result($hashed_password);
+    $stmt->bind_result($id, $hashed_password, $role);
     $stmt->fetch();
 
-    // Debugging: Check if user exists
+    // Check if user exists
     if ($stmt->num_rows > 0) {
         // Verify the password
         if (password_verify($password, $hashed_password)) {
-            $_SESSION['user'] = $username;
+            // Set session variables
+            $_SESSION['user_id'] = $id;
+            $_SESSION['username'] = $username;
+            $_SESSION['role'] = $role;
+
+            // Redirect to the dashboard
             header('Location: index.php');
             exit();
         } else {
