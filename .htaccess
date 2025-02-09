@@ -1,8 +1,8 @@
-  .htaccess file
+.htaccess file
 
 # RewriteEngine On
 # RewriteCond %{HTTPS} off
 # RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
-  AddType text/css .css
+AddType text/css .css
 
 # Other rules can go here
