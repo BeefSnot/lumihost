@@ -47,6 +47,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
         $recipientsResult->close();
 
+        // Embed the image inline using base64 encoding
+        $imagePath = 'https://lumihost.net/assets/img/logonew.svg';
+        $imageData = base64_encode(file_get_contents($imagePath));
+        $imageSrc = 'data:image/svg+xml;base64,' . $imageData;
+
+        // Replace the image URL in the body with the base64 encoded image
+        $body = str_replace('https://lumihost.net/assets/img/logonew.svg', $imageSrc, $body);
+
         // Send the newsletter using PHPMailer
         require __DIR__ . '/vendor/autoload.php';
         $mail = new PHPMailer\PHPMailer\PHPMailer();
