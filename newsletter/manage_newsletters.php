@@ -30,6 +30,9 @@ $newsletters = [];
 while ($row = $newslettersResult->fetch_assoc()) {
     $newsletters[] = $row;
 }
+
+// Debugging: Log the fetched newsletters
+error_log('Fetched newsletters: ' . print_r($newsletters, true));
 ?>
 <!DOCTYPE html>
 <html lang="en">
