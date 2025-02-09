@@ -116,13 +116,6 @@ while ($row = $groupsResult->fetch_assoc()) {
                 <button type="submit" class="btn btn-primary mt-4">Submit</button>
             </form>
         </div>
-        <div class="section-title text-center mt-5">
-            <h6 class="text-uppercase text-muted">Manage Groups</h6>
-            <h4 class="font-weight-bold">Create or Delete Groups<span class="main">.</span></h4>
-        </div>
-        <div class="status-details text-center dark-background p-4 rounded">
-            <a href="groups.php" class="btn btn-primary mt-4">Manage Groups</a>
-        </div>
     </main>
 </body>
 </html>
