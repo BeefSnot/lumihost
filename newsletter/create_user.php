@@ -14,6 +14,7 @@ if (!isLoggedIn()) {
 // Debugging: Log the current user's role
 error_log('Current user role: ' . $_SESSION['role']);
 
+// Allow access only to admins
 if ($_SESSION['role'] !== 'admin') {
     error_log('Unauthorized access attempt by user with role: ' . $_SESSION['role']);
     header('Location: unauthorized.php');
@@ -21,26 +22,24 @@ if ($_SESSION['role'] !== 'admin') {
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $userId = $_POST['user_id'];
+    $username = $_POST['username'];
+    $email = $_POST['email'];
+    $password = password_hash($_POST['password'], PASSWORD_BCRYPT);
     $role = $_POST['role'];
 
-    $stmt = $db->prepare("UPDATE users SET role = ? WHERE id = ?");
+    $stmt = $db->prepare("INSERT INTO users (username, email, password, role) VALUES (?, ?, ?, ?)");
     if ($stmt === false) {
         error_log('Prepare failed: ' . htmlspecialchars($db->error));
         die('Prepare failed: ' . htmlspecialchars($db->error));
     }
-    $stmt->bind_param("si", $role, $userId);
+    $stmt->bind_param("ssss", $username, $email, $password, $role);
     if ($stmt->execute() === false) {
         error_log('Execute failed: ' . htmlspecialchars($stmt->error));
         die('Execute failed: ' . htmlspecialchars($stmt->error));
     }
     $stmt->close();
-}
 
-$result = $db->query("SELECT id, username, email, role FROM users");
-if ($result === false) {
-    error_log('Query failed: ' . htmlspecialchars($db->error));
-    die('Query failed: ' . htmlspecialchars($db->error));
+    $message = 'User created successfully';
 }
 ?>
 <!DOCTYPE html>
@@ -48,12 +47,12 @@ if ($result === false) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manage Users</title>
-    <link rel="stylesheet" href="/newsletter/assets/css/newsletter.css">
+    <title>Create User</title>
+    <link rel="stylesheet" href="assets/css/newsletter.css">
 </head>
 <body>
     <header>
-        <h1>Manage Users</h1>
+        <h1>Create User</h1>
         <nav>
             <ul>
                 <li><a href="index.php">Dashboard</a></li>
@@ -65,38 +64,24 @@ if ($result === false) {
         </nav>
     </header>
     <main>
-        <h2>Manage Users</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Username</th>
-                    <th>Email</th>
-                    <th>Role</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php while ($row = $result->fetch_assoc()): ?>
-                <tr>
-                    <td><?php echo $row['id']; ?></td>
-                    <td><?php echo $row['username']; ?></td>
-                    <td><?php echo $row['email']; ?></td>
-                    <td><?php echo $row['role']; ?></td>
-                    <td>
-                        <form method="post">
-                            <input type="hidden" name="user_id" value="<?php echo $row['id']; ?>">
-                            <select name="role">
-                                <option value="user" <?php if ($row['role'] == 'user') echo 'selected'; ?>>User</option>
-                                <option value="admin" <?php if ($row['role'] == 'admin') echo 'selected'; ?>>Admin</option>
-                            </select>
-                            <button type="submit">Update</button>
-                        </form>
-                    </td>
-                </tr>
-                <?php endwhile; ?>
-            </tbody>
-        </table>
+        <h2>Create a New User</h2>
+        <?php if (isset($message)): ?>
+            <p><?php echo $message; ?></p>
+        <?php endif; ?>
+        <form method="post">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+            <label for="role">Role:</label>
+            <select id="role" name="role">
+                <option value="user">User</option>
+                <option value="admin">Admin</option>
+            </select>
+            <button type="submit">Create User</button>
+        </form>
     </main>
 </body>
 </html>
