@@ -1,7 +1,5 @@
 <?php
 session_start();
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
 if (!isset($_SESSION['verified']) || $_SESSION['verified'] !== true) {
     header('Location: splash.html');
     exit;
@@ -363,9 +361,6 @@ if (!isset($_SESSION['verified']) || $_SESSION['verified'] !== true) {
                                 <?php
                                 // Fetch available groups
                                 $groupsResult = $db->query("SELECT id, name FROM groups");
-                                if ($groupsResult === false) {
-                                    die('Database query failed: ' . $db->error);
-                                }
                                 while ($row = $groupsResult->fetch_assoc()) {
                                     echo '<option value="' . $row['id'] . '">' . $row['name'] . '</option>';
                                 }
