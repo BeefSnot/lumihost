@@ -76,6 +76,42 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $stmt->close();
             }
             $message = 'Unsubscribed successfully';
+
+            // Fetch the "Unsubscribed" theme from the database
+            $themeStmt = $db->prepare("SELECT content FROM themes WHERE name = 'Unsubscribed'");
+            if ($themeStmt === false) {
+                die('Prepare failed: ' . htmlspecialchars($db->error));
+            }
+            $themeStmt->execute();
+            $themeStmt->bind_result($themeContent);
+            $themeStmt->fetch();
+            $themeStmt->close();
+
+            // Send the "Unsubscribed" email
+            $mail = new PHPMailer(true);
+            try {
+                // Server settings
+                $mail->isSMTP();
+                $mail->Host = 'mail.lumihost.net';
+                $mail->SMTPAuth = true;
+                $mail->Username = 'newsletter@lumihost.net';
+                $mail->Password = 'rcfY6UFxEa2KhXcxb2LW';
+                $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+                $mail->Port = 587;
+
+                // Recipients
+                $mail->setFrom('newsletter@lumihost.net', 'Lumi Host Newsletter');
+                $mail->addAddress($email); // Add the recipient's email address
+
+                // Content
+                $mail->isHTML(true);
+                $mail->Subject = 'You have unsubscribed';
+                $mail->Body = $themeContent;
+
+                $mail->send();
+            } catch (Exception $e) {
+                error_log("Mailer Error: {$mail->ErrorInfo}");
+            }
         }
     }
 }
@@ -409,7 +445,7 @@ while ($row = $groupsResult->fetch_assoc()) {
             backToTopButton.innerHTML = '<i class="fas fa-server"></i>';
             setTimeout(() => {
                 backToTopButton.innerHTML = '<i class="fas fa-arrow-up"></i>';
-            }, 1000); // Reset icon after 1 second
+            }, 4000); // Reset icon after 4 seconds
         });
     </script>
 </body>
