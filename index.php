@@ -340,40 +340,6 @@ if (!isset($_SESSION['verified']) || $_SESSION['verified'] !== true) {
         </div>
     </section>
 
-    <!-- Subscribe to Newsletter Section -->
-    <section id="subscribe" class="pb-5">
-        <div class="container mt-5">
-            <div class="section-title text-center" data-aos="fade-up" data-aos-delay="200">
-                <h6>SUBSCRIBE</h6>
-                <h4>Subscribe to our Newsletter<span class="main">.</span></h4>
-            </div>
-            <div class="row justify-content-center mt-4">
-                <div class="col-md-6">
-                    <form action="newsletter/subscribe.php" method="POST">
-                        <div class="form-group">
-                            <label for="email">Email:</label>
-                            <input type="email" class="form-control" id="email" name="email" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="group">Select Group:</label>
-                            <select class="form-control" id="group" name="group" required>
-                                <option value="">Select a group</option>
-                                <?php
-                                // Fetch available groups
-                                $groupsResult = $db->query("SELECT id, name FROM groups");
-                                while ($row = $groupsResult->fetch_assoc()) {
-                                    echo '<option value="' . $row['id'] . '">' . $row['name'] . '</option>';
-                                }
-                                ?>
-                            </select>
-                        </div>
-                        <button type="submit" class="btn btn-primary w-100">Subscribe</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <!-- Back to Top Button -->
     <button id="back-to-top" class="btn btn-primary" title="Go to top">
         <i class="fas fa-server"></i>
