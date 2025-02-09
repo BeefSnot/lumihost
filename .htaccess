@@ -1,4 +1,4 @@
- .htaccess file
+# .htaccess file
 
 # RewriteEngine On
 # RewriteCond %{HTTPS} off
