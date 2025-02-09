@@ -12,6 +12,11 @@ if (!isLoggedIn()) {
 }
 
 // Debugging: Log the current user's role
+if (!isset($_SESSION['role'])) {
+    error_log('User role is not set in session.');
+    die('User role is not set in session.');
+}
+
 error_log('Current user role: ' . $_SESSION['role']);
 
 // Allow access only to admins
