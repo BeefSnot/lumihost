@@ -153,6 +153,11 @@ $usersResult = $db->query("SELECT email FROM users");
             }
         }
     </script>
+    <script>
+        function logTextareaContent() {
+            console.log(document.getElementById('body').value);
+        }
+    </script>
 </head>
 <body>
     <header>
@@ -172,7 +177,7 @@ $usersResult = $db->query("SELECT email FROM users");
         <?php if ($message): ?>
             <p><?php echo $message; ?></p>
         <?php endif; ?>
-        <form method="post" onsubmit="tinymce.triggerSave();">
+        <form method="post" onsubmit="tinymce.triggerSave(); logTextareaContent();">
             <label for="subject">Subject:</label>
             <input type="text" id="subject" name="subject" required>
             <label for="body">Body:</label>
