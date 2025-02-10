@@ -40,6 +40,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
         $recipientsResult->close();
 
+        // Insert the newsletter into the database
+        $stmt = $db->prepare('INSERT INTO newsletters (subject, body, sender_id) VALUES (?, ?, ?)');
+        if ($stmt === false) {
+            error_log('Prepare failed: ' . htmlspecialchars($db->error));
+            die('Prepare failed: ' . htmlspecialchars($db->error));
+        }
+        $stmt->bind_param('ssi', $subject, $body, $_SESSION['user_id']);
+        if ($stmt->execute() === false) {
+            error_log('Execute failed: ' . htmlspecialchars($stmt->error));
+            die('Execute failed: ' . htmlspecialchars($stmt->error));
+        }
+        $newsletter_id = $stmt->insert_id;
+        $stmt->close();
+
+        // Insert the newsletter-group relationship
+        $stmt = $db->prepare('INSERT INTO newsletter_groups (newsletter_id, group_id) VALUES (?, ?)');
+        if ($stmt === false) {
+            error_log('Prepare failed: ' . htmlspecialchars($db->error));
+            die('Prepare failed: ' . htmlspecialchars($db->error));
+        }
+        $stmt->bind_param('ii', $newsletter_id, $group_id);
+        if ($stmt->execute() === false) {
+            error_log('Execute failed: ' . htmlspecialchars($stmt->error));
+            die('Execute failed: ' . htmlspecialchars($stmt->error));
+        }
+        $stmt->close();
+
         // Send the newsletter using PHPMailer
         $mail = new PHPMailer(true);
         try {
@@ -98,7 +125,7 @@ $usersResult = $db->query("SELECT email FROM users");
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Send Newsletter</title>
     <link rel="stylesheet" href="/newsletter/assets/css/newsletter.css">
-    <script src="https://cdn.tiny.cloud/1/8sjavbgsmciibkna0zhc3wcngf5se0nri4vanzzapds2ylul/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+    <script src="https://cdn.tiny.cloud/1/8sjavbgsmciibkna0zhc3wcngf5se0nri4vanzzapds2ylul/tinymce/4/tinymce.min.js" referrerpolicy="origin"></script>
     <script>
         tinymce.init({
             selector: 'textarea', // Replace with the selector for your textarea
