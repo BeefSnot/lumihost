@@ -177,6 +177,7 @@ $usersResult = $db->query("SELECT email FROM users");
             <input type="text" id="subject" name="subject" required>
             <label for="body">Body:</label>
             <textarea id="body" name="body" required></textarea>
+            <textarea id="custom-editor"></textarea>
             <label for="theme">Theme:</label>
             <select id="theme" name="theme" onchange="loadThemeContent(this.value)">
                 <option value="">Select a theme</option>
