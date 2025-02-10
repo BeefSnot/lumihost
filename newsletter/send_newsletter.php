@@ -21,6 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $subject = $_POST['subject'] ?? '';
     $body = $_POST['body'] ?? '';
     $group_id = $_POST['group'] ?? '';
+    $theme_id = $_POST['theme'] ?? '';
 
     if (empty($group_id)) {
         $message = 'Please select a group.';
@@ -41,12 +42,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $recipientsResult->close();
 
         // Insert the newsletter into the database
-        $stmt = $db->prepare('INSERT INTO newsletters (subject, body, sender_id) VALUES (?, ?, ?)');
+        $stmt = $db->prepare('INSERT INTO newsletters (subject, body, sender_id, theme_id) VALUES (?, ?, ?, ?)');
         if ($stmt === false) {
             error_log('Prepare failed: ' . htmlspecialchars($db->error));
             die('Prepare failed: ' . htmlspecialchars($db->error));
         }
-        $stmt->bind_param('ssi', $subject, $body, $_SESSION['user_id']);
+        $stmt->bind_param('ssii', $subject, $body, $_SESSION['user_id'], $theme_id);
         if ($stmt->execute() === false) {
             error_log('Execute failed: ' . htmlspecialchars($stmt->error));
             die('Execute failed: ' . htmlspecialchars($stmt->error));
@@ -125,10 +126,10 @@ $usersResult = $db->query("SELECT email FROM users");
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Send Newsletter</title>
     <link rel="stylesheet" href="/newsletter/assets/css/newsletter.css">
-    <script src="https://cdn.tiny.cloud/1/8sjavbgsmciibkna0zhc3wcngf5se0nri4vanzzapds2ylul/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+    <script src="https://cdn.tiny.cloud/1/8sjavbgsmciibkna0zhc3wcngf5se0nri4vanzzapds2ylul/tinymce/4/tinymce.min.js" referrerpolicy="origin"></script>
     <script>
         tinymce.init({
-            selector: '#body', // Replace with the selector for your textarea
+            selector: '#body', // Ensure the selector matches the textarea ID
             plugins: 'print preview importcss searchreplace autolink autosave save directionality code visualblocks visualchars fullscreen image link media template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists wordcount imagetools textpattern noneditable help charmap quickbars emoticons',
             toolbar: 'undo redo | bold italic underline strikethrough | fontselect fontsizeselect formatselect | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist | forecolor backcolor removeformat | pagebreak | charmap emoticons | fullscreen  preview save print | insertfile image media template link anchor codesample | ltr rtl',
             height: 500,
