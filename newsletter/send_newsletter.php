@@ -172,12 +172,11 @@ $usersResult = $db->query("SELECT email FROM users");
         <?php if ($message): ?>
             <p><?php echo $message; ?></p>
         <?php endif; ?>
-        <form method="post">
+        <form method="post" onsubmit="tinymce.triggerSave();">
             <label for="subject">Subject:</label>
             <input type="text" id="subject" name="subject" required>
             <label for="body">Body:</label>
             <textarea id="body" name="body" required></textarea>
-            <textarea id="custom-editor"></textarea>
             <label for="theme">Theme:</label>
             <select id="theme" name="theme" onchange="loadThemeContent(this.value)">
                 <option value="">Select a theme</option>
