@@ -76,14 +76,14 @@ error_log('Fetched newsletters: ' . print_r($newsletters, true));
                 <tbody>
                     <?php foreach ($newsletters as $newsletter): ?>
                         <tr>
-                            <td><?php echo htmlspecialchars($newsletter['subject']); ?></td>
-                            <td><?php echo htmlspecialchars($newsletter['sender']); ?></td>
-                            <td><?php echo htmlspecialchars($newsletter['sent_at']); ?></td>
-                            <td><?php echo htmlspecialchars($newsletter['groups']); ?></td>
+                            <td><?php echo htmlspecialchars($newsletter['subject'] ?? ''); ?></td>
+                            <td><?php echo htmlspecialchars($newsletter['sender'] ?? ''); ?></td>
+                            <td><?php echo htmlspecialchars($newsletter['sent_at'] ?? ''); ?></td>
+                            <td><?php echo htmlspecialchars($newsletter['groups'] ?? ''); ?></td>
                             <td>
                                 <button onclick="toggleContent(<?php echo $newsletter['id']; ?>)">View Content</button>
                                 <div id="content-<?php echo $newsletter['id']; ?>" style="display: none;">
-                                    <?php echo $newsletter['body']; ?>
+                                    <?php echo htmlspecialchars($newsletter['body'] ?? ''); ?>
                                 </div>
                             </td>
                         </tr>
