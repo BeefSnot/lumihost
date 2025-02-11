@@ -47,6 +47,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             error_log('Prepare failed: ' . htmlspecialchars($db->error));
             die('Prepare failed: ' . htmlspecialchars($db->error));
         }
+        // Ensure theme_id is set to null if no theme is selected
+        if (empty($theme_id)) {
+            $theme_id = null;
+        }
         $stmt->bind_param('ssii', $subject, $body, $_SESSION['user_id'], $theme_id);
         if ($stmt->execute() === false) {
             error_log('Execute failed: ' . htmlspecialchars($stmt->error));
