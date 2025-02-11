@@ -3,8 +3,10 @@ session_start();
 require_once 'includes/auth.php';
 require_once 'includes/db.php';
 require 'vendor/autoload.php'; // Include the Composer autoload file
+
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
+
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
@@ -14,11 +16,12 @@ if (!isLoggedIn()) {
 }
 
 $message = '';
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $subject = $_POST['subject'] ?? '';
     $body = $_POST['body'] ?? '';
     $group_id = $_POST['group'] ?? '';
-    $theme_id = $_POST['theme'] ?? '';
+    $theme_id = $_POST['theme'] ?? null;
 
     if (empty($group_id)) {
         $message = 'Please select a group.';
@@ -75,11 +78,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $mail->Password = 'rcfY6UFxEa2KhXcxb2LW';
             $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
             $mail->Port = 587;
+
             $mail->setFrom('newsletter@lumihost.net', 'Lumi Host Newsletter');
             $mail->Subject = $subject;
             $mail->Body = $body;
             $mail->isHTML(true);
-            
+
             foreach ($recipients as $recipient) {
                 $mail->addAddress($recipient);
                 if (!$mail->send()) {
@@ -113,8 +117,8 @@ while ($row = $themesResult->fetch_assoc()) {
     $themes[] = $row;
 }
 
-$usersResult = $db->query("SELECT email FROM users"); ?>
-
+$usersResult = $db->query("SELECT email FROM users");
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -125,7 +129,7 @@ $usersResult = $db->query("SELECT email FROM users"); ?>
     <script src="https://cdn.tiny.cloud/1/8sjavbgsmciibkna0zhc3wcngf5se0nri4vanzzapds2ylul/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
     <script>
         tinymce.init({
-            selector: '#body',
+            selector: '#body', // Ensure the selector matches the textarea ID
             plugins: 'print preview importcss searchreplace autolink autosave save directionality code visualblocks visualchars fullscreen image link media template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists wordcount imagetools textpattern noneditable help charmap quickbars emoticons',
             toolbar: 'undo redo | bold italic underline strikethrough | fontselect fontsizeselect formatselect | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist | forecolor backcolor removeformat | pagebreak | charmap emoticons | fullscreen  preview save print | insertfile image media template link anchor codesample | ltr rtl',
             height: 500,
