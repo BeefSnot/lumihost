@@ -3,7 +3,6 @@ session_start();
 require_once 'includes/auth.php';
 require_once 'includes/db.php';
 require 'vendor/autoload.php'; // Include the Composer autoload file
-
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
@@ -16,13 +15,12 @@ if (!isLoggedIn()) {
 }
 
 $message = '';
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $subject = $_POST['subject'] ?? '';
     $body = $_POST['body'] ?? '';
     $group_id = $_POST['group'] ?? '';
     $theme_id = $_POST['theme'] ?? null;
-
+    
     if (empty($group_id)) {
         $message = 'Please select a group.';
     } else {
@@ -32,6 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             error_log('Prepare failed: ' . htmlspecialchars($db->error));
             die('Prepare failed: ' . htmlspecialchars($db->error));
         }
+        
         $recipientsResult->bind_param('i', $group_id);
         $recipientsResult->execute();
         $recipientsResult->bind_result($email);
@@ -53,7 +52,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $themeStmt->bind_result($themeContent);
             $themeStmt->fetch();
             $themeStmt->close();
-
             // Include the theme content in the newsletter body
             $body = $themeContent . $body;
         }
@@ -64,15 +62,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             error_log('Prepare failed: ' . htmlspecialchars($db->error));
             die('Prepare failed: ' . htmlspecialchars($db->error));
         }
-        // Ensure theme_id is set to null if no theme is selected
-        if (empty($theme_id)) {
-            $theme_id = null;
-        }
-        $stmt->bind_param('ssii', $subject, $body, $_SESSION['user_id'], $theme_id);
+
+        // Ensure theme_id is explicitly handled as NULL if empty
+        $themeIdParam = ($theme_id !== '' && $theme_id !== null) ? $theme_id : null;
+
+        $stmt->bind_param('ssii', $subject, $body, $_SESSION['user_id'], $themeIdParam);
+        
         if ($stmt->execute() === false) {
             error_log('Execute failed: ' . htmlspecialchars($stmt->error));
             die('Execute failed: ' . htmlspecialchars($stmt->error));
         }
+        
         $newsletter_id = $stmt->insert_id;
         $stmt->close();
 
@@ -82,11 +82,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             error_log('Prepare failed: ' . htmlspecialchars($db->error));
             die('Prepare failed: ' . htmlspecialchars($db->error));
         }
+
         $stmt->bind_param('ii', $newsletter_id, $group_id);
         if ($stmt->execute() === false) {
             error_log('Execute failed: ' . htmlspecialchars($stmt->error));
             die('Execute failed: ' . htmlspecialchars($stmt->error));
         }
+        
         $stmt->close();
 
         // Send the newsletter using PHPMailer
@@ -99,7 +101,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $mail->Password = 'rcfY6UFxEa2KhXcxb2LW';
             $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
             $mail->Port = 587;
-
             $mail->setFrom('newsletter@lumihost.net', 'Lumi Host Newsletter');
             $mail->Subject = $subject;
             $mail->Body = $body;
@@ -137,9 +138,8 @@ $themes = [];
 while ($row = $themesResult->fetch_assoc()) {
     $themes[] = $row;
 }
-
-$usersResult = $db->query("SELECT email FROM users");
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
