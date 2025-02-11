@@ -126,7 +126,7 @@ $usersResult = $db->query("SELECT email FROM users");
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Send Newsletter</title>
     <link rel="stylesheet" href="/newsletter/assets/css/newsletter.css">
-    <script src="https://cdn.tiny.cloud/1/8sjavbgsmciibkna0zhc3wcngf5se0nri4vanzzapds2ylul/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+    <script src="https://cdn.tiny.cloud/1/8sjavbgsmciibkna0zhc3wcngf5se0nri4vanzzapds2ylul/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
     <script>
         tinymce.init({
             selector: '#body', // Ensure the selector matches the textarea ID
@@ -182,6 +182,7 @@ $usersResult = $db->query("SELECT email FROM users");
             <input type="text" id="subject" name="subject" required>
             <label for="body">Body:</label>
             <textarea id="body" name="body" required></textarea>
+            <textarea id="hidden_body" name="hidden_body" style="display:none;"></textarea>
             <label for="theme">Theme:</label>
             <select id="theme" name="theme" onchange="loadThemeContent(this.value)">
                 <option value="">Select a theme</option>
@@ -198,5 +199,10 @@ $usersResult = $db->query("SELECT email FROM users");
             <button type="submit">Send</button>
         </form>
     </main>
+    <script>
+        document.querySelector('form').addEventListener('submit', function() {
+            document.getElementById('hidden_body').value = tinymce.get('body').getContent();
+        });
+    </script>
 </body>
 </html>
