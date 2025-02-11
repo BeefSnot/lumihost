@@ -182,7 +182,6 @@ $usersResult = $db->query("SELECT email FROM users");
             <input type="text" id="subject" name="subject" required>
             <label for="body">Body:</label>
             <textarea id="body" name="body" required></textarea>
-            <textarea id="hidden_body" name="hidden_body" style="display:none;"></textarea>
             <label for="theme">Theme:</label>
             <select id="theme" name="theme" onchange="loadThemeContent(this.value)">
                 <option value="">Select a theme</option>
@@ -199,10 +198,5 @@ $usersResult = $db->query("SELECT email FROM users");
             <button type="submit">Send</button>
         </form>
     </main>
-    <script>
-        document.querySelector('form').addEventListener('submit', function() {
-            document.getElementById('hidden_body').value = tinymce.get('body').getContent();
-        });
-    </script>
 </body>
 </html>
