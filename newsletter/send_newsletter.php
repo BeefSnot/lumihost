@@ -3,7 +3,6 @@ session_start();
 require_once 'includes/auth.php';
 require_once 'includes/db.php';
 require 'vendor/autoload.php'; // Include the Composer autoload file
-
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
@@ -16,13 +15,12 @@ if (!isLoggedIn()) {
 }
 
 $message = '';
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $subject = $_POST['subject'] ?? '';
     $body = $_POST['body'] ?? '';
     $group_id = $_POST['group'] ?? '';
     $theme_id = $_POST['theme'] ?? null;
-
+    
     if (empty($group_id)) {
         $message = 'Please select a group.';
     } else {
@@ -32,6 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             error_log('Prepare failed: ' . htmlspecialchars($db->error));
             die('Prepare failed: ' . htmlspecialchars($db->error));
         }
+        
         $recipientsResult->bind_param('i', $group_id);
         $recipientsResult->execute();
         $recipientsResult->bind_result($email);
@@ -47,15 +46,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             error_log('Prepare failed: ' . htmlspecialchars($db->error));
             die('Prepare failed: ' . htmlspecialchars($db->error));
         }
-        // Ensure theme_id is set to null if no theme is selected
-        if (empty($theme_id)) {
-            $theme_id = null;
-        }
-        $stmt->bind_param('ssii', $subject, $body, $_SESSION['user_id'], $theme_id);
+
+        // Ensure theme_id is explicitly handled as NULL if empty
+        $themeIdParam = ($theme_id !== '' && $theme_id !== null) ? $theme_id : null;
+
+        $stmt->bind_param('ssii', $subject, $body, $_SESSION['user_id'], $themeIdParam);
+        
         if ($stmt->execute() === false) {
             error_log('Execute failed: ' . htmlspecialchars($stmt->error));
             die('Execute failed: ' . htmlspecialchars($stmt->error));
         }
+        
         $newsletter_id = $stmt->insert_id;
         $stmt->close();
 
@@ -65,11 +66,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             error_log('Prepare failed: ' . htmlspecialchars($db->error));
             die('Prepare failed: ' . htmlspecialchars($db->error));
         }
+
         $stmt->bind_param('ii', $newsletter_id, $group_id);
         if ($stmt->execute() === false) {
             error_log('Execute failed: ' . htmlspecialchars($stmt->error));
-            die('Execute failed: ' . htmlspecialchars($stmt->error));
+            die('Execute failed: ' . htmlspecialchars($db->error));
         }
+        
         $stmt->close();
 
         // Send the newsletter using PHPMailer
@@ -82,7 +85,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $mail->Password = 'rcfY6UFxEa2KhXcxb2LW';
             $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
             $mail->Port = 587;
-
             $mail->setFrom('newsletter@lumihost.net', 'Lumi Host Newsletter');
             $mail->Subject = $subject;
             $mail->Body = $body;
@@ -120,9 +122,8 @@ $themes = [];
 while ($row = $themesResult->fetch_assoc()) {
     $themes[] = $row;
 }
-
-$usersResult = $db->query("SELECT email FROM users");
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -160,23 +161,18 @@ $usersResult = $db->query("SELECT email FROM users");
         // Custom validation handler
         function validateAndSubmit(event) {
             event.preventDefault();
-            
-            // Get the TinyMCE content
             const bodyContent = tinymce.get('body').getContent();
-            
-            // Check if body is empty
             if (!bodyContent.trim()) {
                 alert('Please enter newsletter content.');
                 return;
             }
-            
-            // Ensure theme_id is set to null if no theme is selected
+
+            // Ensure theme_id is explicitly handled as NULL if empty
             const themeSelect = document.getElementById('theme');
             if (themeSelect.value === '') {
                 themeSelect.value = null;
             }
-            
-            // Submit the form
+
             event.target.submit();
         }
     </script>
@@ -203,13 +199,12 @@ $usersResult = $db->query("SELECT email FROM users");
             <label for="subject">Subject:</label>
             <input type="text" id="subject" name="subject" required>
             
-            <!-- Removed required attribute from textarea -->
             <label for="body">Body:</label>
             <textarea id="body" name="body"></textarea>
             
             <label for="theme">Theme:</label>
-            <select id="theme" name="theme" onchange="loadThemeContent(this.value)">
-                <option value="">Select a theme</option>
+            <select id="theme" name="theme">
+                <option value="">No Theme</option>
                 <?php foreach ($themes as $theme): ?>
                     <option value="<?php echo $theme['id']; ?>"><?php echo $theme['name']; ?></option>
                 <?php endforeach; ?>
@@ -218,7 +213,7 @@ $usersResult = $db->query("SELECT email FROM users");
             <label for="group">Group:</label>
             <select id="group" name="group" required>
                 <?php foreach ($groups as $group): ?>
-                    <option value="<?php echo $group['id']; ?>"><?php echo $group['name']; ?></option>
+                    <option value="<?php echo $theme['id']; ?>"><?php echo $group['name']; ?></option>
                 <?php endforeach; ?>
             </select>
             
