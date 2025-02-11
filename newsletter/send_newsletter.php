@@ -166,6 +166,12 @@ $usersResult = $db->query("SELECT email FROM users");
                 return;
             }
             
+            // Ensure theme_id is set to null if no theme is selected
+            const themeSelect = document.getElementById('theme');
+            if (themeSelect.value === '') {
+                themeSelect.value = null;
+            }
+            
             // Submit the form
             event.target.submit();
         }
