@@ -3,6 +3,7 @@ session_start();
 require_once 'includes/auth.php';
 require_once 'includes/db.php';
 require 'vendor/autoload.php'; // Include the Composer autoload file
+
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
@@ -15,12 +16,13 @@ if (!isLoggedIn()) {
 }
 
 $message = '';
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $subject = $_POST['subject'] ?? '';
     $body = $_POST['body'] ?? '';
     $group_id = $_POST['group'] ?? '';
     $theme_id = $_POST['theme'] ?? null;
-    
+
     if (empty($group_id)) {
         $message = 'Please select a group.';
     } else {
@@ -30,7 +32,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             error_log('Prepare failed: ' . htmlspecialchars($db->error));
             die('Prepare failed: ' . htmlspecialchars($db->error));
         }
-        
         $recipientsResult->bind_param('i', $group_id);
         $recipientsResult->execute();
         $recipientsResult->bind_result($email);
@@ -40,23 +41,34 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
         $recipientsResult->close();
 
+        // Fetch the theme content if a theme is selected
+        if (!empty($theme_id)) {
+            $themeStmt = $db->prepare('SELECT content FROM themes WHERE id = ?');
+            if ($themeStmt === false) {
+                error_log('Prepare failed: ' . htmlspecialchars($db->error));
+                die('Prepare failed: ' . htmlspecialchars($db->error));
+            }
+            $themeStmt->bind_param('i', $theme_id);
+            $themeStmt->execute();
+            $themeStmt->bind_result($themeContent);
+            $themeStmt->fetch();
+            $themeStmt->close();
+
+            // Include the theme content in the newsletter body
+            $body = $themeContent . $body;
+        }
+
         // Insert the newsletter into the database
         $stmt = $db->prepare('INSERT INTO newsletters (subject, body, sender_id, theme_id) VALUES (?, ?, ?, ?)');
         if ($stmt === false) {
             error_log('Prepare failed: ' . htmlspecialchars($db->error));
             die('Prepare failed: ' . htmlspecialchars($db->error));
         }
-
-        // Ensure theme_id is explicitly handled as NULL if empty
-        $themeIdParam = ($theme_id !== '' && $theme_id !== null) ? $theme_id : null;
-
-        $stmt->bind_param('ssii', $subject, $body, $_SESSION['user_id'], $themeIdParam);
-        
+        $stmt->bind_param('ssii', $subject, $body, $_SESSION['user_id'], $theme_id);
         if ($stmt->execute() === false) {
             error_log('Execute failed: ' . htmlspecialchars($stmt->error));
             die('Execute failed: ' . htmlspecialchars($stmt->error));
         }
-        
         $newsletter_id = $stmt->insert_id;
         $stmt->close();
 
@@ -66,13 +78,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             error_log('Prepare failed: ' . htmlspecialchars($db->error));
             die('Prepare failed: ' . htmlspecialchars($db->error));
         }
-
         $stmt->bind_param('ii', $newsletter_id, $group_id);
         if ($stmt->execute() === false) {
             error_log('Execute failed: ' . htmlspecialchars($stmt->error));
-            die('Execute failed: ' . htmlspecialchars($db->error));
+            die('Execute failed: ' . htmlspecialchars($stmt->error));
         }
-        
         $stmt->close();
 
         // Send the newsletter using PHPMailer
@@ -85,6 +95,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $mail->Password = 'rcfY6UFxEa2KhXcxb2LW';
             $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
             $mail->Port = 587;
+
             $mail->setFrom('newsletter@lumihost.net', 'Lumi Host Newsletter');
             $mail->Subject = $subject;
             $mail->Body = $body;
@@ -203,7 +214,7 @@ while ($row = $themesResult->fetch_assoc()) {
             <textarea id="body" name="body"></textarea>
             
             <label for="theme">Theme:</label>
-            <select id="theme" name="theme">
+            <select id="theme" name="theme" onchange="loadThemeContent(this.value)">
                 <option value="">No Theme</option>
                 <?php foreach ($themes as $theme): ?>
                     <option value="<?php echo $theme['id']; ?>"><?php echo $theme['name']; ?></option>
@@ -213,7 +224,7 @@ while ($row = $themesResult->fetch_assoc()) {
             <label for="group">Group:</label>
             <select id="group" name="group" required>
                 <?php foreach ($groups as $group): ?>
-                    <option value="<?php echo $theme['id']; ?>"><?php echo $group['name']; ?></option>
+                    <option value="<?php echo $group['id']; ?>"><?php echo $group['name']; ?></option>
                 <?php endforeach; ?>
             </select>
             
