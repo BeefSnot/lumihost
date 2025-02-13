@@ -54,8 +54,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $themeStmt->fetch();
             $themeStmt->close();
 
-            // Include the theme content in the newsletter body
-            $body = $themeContent . $body;
+            // Include the theme content in the newsletter body if not already included
+            if (strpos($body, $themeContent) === false) {
+                $body = $themeContent . $body;
+            }
         }
 
         // Insert the newsletter into the database
